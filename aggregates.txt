@@ -1,0 +1,49 @@
+select count(*) from cd.facilities;
+select count(*) from cd.facilities where guestcost>10;
+
+select recommendedby, count(*) from cd.members where recommendedby
+is not null group by recommendedby order by recommendedby;
+
+select facid, sum(slots) from cd.bookings
+group by facid order by facid;
+
+select facid, sum(slots) from cd.bookings where starttime>='2012-09-01' and starttime<'2012-10-01'
+group by facid order by sum(slots);
+
+select facid,extract(month from starttime) as month,sum(slots)
+from cd.bookings where extract(year from starttime) =2012
+group by facid, month
+order by facid,month;
+
+select count(distinct memid) from cd.bookings;
+
+select facid, sum(slots) from cd.bookings
+group by facid having sum(slots)>1000 order by facid ;
+
+select f.name, sum (b.slots* case when memid=0 then f.guestcost else f.membercost end) revenue
+from cd.facilities f join cd.bookings b on b.facid=f.facid
+group by f.name
+order by revenue;
+
+select f.name, sum(b.slots* case when memid=0 then f.guestcost else f.membercost end) revenue
+from cd.facilities f join cd.bookings b on b.facid=f.facid
+group by f.name
+HAVING sum(b.slots* case when memid=0 then f.guestcost else f.membercost end)<1000
+order by revenue;
+
+select facid, sum(slots) as Total from cd.bookings group by facid order by sum(slots) desc limit 1;
+
+select facid, extract(month from starttime)as month,sum(slots) from cd.bookings
+where starttime>='2012-01-01' and starttime<'2013-01-01' group by rollup(facid,month)
+order by facid,month;
+
+select f.facid,f.name,cast(sum(b.slots)/2.0 AS NUMERIC(65,2))
+from cd.bookings b join cd.facilities f on f.facid=b.facid
+group by f.facid,f.name order by f.facid;
+
+ select m.surname,m.firstname,m.memid,min(b.starttime)
+ from cd.members as m join cd.bookings b on b.memid=m.memid
+ where starttime>'2012-09-01'
+ group by m.surname,m.firstname,m.memid
+ order by m.memid;
+
