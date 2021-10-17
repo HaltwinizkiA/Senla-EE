@@ -49,3 +49,40 @@ group by f.facid,f.name order by f.facid;
 
 select (select count(*) from cd.members) as count, firstname, surname from cd.members
 order by joindate;
+
+select row_number() over(order by joindate),firstname,surname from cd.members
+order by joindate;
+
+select facid,sum(slots) as total from cd.bookings
+group by facid
+having sum(slots)=(select max(sum.t2) from (select sum(slots) as t2 from cd.bookings
+group by facid) as sum);
+
+select m.firstname,m.surname, round(sum(b.slots)/2,-1) as hours,
+rank() over (order by ((sum(b.slots)+10)/20)*10 desc) as rank from cd.members m join cd.bookings b on b.memid=m.memid
+group by m.firstname, m.surname
+order by rank,m.firstname,m.surname ;
+
+select f.name, rank() over(order by  sum(case when b.memid=0 then slots*f.guestcost else slots*f.membercost end)desc) as rank  from cd.facilities f join cd.bookings b on b.facid=f.facid
+group by f.name
+order by rank
+limit 3
+
+select name,case when rank=1 then'high' when rank=2 then 'average' else 'low' end revenue
+from(select f.name as name,ntile(3) over(order by  sum(case when b.memid=0 then slots*f.guestcost
+else slots*f.membercost end)desc) as rank
+from cd.facilities f join cd.bookings b on b.facid=f.facid
+group by name) as fac
+order by rank,name;
+
+select f.name as name,f.initialoutlay/(sum(case when memid = 0 then slots * f.guestcost else slots * f.membercostend)/3-f.monthlymaintenance) as months
+from cd.bookings b join cd.facilities f on f.facid=b.facid
+group by f.facid
+order by name;
+
+select 	dategen.date,(select sum(case when memid=0 then slots*f.guestcost else slots*membercost
+end) as rev from cd.bookings b inner join cd.facilities f on b.facid = f.facid
+where b.starttime > dategen.date - interval '14 days' and b.starttime < dategen.date + interval '1 day'
+)/15 as revenue
+from (select cast(generate_series(timestamp '2012-08-01','2012-08-31','1 day') as date) as date
+)as dategen order by dategen.date;
