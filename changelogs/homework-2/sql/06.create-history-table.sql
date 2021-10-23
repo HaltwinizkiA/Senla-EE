@@ -5,7 +5,7 @@ CREATE TABLE history
  sellingPrice int ,
  sellenigDate date ,
  productId    int NOT NULL ,
- customerId   int NOT NULL ,
+ customerId   int  ,
 CONSTRAINT fk_products
       FOREIGN KEY(productId)
 	  REFERENCES products(id),

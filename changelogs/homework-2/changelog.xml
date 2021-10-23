@@ -31,6 +31,9 @@
     <changeSet id="homework-2-productConfig" author="Name Surname">
         <sqlFile encoding="utf8" path="./sql/07.create-productConfig-table.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    <changeSet id="homework-2-productConfig" author="Name Surname">
+        <sqlFile encoding="utf8" path="./sql/08.create-index.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 
 
 </databaseChangeLog> 
