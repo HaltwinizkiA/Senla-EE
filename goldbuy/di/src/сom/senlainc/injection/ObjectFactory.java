@@ -8,7 +8,7 @@ public class ObjectFactory {
         try {
             return (T) Class.forName(impl).newInstance();
         } catch (ReflectiveOperationException e) {
-            throw new InjectionException(this.getClass(), e);
+            throw new InjectionException("create interface obj failed");
         }
 
     }
@@ -17,7 +17,7 @@ public class ObjectFactory {
         try {
             return clazz.newInstance();
         } catch (ReflectiveOperationException e) {
-            throw new InjectionException(this.getClass(), e);
+            throw new InjectionException("create obj failed");
         }
 
     }

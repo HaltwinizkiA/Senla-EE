@@ -1,6 +1,8 @@
 package com.senla.haltvinizki.dao.impl;
 
-public class CredentialsDaoImpl implements com.senla.haltvinizki.dao.CredentialsDao {
+import com.senla.haltvinizki.dao.CredentialsDao;
+
+public class CredentialsDaoImpl implements CredentialsDao {
 
     @Override
     public String execute() {

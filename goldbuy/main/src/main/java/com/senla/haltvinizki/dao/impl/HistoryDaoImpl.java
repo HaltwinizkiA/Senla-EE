@@ -1,6 +1,8 @@
 package com.senla.haltvinizki.dao.impl;
 
-public class HistoryDaoImpl implements com.senla.haltvinizki.dao.HistoryDao {
+import com.senla.haltvinizki.dao.HistoryDao;
+
+public class HistoryDaoImpl implements HistoryDao {
 
     @Override
     public String execute() {

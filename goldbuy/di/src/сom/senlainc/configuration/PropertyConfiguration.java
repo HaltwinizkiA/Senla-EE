@@ -24,8 +24,8 @@ public class PropertyConfiguration {
             properties.load(inputStream);
             return properties;
         } catch (IOException e) {
-            new Logger().log(this.getClass(), e);
-            return null;
+            Logger.log(this.getClass(), e);
+            throw new InjectionException("not found property file");
         }
     }
 
