@@ -19,7 +19,7 @@ public class PropertyConfiguration {
 
     private Properties init(String path) {
         File file=new File(path);
-        try (FileInputStream inputStream = new FileInputStream(file)) {
+        try (FileInputStream inputStream = new FileInputStream(file.getAbsolutePath())) {
             Properties properties = new Properties();
             properties.load(inputStream);
             return properties;
