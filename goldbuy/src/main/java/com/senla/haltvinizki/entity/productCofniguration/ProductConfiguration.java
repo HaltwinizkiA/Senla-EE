@@ -1,19 +1,41 @@
 package com.senla.haltvinizki.entity.productCofniguration;
 
-import com.senla.haltvinizki.entity.product.Product;
-
 public class ProductConfiguration {
     private final int id;
-    private final Float maxPrice;
-    private final Product product;
-    private final Float minPrice;
-    private final Float priceStep;
+    private final float maxPrice;
+    private final int productId;
+    private final float minPrice;
+    private final float priceStep;
     private final int frequency;
 
-    public ProductConfiguration(int id, Float maxPrice, Product product, Float minPrice, Float priceStep, int frequency) {
+    public int getId() {
+        return id;
+    }
+
+    public Float getMaxPrice() {
+        return maxPrice;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public Float getMinPrice() {
+        return minPrice;
+    }
+
+    public Float getPriceStep() {
+        return priceStep;
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public ProductConfiguration(int id, float maxPrice, int productId, float minPrice, float priceStep, int frequency) {
         this.id = id;
         this.maxPrice = maxPrice;
-        this.product = product;
+        this.productId = productId;
         this.minPrice = minPrice;
         this.priceStep = priceStep;
         this.frequency = frequency;

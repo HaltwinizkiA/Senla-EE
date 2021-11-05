@@ -1,5 +1,16 @@
 package com.senla.haltvinizki.services;
 
+import com.senla.haltvinizki.entity.user.User;
+
+import java.util.List;
+
 public interface UserService {
-    void execute();
+
+    User delete(User user);
+
+    User create(User user);
+
+    User update(User user);
+
+    List<User> read();
 }

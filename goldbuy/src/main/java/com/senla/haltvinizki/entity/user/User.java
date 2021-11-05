@@ -5,26 +5,35 @@ import com.senla.haltvinizki.entity.role.Role;
 
 public class User {
     private final int id;
-    private final Credentials credentials;
-    private Role role;
+    private final int credentialsId;
+    private int roleId;
     private String name;
     private String phoneNumber;
     private String Mail;
+
+    public User(int id, int credentialsId, int roleId, String name, String phoneNumber, String mail) {
+        this.id = id;
+        this.credentialsId = credentialsId;
+        this.roleId = roleId;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        Mail = mail;
+    }
 
     public int getId() {
         return id;
     }
 
-    public Credentials getCredentials() {
-        return credentials;
+    public int getCredentials() {
+        return credentialsId;
     }
 
-    public Role getRole() {
-        return role;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     public String getName() {
@@ -48,15 +57,6 @@ public class User {
     }
 
     public void setMail(String mail) {
-        Mail = mail;
-    }
-
-    public User(int id, Credentials credentials, Role role, String name, String phoneNumber, String mail) {
-        this.id = id;
-        this.credentials = credentials;
-        this.role = role;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
         Mail = mail;
     }
 

@@ -6,25 +6,25 @@ import com.senla.haltvinizki.entity.user.User;
 import java.util.Date;
 
 public class History {
-    private final Double sellingPrice;
+    private final double sellingPrice;
     private final Date sellingDate;
-    private final Product product;
-    private final User customerId;
+    private final int productId;
+    private final int customerId;
     private final int id;
 
-    public History(Double sellingPrice, Date sellingDate, Product product, User customerId, int id) {
+    public History(double sellingPrice, Date sellingDate, int productId, int customerId, int id) {
         this.sellingPrice = sellingPrice;
         this.sellingDate = sellingDate;
-        this.product = product;
+        this.productId = productId;
         this.customerId = customerId;
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public int getProductId() {
+        return productId;
     }
 
-    public User getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
@@ -32,7 +32,7 @@ public class History {
         return id;
     }
 
-    public Double getSellingPrice() {
+    public double getSellingPrice() {
         return sellingPrice;
 
     }
