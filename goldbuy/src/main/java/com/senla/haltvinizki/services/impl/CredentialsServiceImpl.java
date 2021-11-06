@@ -13,7 +13,7 @@ import java.util.List;
 public class CredentialsServiceImpl implements CredentialsService {
 
     @Autowired
-    private CredentialsDao credentialsDao;
+    private final CredentialsDao credentialsDao;
 
     public CredentialsServiceImpl(CredentialsDao credentialsDao) {
         this.credentialsDao = credentialsDao;

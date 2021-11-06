@@ -6,20 +6,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class CategoryDaoImpl implements CategoryDao {
     List<Category> categoryList;
 
     public CategoryDaoImpl() {
-        this.categoryList =new ArrayList<>();
-        categoryList.add(new Category(0,"Car"));
-        categoryList.add(new Category(0,"Health"));
+        this.categoryList = new ArrayList<>();
+        categoryList.add(new Category(0, "Car"));
+        categoryList.add(new Category(0, "Health"));
     }
 
     @Override
     public Category delete(Category category) {
-        categoryList.remove(category);
+        categoryList.removeIf(soughtCategory -> soughtCategory.getId() == category.getId());
         return category;
     }
 
@@ -33,7 +34,8 @@ public class CategoryDaoImpl implements CategoryDao {
     public Category update(Category category) {
         for (Category soughtCategory : read()) {
             if (soughtCategory.getId() == category.getId()) {
-                soughtCategory = category;
+                categoryList.remove(soughtCategory);
+                categoryList.add(category);
             }
         }
         return category;

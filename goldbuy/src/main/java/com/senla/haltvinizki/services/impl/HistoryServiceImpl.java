@@ -13,7 +13,7 @@ import java.util.List;
 public class HistoryServiceImpl implements com.senla.haltvinizki.services.HistoryService {
 
     @Autowired
-   private HistoryDao historyDao;
+    private final HistoryDao historyDao;
 
 
     public HistoryServiceImpl(HistoryDao historyDao) {

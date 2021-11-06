@@ -12,13 +12,12 @@ import java.util.List;
 @Component
 public class CategoryServiceImpl implements CategoryService {
 
+    @Autowired
+    private final CategoryDaoImpl categoryDao;
+
     public CategoryServiceImpl(CategoryDaoImpl categoryDao) {
         this.categoryDao = categoryDao;
     }
-
-    @Autowired
-    private CategoryDaoImpl categoryDao;
-
 
     @Override
     public Category delete(Category category) {

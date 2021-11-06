@@ -1,6 +1,7 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.CredentialsDao;
+import com.senla.haltvinizki.entity.category.Category;
 import com.senla.haltvinizki.entity.credentials.Credentials;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +14,13 @@ public class CredentialsDaoImpl implements CredentialsDao {
 
     public CredentialsDaoImpl() {
         this.credentialsList = new ArrayList<>();
-        credentialsList.add(new Credentials("asd123", "oleg", 0));
-        credentialsList.add(new Credentials("1234", "admin", 1));
+        credentialsList.add(new Credentials( 0,"oleg", "asd123"));
+        credentialsList.add(new Credentials(1, "admin", "1234"));
     }
 
     @Override
     public Credentials delete(Credentials credentials) {
-        credentialsList.remove(credentials);
+        credentialsList.removeIf(soughtCredential -> soughtCredential.getId() == credentials.getId());
         return credentials;
     }
 
@@ -31,9 +32,10 @@ public class CredentialsDaoImpl implements CredentialsDao {
 
     @Override
     public Credentials update(Credentials credentials) {
-        for (Credentials soughtCredentials : read()) {
+        for (Credentials soughtCredentials : credentialsList) {
             if (soughtCredentials.getId() == credentials.getId()) {
-                soughtCredentials = credentials;
+                credentialsList.remove(soughtCredentials);
+                credentialsList.add(credentials);
             }
         }
         return credentials;

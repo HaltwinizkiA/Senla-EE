@@ -20,7 +20,7 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public Role delete(Role role) {
-        roleList.remove(role);
+        roleList.removeIf(soughtRole -> soughtRole.getId() == role.getId());
         return role;
     }
 
@@ -34,7 +34,8 @@ public class RoleDaoImpl implements RoleDao {
     public Role update(Role role) {
         for (Role soughtRole : read()) {
             if (soughtRole.getId() == role.getId()) {
-                soughtRole = role;
+               roleList.remove(soughtRole);
+               roleList.add(role);
             }
         }
         return role;

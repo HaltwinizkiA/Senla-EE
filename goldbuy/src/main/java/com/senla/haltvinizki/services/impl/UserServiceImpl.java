@@ -15,10 +15,10 @@ import java.util.List;
 @Component
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
-        this.userDao=userDao;
+        this.userDao = userDao;
 
     }
 

@@ -14,14 +14,15 @@ public class ProductConfigurationDaoImpl implements ProductConfigurationDao {
 
     public ProductConfigurationDaoImpl() {
         this.productConfigurationList = new ArrayList<>();
-        productConfigurationList.add(new ProductConfiguration(0,0,0,5000,100,12));
-        productConfigurationList.add(new ProductConfiguration(0,0,1,50,10,10));
+        productConfigurationList.add(new ProductConfiguration(0, 0, 0, 5000, 100, 12));
+        productConfigurationList.add(new ProductConfiguration(0, 0, 1, 50, 10, 10));
     }
 
     @Override
     public ProductConfiguration delete(ProductConfiguration productConfiguration) {
-        productConfigurationList.remove(productConfiguration);
+        productConfigurationList.removeIf(soughtProductConfiguration -> soughtProductConfiguration.getId() == productConfiguration.getId());
         return productConfiguration;
+
     }
 
     @Override
@@ -32,9 +33,9 @@ public class ProductConfigurationDaoImpl implements ProductConfigurationDao {
 
     @Override
     public ProductConfiguration update(ProductConfiguration productConfiguration) {
-        for (ProductConfiguration soughtProductConfiguration:read()){
-            if (soughtProductConfiguration.getId()==productConfiguration.getId()){
-                soughtProductConfiguration=productConfiguration;
+        for (ProductConfiguration soughtProductConfiguration : read()) {
+            if (soughtProductConfiguration.getId() == productConfiguration.getId()) {
+                soughtProductConfiguration = productConfiguration;
             }
         }
         return productConfiguration;

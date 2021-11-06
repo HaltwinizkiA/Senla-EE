@@ -20,7 +20,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product delete(Product product) {
-        productList.remove(product);
+        productList.removeIf(soughtProduct -> soughtProduct.getId() == product.getId());
         return product;
     }
 
@@ -34,7 +34,8 @@ public class ProductDaoImpl implements ProductDao {
     public Product update(Product product) {
         for (Product soughtProduct : read()) {
             if (soughtProduct.getId() == product.getId()) {
-                soughtProduct = product;
+                productList.remove(soughtProduct);
+                productList.add(product);
             }
         }
         return product;
