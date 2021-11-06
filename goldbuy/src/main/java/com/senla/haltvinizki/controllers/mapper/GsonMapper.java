@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class GsonMapper {
 
-    private final ObjectMapper objectMapper=new ObjectMapper();
     private final Gson gson=new Gson();
 
     public Object createObj(String json, Class clazz) {
