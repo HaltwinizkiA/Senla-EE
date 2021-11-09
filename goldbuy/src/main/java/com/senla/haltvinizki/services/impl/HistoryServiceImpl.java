@@ -1,8 +1,8 @@
 package com.senla.haltvinizki.services.impl;
 
 import com.senla.haltvinizki.dao.HistoryDao;
-import com.senla.haltvinizki.dao.impl.HistoryDaoImpl;
 import com.senla.haltvinizki.entity.history.History;
+import com.senla.haltvinizki.services.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Component
-public class HistoryServiceImpl implements com.senla.haltvinizki.services.HistoryService {
+public class HistoryServiceImpl implements HistoryService {
 
     @Autowired
     private final HistoryDao historyDao;

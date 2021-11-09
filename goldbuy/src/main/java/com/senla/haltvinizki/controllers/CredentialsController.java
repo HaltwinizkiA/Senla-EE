@@ -1,29 +1,34 @@
 package com.senla.haltvinizki.controllers;
 
 
-import com.senla.haltvinizki.controllers.mapper.GsonMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.entity.category.Category;
 import com.senla.haltvinizki.entity.credentials.Credentials;
-import com.senla.haltvinizki.services.CategoryService;
 import com.senla.haltvinizki.services.CredentialsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.senla.haltvinizki.util.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CredentialsController {
-    @Autowired
-    CredentialsService credentialsService;
-    @Autowired
-    GsonMapper gsonMapper;
 
-    public CredentialsController(CredentialsService credentialsService, GsonMapper gsonMapper) {
+    private final CredentialsService credentialsService;
+    private final JsonMapper gsonMapper;
+
+    public CredentialsController(CredentialsService credentialsService, JsonMapper gsonMapper) {
         this.credentialsService = credentialsService;
         this.gsonMapper = gsonMapper;
     }
 
     public String createCredentials(String jsonCredentials) {
-        Credentials category = credentialsService.create((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
-        return gsonMapper.createJson(category);
+        try {
+            Credentials credentials = credentialsService.create((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
+            return gsonMapper.createJson(credentials);
+        } catch (JsonProcessingException e) {
+            Logger.execute(this.getClass(), e);
+            return "credentials not created";
+        }
+
     }
 
     public String readCredentials() {
@@ -31,13 +36,25 @@ public class CredentialsController {
     }
 
     public String updateCredentials(String jsonCredentials) {
-        Credentials category = credentialsService.update((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
-        return gsonMapper.createJson(category);
+        try {
+            Credentials credentials = credentialsService.update((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
+            return gsonMapper.createJson(credentials);
+
+        } catch (JsonProcessingException e) {
+            Logger.execute(this.getClass(), e);
+            return "credentials not update";
+        }
     }
 
     public String deleteCredentials(String jsonCredentials) {
-        Credentials category = credentialsService.delete((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
-        return gsonMapper.createJson(category);
+        try {
+            Credentials credentials = credentialsService.delete((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
+            return gsonMapper.createJson(credentials);
+
+        } catch (JsonProcessingException e) {
+            Logger.execute(this.getClass(), e);
+            return "credentials not deleted";
+        }
     }
 
 }

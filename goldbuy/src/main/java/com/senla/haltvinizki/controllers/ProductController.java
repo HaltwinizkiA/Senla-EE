@@ -1,25 +1,31 @@
 package com.senla.haltvinizki.controllers;
 
 
-import com.senla.haltvinizki.controllers.mapper.GsonMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.entity.product.Product;
 import com.senla.haltvinizki.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.senla.haltvinizki.util.Logger;
 
 public class ProductController {
-    @Autowired
-    ProductService productService;
-    @Autowired
-    GsonMapper gsonMapper;
 
-    public ProductController(ProductService productService, GsonMapper gsonMapper) {
+    private final ProductService productService;
+    private final JsonMapper gsonMapper;
+
+    public ProductController(ProductService productService, JsonMapper gsonMapper) {
         this.productService = productService;
         this.gsonMapper = gsonMapper;
     }
 
     public String createProduct(String jsonProduct) {
-        Product product = productService.create((Product) gsonMapper.createObj(jsonProduct, Product.class));
-        return gsonMapper.createJson(product);
+        try {
+            Product product = productService.create((Product) gsonMapper.createObj(jsonProduct, Product.class));
+            return gsonMapper.createJson(product);
+        } catch (JsonProcessingException e) {
+            Logger.execute(this.getClass(), e);
+            return "product not create";
+
+        }
     }
 
     public String readProduct() {
@@ -27,12 +33,24 @@ public class ProductController {
     }
 
     public String updateProduct(String jsonProduct) {
-        Product product = productService.update((Product) gsonMapper.createObj(jsonProduct, Product.class));
-        return gsonMapper.createJson(product);
+        try {
+            Product product = productService.update((Product) gsonMapper.createObj(jsonProduct, Product.class));
+            return gsonMapper.createJson(product);
+        } catch (JsonProcessingException e) {
+            Logger.execute(this.getClass(), e);
+            return "product not update";
+
+        }
     }
 
     public String deleteProduct(String jsonProduct) {
-        Product product = productService.delete((Product) gsonMapper.createObj(jsonProduct, Product.class));
-        return gsonMapper.createJson(product);
+        try {
+            Product product = productService.delete((Product) gsonMapper.createObj(jsonProduct, Product.class));
+            return gsonMapper.createJson(product);
+        } catch (JsonProcessingException e) {
+            Logger.execute(this.getClass(), e);
+            return "product not delete";
+
+        }
     }
 }

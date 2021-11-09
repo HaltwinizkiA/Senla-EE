@@ -1,21 +1,25 @@
 package com.senla.haltvinizki.controllers;
 
 
-import com.senla.haltvinizki.controllers.mapper.GsonMapper;
-import com.senla.haltvinizki.entity.credentials.Credentials;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.entity.history.History;
 import com.senla.haltvinizki.services.HistoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.senla.haltvinizki.util.Logger;
 
 public class HistoryController {
-    @Autowired
-    HistoryService historyService;
-    @Autowired
-    GsonMapper gsonMapper;
+    private HistoryService historyService;
+    private JsonMapper gsonMapper;
 
     public String createHistory(String jsonHistory) {
-        History history = historyService.create((History) gsonMapper.createObj(jsonHistory, History.class));
-        return gsonMapper.createJson(history);
+        History history = null;
+        try {
+            history = historyService.create((History) gsonMapper.createObj(jsonHistory, History.class));
+            return gsonMapper.createJson(history);
+        } catch (JsonProcessingException e) {
+            Logger.execute(this.getClass(), e);
+            return "history not delete";
+        }
     }
 
     public String readHistory() {
@@ -23,12 +27,25 @@ public class HistoryController {
     }
 
     public String updateHistory(String jsonHistory) {
-        History history = historyService.update((History) gsonMapper.createObj(jsonHistory, History.class));
-        return gsonMapper.createJson(history);
+        History history = null;
+        try {
+            history = historyService.update((History) gsonMapper.createObj(jsonHistory, History.class));
+            return gsonMapper.createJson(history);
+        } catch (JsonProcessingException e) {
+            Logger.execute(this.getClass(), e);
+            return "history not update";
+        }
     }
 
     public String deleteHistory(String jsonHistory) {
-        History history = historyService.delete((History) gsonMapper.createObj(jsonHistory, History.class));
-        return gsonMapper.createJson(history);
+        History history = null;
+        try {
+            history = historyService.delete((History) gsonMapper.createObj(jsonHistory, History.class));
+            return gsonMapper.createJson(history);
+
+        } catch (JsonProcessingException e) {
+            Logger.execute(this.getClass(), e);
+            return "history not delete";
+        }
     }
 }
