@@ -2,15 +2,17 @@ package com.senla.haltvinizki.dao.connect;
 
 import com.senla.haltvinizki.configuration.PropertyConfiguration;
 import com.senla.haltvinizki.util.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
+@Component
 public class DbConnect {
     private static DbConnect dbConnect;
     private Connection connection;
-    private PropertyConfiguration configuration;
+    private final PropertyConfiguration configuration = new PropertyConfiguration();
 
     public static DbConnect getInstance() {
         if (dbConnect == null) {
@@ -21,7 +23,7 @@ public class DbConnect {
 
     public void connect() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(configuration.getUrl(), configuration.getName(), configuration.getPassword());
         } catch (Exception e) {
             Logger.execute(this.getClass(), e);

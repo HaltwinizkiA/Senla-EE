@@ -3,56 +3,74 @@ package com.senla.haltvinizki.dao.impl;
 import com.senla.haltvinizki.dao.CategoryDao;
 import com.senla.haltvinizki.dao.connect.DbConnect;
 import com.senla.haltvinizki.entity.category.Category;
+import com.senla.haltvinizki.util.Logger;
 import org.springframework.stereotype.Component;
-
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 @Component
 public class CategoryDaoImpl implements CategoryDao {
-    List<Category> categoryList;
-    private final String GET_ALL="SELECT * FROM ";
-    private final String DELETE="DELETE FROM   Where id=";
-    private final String CREATE="INSERT  ";
-    private final String Update="UPDATE ";
+    private final String GET_ALL = "SELECT * FROM category ";
+    private final String DELETE = "DELETE FROM category Where id=";
+    private final String CREATE = "INSERT INTO category(name) values(?)";
+    private final String Update = "UPDATE category SET name=? where id=";
+
+
     public CategoryDaoImpl() {
-        this.categoryList = new ArrayList<>();
-        categoryList.add(new Category(0, "Car"));
-        categoryList.add(new Category(0, "Health"));
     }
 
     @Override
     public Category delete(Category category) {
-        try(PreparedStatement preparedStatement= DbConnect.getInstance().getConnection().prepareStatement(DELETE+category.getId())){
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        try (PreparedStatement preparedStatement = DbConnect.getInstance().getConnection().prepareStatement(DELETE + category.getId())) {
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            Logger.execute(this.getClass(), e);
         }
-        categoryList.removeIf(soughtCategory -> soughtCategory.getId() == category.getId());
         return category;
     }
 
     @Override
     public Category create(Category category) {
-        categoryList.add(category);
+        try (PreparedStatement preparedStatement = DbConnect.getInstance().getConnection().prepareStatement(CREATE)) {
+            preparedStatement.setString(1, category.getName());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            Logger.execute(this.getClass(), e);
+        }
         return category;
     }
 
     @Override
     public Category update(Category category) {
-        for (Category soughtCategory : read()) {
-            if (soughtCategory.getId() == category.getId()) {
-                categoryList.remove(soughtCategory);
-                categoryList.add(category);
-            }
+        try (PreparedStatement preparedStatement = DbConnect.getInstance().getConnection().prepareStatement(Update + category.getId())
+        ) {
+            preparedStatement.setString(1, category.getName());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            Logger.execute(this.getClass(), e);
         }
         return category;
     }
 
     @Override
     public List<Category> read() {
+        List<Category> categoryList=new ArrayList<>();
+        try (Statement statement = DbConnect.getInstance().getConnection().createStatement()) {
+            ResultSet resultSet=statement.executeQuery(GET_ALL);
+            while (resultSet.next()){
+                int id=resultSet.getInt("id");
+                String name=resultSet.getString("name");
+                Category category=new Category(id,name);
+                categoryList.add(category);
+            }
+        } catch (SQLException e) {
+            Logger.execute(this.getClass(), e);
+        }
         return categoryList;
     }
 }
