@@ -28,10 +28,6 @@ public class TransactionAspect {
         } catch (RuntimeException r) {
             connection.rollback();
             throw r;
-        } catch (Exception e) {
-            connection.commit();
-            throw e;
-
         } finally {
             connection.setAutoCommit(true);
         }
