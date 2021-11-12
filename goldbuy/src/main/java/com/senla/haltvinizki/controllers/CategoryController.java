@@ -30,7 +30,7 @@ public class CategoryController {
         }
     }
 
-    public void transTest(Category category){
+    public void transTest(Category category) {
         categoryService.runtimeTest(category);
     }
 
