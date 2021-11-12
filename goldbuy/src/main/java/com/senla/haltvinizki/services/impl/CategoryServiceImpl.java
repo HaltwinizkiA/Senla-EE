@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public void runtimeTest(Category category){
+    public void runtimeTest(Category category) {
         categoryDao.create(category);
         throw new RuntimeException();
     }

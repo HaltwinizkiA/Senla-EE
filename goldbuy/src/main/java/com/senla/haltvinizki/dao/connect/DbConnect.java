@@ -5,7 +5,6 @@ import com.senla.haltvinizki.util.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,9 +14,8 @@ import java.sql.DriverManager;
 @EnableAspectJAutoProxy
 public class DbConnect {
 
-    private Connection connection;
-
     private final PropertyConfiguration configuration;
+    private Connection connection;
 
     public DbConnect(PropertyConfiguration configuration) {
         this.configuration = configuration;
