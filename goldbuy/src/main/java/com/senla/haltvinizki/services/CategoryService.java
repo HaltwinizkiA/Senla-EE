@@ -11,5 +11,7 @@ public interface CategoryService {
 
     Category update(Category categoryDao);
 
+    void runtimeTest(Category category);
+
     List<Category> read();
 }

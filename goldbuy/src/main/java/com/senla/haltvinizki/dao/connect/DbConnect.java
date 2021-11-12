@@ -2,24 +2,27 @@ package com.senla.haltvinizki.dao.connect;
 
 import com.senla.haltvinizki.configuration.PropertyConfiguration;
 import com.senla.haltvinizki.util.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-@Component
-public class DbConnect {
-    private static DbConnect dbConnect;
-    private Connection connection;
-    private final PropertyConfiguration configuration = new PropertyConfiguration();
 
-    public static DbConnect getInstance() {
-        if (dbConnect == null) {
-            dbConnect = new DbConnect();
-        }
-        return dbConnect;
+@Configuration
+@EnableAspectJAutoProxy
+public class DbConnect {
+
+    private Connection connection;
+
+    private final PropertyConfiguration configuration;
+
+    public DbConnect(PropertyConfiguration configuration) {
+        this.configuration = configuration;
     }
+
 
     public void connect() {
         try {
@@ -30,6 +33,7 @@ public class DbConnect {
         }
     }
 
+    @Bean(destroyMethod = "close")
     public Connection getConnection() {
         if (connection == null) {
             connect();
