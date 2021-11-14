@@ -11,7 +11,7 @@ import java.util.Properties;
 @Component
 public class PropertyConfiguration {
     private final Properties properties;
-    private final String PATH = "resources/property.properties";
+    private final String PATH = "resources/application.properties";
 
     public PropertyConfiguration() {
         properties = new Properties();

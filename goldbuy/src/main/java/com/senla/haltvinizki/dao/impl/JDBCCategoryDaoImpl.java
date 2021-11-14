@@ -23,10 +23,7 @@ public class JDBCCategoryDaoImpl implements CategoryDao {
     private final String CREATE = "INSERT INTO category(name) values(?)";
     private final String Update = "UPDATE category SET name=? where id=";
     @Autowired
-    DbConnect dbConnect;
-
-    public JDBCCategoryDaoImpl() {
-    }
+    private DbConnect dbConnect;
 
     @Override
     public Category delete(Category category) {
