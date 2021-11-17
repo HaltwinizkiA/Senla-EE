@@ -30,12 +30,8 @@ public class CategoryController {
         }
     }
 
-    public void transTest(Category category) {
-        categoryService.runtimeTest(category);
-    }
-
-    public String readCategory() {
-        return gsonMapper.createJson(categoryService.read());
+    public String getById(int id) {
+        return gsonMapper.createJson(categoryService.getById(id));
     }
 
     public String updateCategory(String jsonCategory) {
@@ -58,6 +54,9 @@ public class CategoryController {
             Logger.execute(this.getClass(), e);
             return "category not deleted";
         }
+    }
+    public void test(){
+        categoryService.test();
     }
 }
 

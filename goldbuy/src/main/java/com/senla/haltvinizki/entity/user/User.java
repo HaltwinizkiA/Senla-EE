@@ -3,37 +3,58 @@ package com.senla.haltvinizki.entity.user;
 import com.senla.haltvinizki.entity.credentials.Credentials;
 import com.senla.haltvinizki.entity.role.Role;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
-    private final int id;
-    private final int credentialsId;
-    private int roleId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
+
+    @OneToOne(optional = false,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "credentialsid")
+    private Credentials credentials;
+
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "roleid")
+    private Role role;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "phonenumber")
     private String phoneNumber;
+
+    @Column(name = "mail")
     private String Mail;
 
-    public User(int id, int credentialsId, int roleId, String name, String phoneNumber, String mail) {
-        this.id = id;
-        this.credentialsId = credentialsId;
-        this.roleId = roleId;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        Mail = mail;
+    public User() {
+    }
+
+    public Credentials getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getCredentials() {
-        return credentialsId;
-    }
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

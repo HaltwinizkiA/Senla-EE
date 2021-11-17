@@ -11,12 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserController {
 
-    private final UserService userService;
-    private final JsonMapper gsonMapper;
+    private  UserService userService;
+    private  JsonMapper gsonMapper;
 
     public UserController(UserService userService, JsonMapper gsonMapper) {
         this.userService = userService;
         this.gsonMapper = gsonMapper;
+    }
+
+    public UserController() {
     }
 
     public String createUser(String jsonUser) {
@@ -31,8 +34,8 @@ public class UserController {
 
     }
 
-    public String readUser() {
-        return gsonMapper.createJson(userService.read());
+    public String getById(int id) {
+        return gsonMapper.createJson(userService.getById(id));
     }
 
     public String updateUser(String jsonUser) {

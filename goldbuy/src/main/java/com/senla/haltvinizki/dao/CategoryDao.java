@@ -3,14 +3,8 @@ package com.senla.haltvinizki.dao;
 import com.senla.haltvinizki.entity.category.Category;
 
 
-import java.util.List;
 
-public interface CategoryDao {
-    Category delete(Category categoryDao);
 
-    Category create(Category categoryDao);
+public interface CategoryDao extends GenerikDao<Category,Long> {
 
-    Category update(Category categoryDao);
-
-    List<Category> read();
 }

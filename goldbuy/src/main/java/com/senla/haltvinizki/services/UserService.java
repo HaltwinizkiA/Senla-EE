@@ -12,5 +12,5 @@ public interface UserService {
 
     User update(User user);
 
-    List<User> read();
+    User getById(int id);
 }

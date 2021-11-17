@@ -2,25 +2,25 @@ package com.senla.haltvinizki.services.impl;
 
 
 import com.senla.haltvinizki.dao.UserDao;
-import com.senla.haltvinizki.dao.impl.UserDaoImpl;
 import com.senla.haltvinizki.entity.user.User;
 import com.senla.haltvinizki.services.UserService;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+
+import javax.transaction.Transactional;
+
 
 
 @Component
+@Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     @Autowired
     private final UserDao userDao;
 
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
 
-    }
 
     @Override
     public User delete(User user) {
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> read() {
-        return userDao.read();
+    public User getById(int id) {
+        return userDao.getById(id);
     }
 }

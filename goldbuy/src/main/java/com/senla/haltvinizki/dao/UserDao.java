@@ -4,14 +4,8 @@ import com.senla.haltvinizki.entity.user.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserDao  extends GenerikDao<User,Long>{
 
-    User delete(User user);
 
-    User create(User user);
-
-    User update(User user);
-
-    List<User> read();
 
 }

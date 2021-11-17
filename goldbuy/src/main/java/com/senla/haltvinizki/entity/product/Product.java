@@ -1,17 +1,36 @@
 package com.senla.haltvinizki.entity.product;
 
-import com.senla.haltvinizki.entity.category.Category;
-
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "products")
 public class Product {
-    private final int id;
-    private final String name;
-    private final Date addedDate;
-    private final int userId;
-    private final int categoryId;
-    private final String status;
-    private final double price;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "addeddate")
+    private Date addedDate;
+
+    @Column(name = "userid")
+    private int userId;
+
+    @Column(name = "categoryid")
+    private int categoryId;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "price")
+    private double price;
+
+    public Product() {
+    }
 
     public Product(int id, String name, Date addedDate, int userId, int categoryId, String status, double price) {
         this.id = id;
