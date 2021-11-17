@@ -10,8 +10,7 @@ import java.util.List;
 
 
 @Component
-public class CategoryDaoImpl extends AbstractDao<Category,Long>implements CategoryDao {
-
+public class CategoryDaoImpl extends AbstractDao<Category, Long> implements CategoryDao {
     public CategoryDaoImpl() {
 
     }

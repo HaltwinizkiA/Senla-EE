@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryController {
 
-    private final CategoryService categoryService;
-    private final JsonMapper gsonMapper;
+    private CategoryService categoryService;
+    private JsonMapper gsonMapper;
 
     public CategoryController(CategoryService categoryService, JsonMapper gsonMapper) {
         this.categoryService = categoryService;
@@ -55,7 +55,11 @@ public class CategoryController {
             return "category not deleted";
         }
     }
-    public void test(){
+
+    public CategoryController() {
+    }
+
+    public void test() {
         categoryService.test();
     }
 }

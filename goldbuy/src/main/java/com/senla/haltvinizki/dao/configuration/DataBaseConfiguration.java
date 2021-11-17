@@ -37,7 +37,7 @@ public class DataBaseConfiguration {
         hibernateProperties.setProperty(
                 "hibernate.hbm2ddl.auto", "create-drop");
         hibernateProperties.setProperty(
-                "hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+                "hibernate.dialect", "org.hibernate.dialect.PostgreSQL10Dialect");
 
         return hibernateProperties;
     }
