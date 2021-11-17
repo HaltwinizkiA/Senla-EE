@@ -30,6 +30,10 @@ public class CategoryController {
         }
     }
 
+    public void transTest(Category category) {
+        categoryService.runtimeTest(category);
+    }
+
     public String readCategory() {
         return gsonMapper.createJson(categoryService.read());
     }

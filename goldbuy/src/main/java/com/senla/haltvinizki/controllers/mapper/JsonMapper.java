@@ -2,16 +2,16 @@ package com.senla.haltvinizki.controllers.mapper;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
+
 import com.senla.haltvinizki.util.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JsonMapper {
 
-    private final Gson gson = new Gson();
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public Object createObj(String json, Class clazz) throws JsonProcessingException {

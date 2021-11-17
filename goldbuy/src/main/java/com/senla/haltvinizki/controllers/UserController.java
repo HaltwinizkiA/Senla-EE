@@ -5,7 +5,6 @@ import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.entity.user.User;
 import com.senla.haltvinizki.services.UserService;
 import com.senla.haltvinizki.util.Logger;
-import org.graalvm.compiler.lir.LIRInstruction;
 import org.springframework.stereotype.Component;
 
 

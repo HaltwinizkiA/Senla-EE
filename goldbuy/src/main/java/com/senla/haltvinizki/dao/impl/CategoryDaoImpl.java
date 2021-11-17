@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 @Component
 public class CategoryDaoImpl implements CategoryDao {
-    List<Category> categoryList;
+   private List<Category> categoryList;
 
     public CategoryDaoImpl() {
         this.categoryList = new ArrayList<>();
