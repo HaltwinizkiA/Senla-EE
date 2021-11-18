@@ -33,8 +33,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> read() {
-        return roleDao.read();
+    public Role getById(int id) {
+        return roleDao.getById(id);
     }
 }
 

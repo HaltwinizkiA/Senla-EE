@@ -11,5 +11,5 @@ public interface ProductConfigurationService {
 
     ProductConfiguration update(ProductConfiguration productConfiguration);
 
-    List<ProductConfiguration> read();
+    ProductConfiguration getById(int id);
 }

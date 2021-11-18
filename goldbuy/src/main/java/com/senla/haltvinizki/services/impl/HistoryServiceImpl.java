@@ -36,7 +36,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public List<History> read() {
-        return historyDao.read();
+    public History getById(int id) {
+        return historyDao.getById(id);
     }
 }

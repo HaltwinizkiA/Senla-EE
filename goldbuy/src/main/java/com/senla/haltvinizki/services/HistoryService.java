@@ -11,5 +11,5 @@ public interface HistoryService {
 
     History update(History history);
 
-    List<History> read();
+    History getById(int id);
 }

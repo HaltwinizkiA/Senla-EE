@@ -35,7 +35,7 @@ public class CredentialsServiceImpl implements CredentialsService {
     }
 
     @Override
-    public List<Credentials> read() {
-        return credentialsDao.read();
+    public Credentials getById(int id) {
+        return credentialsDao.getById(id);
     }
 }

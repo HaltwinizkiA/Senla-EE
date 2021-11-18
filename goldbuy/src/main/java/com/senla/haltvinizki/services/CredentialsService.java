@@ -11,5 +11,5 @@ public interface CredentialsService {
 
     Credentials update(Credentials credentialsDao);
 
-    List<Credentials> read();
+    Credentials getById(int id);
 }

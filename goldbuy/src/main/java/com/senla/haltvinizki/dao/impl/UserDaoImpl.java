@@ -7,5 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
     public UserDaoImpl() {
+        super(User.class);
     }
 }

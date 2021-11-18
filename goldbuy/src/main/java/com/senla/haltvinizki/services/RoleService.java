@@ -11,5 +11,5 @@ public interface RoleService {
 
     Role update(Role role);
 
-    List<Role> read();
+    Role getById(int id);
 }

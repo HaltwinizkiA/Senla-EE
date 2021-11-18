@@ -20,8 +20,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private final UserDao userDao;
 
-
-
     @Override
     public User delete(User user) {
         return userDao.delete(user);

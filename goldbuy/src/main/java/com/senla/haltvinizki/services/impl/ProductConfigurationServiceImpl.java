@@ -6,8 +6,6 @@ import com.senla.haltvinizki.services.ProductConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 
 @Component
 public class ProductConfigurationServiceImpl implements ProductConfigurationService {
@@ -34,7 +32,7 @@ public class ProductConfigurationServiceImpl implements ProductConfigurationServ
     }
 
     @Override
-    public List<ProductConfiguration> read() {
-        return productConfigurationDao.read();
+    public ProductConfiguration getById(int id) {
+        return productConfigurationDao.getById(id);
     }
 }

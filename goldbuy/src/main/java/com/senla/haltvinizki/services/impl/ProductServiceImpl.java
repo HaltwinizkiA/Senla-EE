@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> read() {
-        return productDao.read();
+    public Product getById(int id){
+        return productDao.getById(id);
     }
 }

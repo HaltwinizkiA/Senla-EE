@@ -1,6 +1,6 @@
 package com.senla.haltvinizki.dao;
 
-public interface GenerikDao<Entity, Id> {
+public interface GenericDao<Entity, Id> {
     Entity create(Entity entity);
 
     Entity getById(int id);

@@ -1,12 +1,13 @@
 package com.senla.haltvinizki.entity.category;
 
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "masters")
+@Table(name = "category")
 public class Category {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
