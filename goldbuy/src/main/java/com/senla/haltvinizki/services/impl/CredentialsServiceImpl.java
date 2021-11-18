@@ -4,20 +4,19 @@ package com.senla.haltvinizki.services.impl;
 import com.senla.haltvinizki.dao.CredentialsDao;
 import com.senla.haltvinizki.entity.credentials.Credentials;
 import com.senla.haltvinizki.services.CredentialsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
+@Transactional
+@RequiredArgsConstructor
 public class CredentialsServiceImpl implements CredentialsService {
 
     @Autowired
     private final CredentialsDao credentialsDao;
 
-    public CredentialsServiceImpl(CredentialsDao credentialsDao) {
-        this.credentialsDao = credentialsDao;
-    }
 
     @Override
     public Credentials delete(Credentials credentials) {

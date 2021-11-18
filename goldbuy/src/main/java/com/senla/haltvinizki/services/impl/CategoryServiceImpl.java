@@ -11,14 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Transactional
-@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    private final CategoryDao categoryDao;
+    private CategoryDao categoryDao;
+
+    public CategoryServiceImpl(CategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
+    }
 
     @Override
-
     public Category delete(Category category) {
         return categoryDao.delete(category);
     }

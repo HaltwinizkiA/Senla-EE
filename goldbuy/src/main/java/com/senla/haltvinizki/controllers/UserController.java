@@ -19,8 +19,6 @@ public class UserController {
         this.gsonMapper = gsonMapper;
     }
 
-    public UserController() {
-    }
 
     public String createUser(String jsonUser) {
         try {

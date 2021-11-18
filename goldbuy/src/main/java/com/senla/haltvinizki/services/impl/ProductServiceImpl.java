@@ -4,21 +4,20 @@ package com.senla.haltvinizki.services.impl;
 import com.senla.haltvinizki.dao.ProductDao;
 import com.senla.haltvinizki.entity.product.Product;
 import com.senla.haltvinizki.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
+@Transactional
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private final ProductDao productDao;
-
-
-    public ProductServiceImpl(ProductDao productDao) {
-        this.productDao = productDao;
-    }
 
     @Override
     public Product delete(Product product) {
@@ -38,5 +37,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getById(int id){
         return productDao.getById(id);
+    }
+
+    @Override
+    public String getMailSellerProduct(int id) {
+       return productDao.getMailSellerProduct(id);
     }
 }

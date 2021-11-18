@@ -28,8 +28,8 @@ public class ProductController {
         }
     }
 
-    public String readProduct() {
-        return gsonMapper.createJson(productService.read());
+    public String getById(int id) {
+        return gsonMapper.createJson(productService.getById(id));
     }
 
     public String updateProduct(String jsonProduct) {

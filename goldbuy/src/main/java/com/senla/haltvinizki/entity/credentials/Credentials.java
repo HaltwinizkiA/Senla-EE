@@ -16,16 +16,13 @@ public class Credentials {
     @Column(name = "login")
     private String login;
 
-    @OneToOne (optional=false, mappedBy="role")
-    private User user;
-
-    public Credentials() {
-    }
-
     public Credentials(int id, String password, String login) {
         this.id = id;
         this.password = password;
         this.login = login;
+    }
+
+    public Credentials() {
     }
 
     public int getId() {

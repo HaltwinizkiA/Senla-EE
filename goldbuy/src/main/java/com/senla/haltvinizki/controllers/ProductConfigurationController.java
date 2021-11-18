@@ -27,8 +27,8 @@ public class ProductConfigurationController {
 
     }
 
-    public String readProductConfiguration() {
-        return gsonMapper.createJson(productConfigurationService.read());
+    public String getById(int id) {
+        return gsonMapper.createJson(productConfigurationService.getById(id));
     }
 
     public String updateProductConfiguration(String jsonProductConfiguration) {

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryDaoImpl extends AbstractDao<Category, Integer> implements CategoryDao {
+
     public CategoryDaoImpl() {
         super(Category.class);
     }
-
 }
 

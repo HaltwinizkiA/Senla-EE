@@ -22,8 +22,8 @@ public class HistoryController {
         }
     }
 
-    public String readHistory() {
-        return gsonMapper.createJson(historyService.read());
+    public String getById(int id) {
+        return gsonMapper.createJson(historyService.getById(id));
     }
 
     public String updateHistory(String jsonHistory) {

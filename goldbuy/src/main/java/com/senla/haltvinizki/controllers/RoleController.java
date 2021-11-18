@@ -31,8 +31,8 @@ public class RoleController {
 
     }
 
-    public String readRole() {
-        return gsonMapper.createJson(roleService.read());
+    public String getById(int id) {
+        return gsonMapper.createJson(roleService.getById(id));
     }
 
     public String updateRole(String jsonProduct) {

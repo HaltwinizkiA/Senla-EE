@@ -1,25 +1,28 @@
 package com.senla.haltvinizki.entity.productCofniguration;
 
+import com.senla.haltvinizki.entity.product.Product;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "productconfig")
+@Table(name = "productConfig")
 public class ProductConfiguration {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "maxprice")
+    @Column(name = "maxPrice")
     private float maxPrice;
 
-    @Column(name = "productid")
-    private int productId;
+    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "productId")
+    private Product product;
 
-    @Column(name = "minprice")
+    @Column(name = "minPrice")
     private float minPrice;
 
-    @Column(name = "pricestep")
+    @Column(name = "priceStep")
     private float priceStep;
 
     @Column(name = "frequency")
@@ -28,10 +31,11 @@ public class ProductConfiguration {
     public ProductConfiguration() {
     }
 
-    public ProductConfiguration(int id, float maxPrice, int productId, float minPrice, float priceStep, int frequency) {
+
+    public ProductConfiguration(int id, float maxPrice, Product product, float minPrice, float priceStep, int frequency) {
         this.id = id;
         this.maxPrice = maxPrice;
-        this.productId = productId;
+        this.product = product;
         this.minPrice = minPrice;
         this.priceStep = priceStep;
         this.frequency = frequency;
@@ -41,24 +45,48 @@ public class ProductConfiguration {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Float getMaxPrice() {
         return maxPrice;
     }
 
-    public int getProductId() {
-        return productId;
+    public void setMaxPrice(float maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
-    public Float getMinPrice() {
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public float getMinPrice() {
         return minPrice;
+    }
+
+    public void setMinPrice(float minPrice) {
+        this.minPrice = minPrice;
     }
 
     public Float getPriceStep() {
         return priceStep;
     }
 
+    public void setPriceStep(float priceStep) {
+        this.priceStep = priceStep;
+    }
+
     public int getFrequency() {
         return frequency;
+    }
+
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
     }
 
 

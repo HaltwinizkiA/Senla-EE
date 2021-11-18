@@ -1,8 +1,6 @@
 package com.senla.haltvinizki.entity.category;
 
 
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity

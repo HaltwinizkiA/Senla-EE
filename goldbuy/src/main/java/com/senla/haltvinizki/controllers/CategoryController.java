@@ -19,6 +19,7 @@ public class CategoryController {
         this.gsonMapper = gsonMapper;
     }
 
+
     public String createCategory(String jsonCategory) {
         try {
             Category category = categoryService.create((Category) gsonMapper.createObj(jsonCategory, Category.class));
@@ -54,9 +55,6 @@ public class CategoryController {
             Logger.execute(this.getClass(), e);
             return "category not deleted";
         }
-    }
-
-    public CategoryController() {
     }
 
     public void test() {

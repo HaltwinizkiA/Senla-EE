@@ -12,23 +12,28 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-
-    @OneToOne(optional = false,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "credentialsid")
+    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "credentialsId")
     private Credentials credentials;
-
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "roleid")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "roleId")
     private Role role;
-
     @Column(name = "name")
     private String name;
-
-    @Column(name = "phonenumber")
+    @Column(name = "phoneNumber")
     private String phoneNumber;
-
     @Column(name = "mail")
-    private String Mail;
+    private String mail;
+
+
+    public User(int id, Credentials credentials, Role role, String name, String phoneNumber, String mail) {
+        this.id = id;
+        this.credentials = credentials;
+        this.role = role;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.mail = mail;
+    }
 
     public User() {
     }
@@ -74,11 +79,11 @@ public class User {
     }
 
     public String getMail() {
-        return Mail;
+        return mail;
     }
 
     public void setMail(String mail) {
-        Mail = mail;
+        this.mail = mail;
     }
 
 

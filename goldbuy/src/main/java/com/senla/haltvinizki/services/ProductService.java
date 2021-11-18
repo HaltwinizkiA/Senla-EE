@@ -12,4 +12,6 @@ public interface ProductService {
     Product update(Product product);
 
     Product getById(int id);
+
+    String getMailSellerProduct(int id);
 }

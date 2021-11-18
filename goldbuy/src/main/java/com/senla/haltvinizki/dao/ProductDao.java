@@ -7,5 +7,5 @@ import com.senla.haltvinizki.entity.user.User;
 import java.util.List;
 
 public interface ProductDao extends GenericDao<Product,Integer>{
-
+    String getMailSellerProduct(int id);
 }
