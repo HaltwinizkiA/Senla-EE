@@ -12,4 +12,7 @@ public interface CredentialsService {
     Credentials update(Credentials credentialsDao);
 
     Credentials getById(int id);
+
+    Credentials getCredentialsWithUser(int id);
+
 }

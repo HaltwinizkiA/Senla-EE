@@ -3,8 +3,6 @@ package com.senla.haltvinizki.services.impl;
 import com.senla.haltvinizki.dao.CategoryDao;
 import com.senla.haltvinizki.entity.category.Category;
 import com.senla.haltvinizki.services.CategoryService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
 
-    private CategoryDao categoryDao;
+    private final CategoryDao categoryDao;
 
     public CategoryServiceImpl(CategoryDao categoryDao) {
         this.categoryDao = categoryDao;
@@ -40,8 +38,9 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDao.getById(id);
     }
 
+
     @Override
-    public void test() {
-        System.out.println("ASDASDASDASDDDDDDDDDDDDDDDDDDDASDASD");
+    public Category getCategoryWithProduct(int id) {
+        return categoryDao.getCategoryWithProduct(id);
     }
 }

@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "credentials")
+@NamedEntityGraph(name = "credentials-user", attributeNodes = @NamedAttributeNode("user"))
 public class Credentials {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,14 +16,25 @@ public class Credentials {
     private String password;
     @Column(name = "login")
     private String login;
+    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "credentials")
+    private User user;
 
-    public Credentials(int id, String password, String login) {
+    public Credentials(int id, String password, String login, User user) {
         this.id = id;
         this.password = password;
         this.login = login;
+        this.user = user;
     }
 
     public Credentials() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {

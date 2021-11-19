@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 import javax.transaction.Transactional;
-
 
 
 @Component
@@ -36,7 +34,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+
     public User getById(int id) {
         return userDao.getById(id);
+    }
+
+    @Override
+    public User getUserWithCredentials(int id) {
+        return userDao.getUserWithCredentials(id);
+    }
+
+    @Override
+    public User getUserWithProducts(int id) {
+        return userDao.getUserWithProducts(id);
+    }
+
+    @Override
+    public User getUserWithRole(int id) {
+        return userDao.getUserWithRole(id);
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "roles")
+@NamedEntityGraph(name = "role-users", attributeNodes = @NamedAttributeNode("userList"))
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,13 +16,24 @@ public class Role {
     private int id;
     @Column(name = "name")
     private String name;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> userList;
 
     public Role() {
     }
 
-    public Role(int id, String name) {
+    public Role(int id, String name, List<User> userList) {
         this.id = id;
         this.name = name;
+        this.userList = userList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 
     public int getId() {

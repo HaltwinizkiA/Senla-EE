@@ -1,10 +1,14 @@
 package com.senla.haltvinizki.entity.category;
 
 
+import com.senla.haltvinizki.entity.product.Product;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
+@NamedEntityGraph(name = "category-product", attributeNodes = @NamedAttributeNode("products"))
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,6 +16,8 @@ public class Category {
     private int id;
     @Column(name = "name")
     private String name;
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<Product> products;
 
     public Category() {
     }

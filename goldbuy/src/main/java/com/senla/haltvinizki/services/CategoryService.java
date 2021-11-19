@@ -2,8 +2,6 @@ package com.senla.haltvinizki.services;
 
 import com.senla.haltvinizki.entity.category.Category;
 
-import java.util.List;
-
 public interface CategoryService {
     Category delete(Category categoryDao);
 
@@ -13,5 +11,6 @@ public interface CategoryService {
 
     Category getById(int id);
 
-    void test();
+    Category getCategoryWithProduct(int id);
+
 }

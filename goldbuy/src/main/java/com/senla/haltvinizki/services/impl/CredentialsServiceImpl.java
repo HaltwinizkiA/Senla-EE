@@ -17,7 +17,6 @@ public class CredentialsServiceImpl implements CredentialsService {
     @Autowired
     private final CredentialsDao credentialsDao;
 
-
     @Override
     public Credentials delete(Credentials credentials) {
         return credentialsDao.delete(credentials);
@@ -36,5 +35,10 @@ public class CredentialsServiceImpl implements CredentialsService {
     @Override
     public Credentials getById(int id) {
         return credentialsDao.getById(id);
+    }
+
+    @Override
+    public Credentials getCredentialsWithUser(int id) {
+        return credentialsDao.getCredentialsWithUser(id);
     }
 }

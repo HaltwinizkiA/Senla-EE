@@ -12,4 +12,8 @@ public interface HistoryService {
     History update(History history);
 
     History getById(int id);
+
+    History getHistoryWithProduct(int id);
+
+    History getHistoryWithCustomer(int id);
 }

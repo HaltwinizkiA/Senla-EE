@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryController {
 
-    private CategoryService categoryService;
-    private JsonMapper gsonMapper;
+    private final CategoryService categoryService;
+    private final JsonMapper gsonMapper;
 
     public CategoryController(CategoryService categoryService, JsonMapper gsonMapper) {
         this.categoryService = categoryService;
@@ -57,9 +57,7 @@ public class CategoryController {
         }
     }
 
-    public void test() {
-        categoryService.test();
-    }
+
 }
 
 

@@ -2,8 +2,6 @@ package com.senla.haltvinizki.services;
 
 import com.senla.haltvinizki.entity.productCofniguration.ProductConfiguration;
 
-import java.util.List;
-
 public interface ProductConfigurationService {
     ProductConfiguration delete(ProductConfiguration productConfiguration);
 
@@ -12,4 +10,6 @@ public interface ProductConfigurationService {
     ProductConfiguration update(ProductConfiguration productConfiguration);
 
     ProductConfiguration getById(int id);
+
+    ProductConfiguration getProductConfigWithProduct(int id);
 }

@@ -16,7 +16,6 @@ public class ProductConfigurationServiceImpl implements ProductConfigurationServ
     @Autowired
     private final ProductConfigurationDaoImpl productConfigurationDao;
 
-
     @Override
     public ProductConfiguration delete(ProductConfiguration productConfiguration) {
         return productConfigurationDao.delete(productConfiguration);
@@ -35,5 +34,10 @@ public class ProductConfigurationServiceImpl implements ProductConfigurationServ
     @Override
     public ProductConfiguration getById(int id) {
         return productConfigurationDao.getById(id);
+    }
+
+    @Override
+    public ProductConfiguration getProductConfigWithProduct(int id) {
+        return productConfigurationDao.getProductConfigWithProduct(id);
     }
 }

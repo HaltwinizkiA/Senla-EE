@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 
 @Component
 @Transactional
@@ -37,5 +35,15 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public History getById(int id) {
         return historyDao.getById(id);
+    }
+
+    @Override
+    public History getHistoryWithProduct(int id) {
+        return historyDao.getHistoryWithProduct(id);
+    }
+
+    @Override
+    public History getHistoryWithCustomer(int id) {
+        return historyDao.getHistoryWithCustomer(id);
     }
 }

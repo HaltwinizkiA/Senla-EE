@@ -27,37 +27,12 @@ public class HibernateConf {
     private String url;
     @Value("${password}")
     private String password;
-    @Value("${driver}")
-//    @Bean
-//    public LocalSessionFactoryBean sessionFactory() {
-//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//        sessionFactory.setDataSource(dataSource());
-//        sessionFactory.setPackagesToScan("com.senla.haltvinizki.entity");
-//        sessionFactory.setHibernateProperties(hibernateProperties());
-//
-//        return sessionFactory;
-//    }
-//    @Bean
-//    @SneakyThrows
-//    public DataSource dataSource() {
-//        BasicDataSource dataSource = new BasicDataSource();
-//        dataSource.setDriverClassName("org.h2.Driver");
-//        dataSource.setUrl(url);
-//        dataSource.setUsername(name);
-//        dataSource.setPassword(password);
-//        return dataSource;
-//    }
+
     @Bean
     @SneakyThrows
     public DataSource dataSource() {
         return new DriverManagerDataSource(url, name, password);
     }
-//    @Bean
-//    public PlatformTransactionManager hibernateTransactionManager() {
-//        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-//        transactionManager.setSessionFactory(sessionFactory().getObject());
-//        return transactionManager;
-//    }
 
     @Bean
     public TransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {

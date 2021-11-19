@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Component
 @Transactional
 @RequiredArgsConstructor
@@ -35,12 +33,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getById(int id){
+    public Product getById(int id) {
         return productDao.getById(id);
     }
 
     @Override
-    public String getMailSellerProduct(int id) {
-       return productDao.getMailSellerProduct(id);
+    public Product getMostExpensiveProduct() {
+        return productDao.getMostExpensiveProduct();
+    }
+
+    @Override
+    public Product getProductWithUser(int id) {
+        return productDao.getProductWithUser(id);
+    }
+
+    @Override
+    public Product getProductWithCategory(int id) {
+        return productDao.getProductWithCategory(id);
     }
 }

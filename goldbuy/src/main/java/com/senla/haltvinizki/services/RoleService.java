@@ -12,4 +12,7 @@ public interface RoleService {
     Role update(Role role);
 
     Role getById(int id);
+
+    Role getRoleWithUsers(int id);
+
 }

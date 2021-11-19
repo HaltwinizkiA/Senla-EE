@@ -8,30 +8,34 @@ import java.util.Date;
 
 @Entity
 @Table(name = "products")
+@NamedEntityGraph(name = "with-category", attributeNodes = @NamedAttributeNode("category"))
+@NamedEntityGraph(name = "with-user", attributeNodes = @NamedAttributeNode("user"))
+
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "userid")
+    private User user;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoryId")
+    private Category category;
+
     @Column(name = "name")
     private String name;
 
     @Column(name = "addedDate")
     private Date addedDate;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "userid")
-    private User user;
-
-    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "categoryId")
-    private Category category;
 
     @Column(name = "status")
     private String status;
 
     @Column(name = "price")
-    private double price;
+    private Double price;
 
 
     public Product() {
@@ -95,7 +99,7 @@ public class Product {
         this.status = status;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 

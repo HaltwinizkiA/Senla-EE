@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Component
 @Transactional
 @RequiredArgsConstructor
@@ -36,6 +34,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role getById(int id) {
         return roleDao.getById(id);
+    }
+
+    @Override
+    public Role getRoleWithUsers(int id) {
+        return roleDao.getRoleWithUsers(id);
     }
 }
 
