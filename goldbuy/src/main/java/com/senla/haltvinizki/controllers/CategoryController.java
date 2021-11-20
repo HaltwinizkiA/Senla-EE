@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.entity.category.Category;
 import com.senla.haltvinizki.services.CategoryService;
-import com.senla.haltvinizki.util.Logger;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,9 +24,8 @@ public class CategoryController {
         try {
             Category category = categoryService.create((Category) gsonMapper.createObj(jsonCategory, Category.class));
             return gsonMapper.createJson(category);
-
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
+
             return "category not created";
         }
     }
@@ -41,7 +40,6 @@ public class CategoryController {
             return gsonMapper.createJson(category);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "category not updated";
         }
     }
@@ -52,7 +50,6 @@ public class CategoryController {
             return gsonMapper.createJson(category);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "category not deleted";
         }
     }

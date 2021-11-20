@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.entity.credentials.Credentials;
 import com.senla.haltvinizki.services.CredentialsService;
-import com.senla.haltvinizki.util.Logger;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,7 +25,6 @@ public class CredentialsController {
             Credentials credentials = credentialsService.create((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
             return gsonMapper.createJson(credentials);
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "credentials not created";
         }
 
@@ -41,7 +40,6 @@ public class CredentialsController {
             return gsonMapper.createJson(credentials);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "credentials not update";
         }
     }
@@ -52,7 +50,6 @@ public class CredentialsController {
             return gsonMapper.createJson(credentials);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "credentials not deleted";
         }
     }

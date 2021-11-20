@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.entity.history.History;
 import com.senla.haltvinizki.services.HistoryService;
-import com.senla.haltvinizki.util.Logger;
 
 public class HistoryController {
     private HistoryService historyService;
@@ -17,7 +16,6 @@ public class HistoryController {
             history = historyService.create((History) gsonMapper.createObj(jsonHistory, History.class));
             return gsonMapper.createJson(history);
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "history not delete";
         }
     }
@@ -32,7 +30,6 @@ public class HistoryController {
             history = historyService.update((History) gsonMapper.createObj(jsonHistory, History.class));
             return gsonMapper.createJson(history);
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "history not update";
         }
     }
@@ -44,7 +41,6 @@ public class HistoryController {
             return gsonMapper.createJson(history);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "history not delete";
         }
     }

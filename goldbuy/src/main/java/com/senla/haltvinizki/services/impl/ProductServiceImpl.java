@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Component
 @Transactional
 @RequiredArgsConstructor
@@ -50,5 +52,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductWithCategory(int id) {
         return productDao.getProductWithCategory(id);
+    }
+
+    @Override
+    public List<Product> getActiveProducts() {
+        return productDao.getActiveProducts();
     }
 }

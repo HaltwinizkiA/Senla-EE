@@ -2,6 +2,8 @@ package com.senla.haltvinizki.services;
 
 import com.senla.haltvinizki.entity.product.Product;
 
+import java.util.List;
+
 public interface ProductService {
     Product delete(Product product);
 
@@ -16,4 +18,7 @@ public interface ProductService {
     Product getProductWithUser(int id);
 
     Product getProductWithCategory(int id);
+
+    List<Product> getActiveProducts();
+
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.entity.productCofniguration.ProductConfiguration;
 import com.senla.haltvinizki.services.ProductConfigurationService;
-import com.senla.haltvinizki.util.Logger;
 
 public class ProductConfigurationController {
     private final ProductConfigurationService productConfigurationService;
@@ -21,7 +20,6 @@ public class ProductConfigurationController {
             return gsonMapper.createJson(productConfiguration);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "productConfiguration not create";
         }
 
@@ -37,7 +35,6 @@ public class ProductConfigurationController {
             return gsonMapper.createJson(productConfiguration);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "productConfiguration not update";
         }
     }
@@ -48,7 +45,6 @@ public class ProductConfigurationController {
             return gsonMapper.createJson(productConfiguration);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "productConfiguration not delete";
         }
     }

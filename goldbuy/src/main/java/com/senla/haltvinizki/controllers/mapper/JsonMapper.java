@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.senla.haltvinizki.util.Logger;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,7 +17,6 @@ public class JsonMapper {
     public Object createObj(String json, Class clazz) throws JsonProcessingException {
         return objectMapper.readValue(json, clazz);
 
-
     }
 
 
@@ -25,7 +24,6 @@ public class JsonMapper {
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "json not created";
         }
 
