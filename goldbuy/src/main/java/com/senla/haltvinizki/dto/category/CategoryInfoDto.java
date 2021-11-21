@@ -1,26 +1,18 @@
-package com.senla.haltvinizki.dto;
+package com.senla.haltvinizki.dto.category;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RoleDto {
+public class CategoryInfoDto {
+
     private int id;
     private String name;
-    private List<UserDto> users;
-
-    public List<UserDto> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserDto> users) {
-        this.users = users;
-    }
 
     public int getId() {
         return id;
@@ -37,4 +29,6 @@ public class RoleDto {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

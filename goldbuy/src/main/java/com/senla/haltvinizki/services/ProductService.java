@@ -1,24 +1,26 @@
 package com.senla.haltvinizki.services;
 
-import com.senla.haltvinizki.entity.product.Product;
+import com.senla.haltvinizki.dto.product.ProductInfoDto;
+import com.senla.haltvinizki.dto.product.ProductWithCategoryDto;
+import com.senla.haltvinizki.dto.product.ProductWithUserDto;
 
 import java.util.List;
 
 public interface ProductService {
-    Product delete(Product product);
+    ProductInfoDto delete(ProductInfoDto productDto);
 
-    Product create(Product product);
+    ProductInfoDto create(ProductInfoDto productDto);
 
-    Product update(Product product);
+    ProductInfoDto update(ProductInfoDto productDto);
 
-    Product getById(int id);
+    ProductInfoDto getById(int id);
 
-    Product getMostExpensiveProduct();
+    ProductInfoDto getMostExpensiveProduct();
 
-    Product getProductWithUser(int id);
+    ProductWithUserDto getProductWithUser(int id);
 
-    Product getProductWithCategory(int id);
+    ProductWithCategoryDto getProductWithCategory(int id);
 
-    List<Product> getActiveProducts();
+    List<ProductInfoDto> getActiveProducts();
 
 }

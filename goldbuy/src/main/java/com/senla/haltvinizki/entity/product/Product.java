@@ -23,6 +23,10 @@ public class Product {
     @Column(name = "id")
     private int id;
 
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "userid")
     private User user;

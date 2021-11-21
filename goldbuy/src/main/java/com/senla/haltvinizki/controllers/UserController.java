@@ -2,7 +2,7 @@ package com.senla.haltvinizki.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
-import com.senla.haltvinizki.entity.user.User;
+import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.services.UserService;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +21,7 @@ public class UserController {
 
     public String createUser(String jsonUser) {
         try {
-            User user = userService.create((User) gsonMapper.createObj(jsonUser, User.class));
+            UserInfoDto user = userService.create((UserInfoDto) gsonMapper.createObj(jsonUser, UserInfoDto.class));
             return gsonMapper.createJson(user);
         } catch (JsonProcessingException e) {
             return "user not created";
@@ -36,7 +36,7 @@ public class UserController {
 
     public String updateUser(String jsonUser) {
         try {
-            User user = userService.update((User) gsonMapper.createObj(jsonUser, User.class));
+            UserInfoDto user = userService.update((UserInfoDto) gsonMapper.createObj(jsonUser, UserInfoDto.class));
             return gsonMapper.createJson(user);
         } catch (JsonProcessingException e) {
             return "user not update";
@@ -47,7 +47,7 @@ public class UserController {
 
     public String deleteUser(String jsonUser) {
         try {
-            User user = userService.delete((User) gsonMapper.createObj(jsonUser, User.class));
+            UserInfoDto user = userService.delete((UserInfoDto) gsonMapper.createObj(jsonUser, UserInfoDto.class));
             return gsonMapper.createJson(user);
         } catch (JsonProcessingException e) {
             return "user not deleted";

@@ -1,19 +1,17 @@
 package com.senla.haltvinizki.services;
 
-import com.senla.haltvinizki.dto.CredentialsDto;
-import com.senla.haltvinizki.entity.credentials.Credentials;
-
-import java.util.List;
+import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
+import com.senla.haltvinizki.dto.credentials.CredentialsWithUserDto;
 
 public interface CredentialsService {
-    CredentialsDto delete(CredentialsDto credentialsDto);
+    CredentialsInfoDto delete(CredentialsInfoDto credentialsDto);
 
-    CredentialsDto create(CredentialsDto credentialsDto);
+    CredentialsInfoDto create(CredentialsInfoDto credentialsDto);
 
-    CredentialsDto update(CredentialsDto credentialsDto);
+    CredentialsInfoDto update(CredentialsInfoDto credentialsDto);
 
-    CredentialsDto getById(int id);
+    CredentialsInfoDto getById(int id);
 
-    CredentialsDto getCredentialsWithUser(int id);
+    CredentialsWithUserDto getCredentialsWithUser(int id);
 
 }

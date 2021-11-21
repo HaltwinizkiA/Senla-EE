@@ -1,43 +1,16 @@
-package com.senla.haltvinizki.dto;
+package com.senla.haltvinizki.dto.history;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class HistoryDto {
+public class HistoryInfoDto {
     private int id;
-    private ProductDto product;
-    private UserDto customer;
     private Double sellingPrice;
     private Date sellingDate;
-
-    public ProductDto getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductDto product) {
-        this.product = product;
-    }
-
-    public ProductDto getProductId() {
-        return product;
-    }
-
-    public void setProductId(ProductDto productId) {
-        this.product = productId;
-    }
-
-    public UserDto getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(UserDto customer) {
-        this.customer = customer;
-    }
 
     public int getId() {
         return id;

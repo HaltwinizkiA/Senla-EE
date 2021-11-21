@@ -1,16 +1,29 @@
 package com.senla.haltvinizki;
 
 
-import com.senla.haltvinizki.dto.CategoryDto;
-import com.senla.haltvinizki.dto.CredentialsDto;
-import com.senla.haltvinizki.entity.credentials.Credentials;
-import com.senla.haltvinizki.entity.history.History;
-import com.senla.haltvinizki.services.CategoryService;
-import com.senla.haltvinizki.services.CredentialsService;
-import com.senla.haltvinizki.services.HistoryService;
-import com.senla.haltvinizki.services.UserService;
+import com.senla.haltvinizki.dto.category.CategoryInfoDto;
+import com.senla.haltvinizki.dto.category.CategoryWithProductDto;
+import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
+import com.senla.haltvinizki.dto.credentials.CredentialsWithUserDto;
+import com.senla.haltvinizki.dto.history.HistoryInfoDto;
+import com.senla.haltvinizki.dto.history.HistoryWithCustomerDto;
+import com.senla.haltvinizki.dto.history.HistoryWithProductDto;
+import com.senla.haltvinizki.dto.product.ProductInfoDto;
+import com.senla.haltvinizki.dto.product.ProductWithCategoryDto;
+import com.senla.haltvinizki.dto.product.ProductWithUserDto;
+import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationInfoDto;
+import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationWithProductDto;
+import com.senla.haltvinizki.dto.role.RoleInfoDto;
+import com.senla.haltvinizki.dto.role.RoleWitUsersDto;
+import com.senla.haltvinizki.dto.user.UserInfoDto;
+import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
+import com.senla.haltvinizki.dto.user.UserWithProductsDto;
+import com.senla.haltvinizki.dto.user.UserWithRolesDto;
+import com.senla.haltvinizki.services.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
@@ -18,52 +31,48 @@ public class Application {
 
 //        Category category=new Category(12,"ddddddddd");
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext("com.senla.haltvinizki");
-
-
+//
+////
         CategoryService categoryService = applicationContext.getBean(CategoryService.class);
-        CategoryDto category = categoryService.getById(1);
-        CategoryDto category1=categoryService.getCategoryWithProduct(1);
+        CategoryInfoDto category = categoryService.getById(1);
+        CategoryWithProductDto category1=categoryService.getCategoryWithProduct(1);
+//
         HistoryService historyService=applicationContext.getBean(HistoryService.class);
-
-        History history=historyService.getById(1);
-        History history1=historyService.getHistoryWithCustomer(3);
-        History history2=historyService.getHistoryWithProduct(1);
+        HistoryInfoDto history=historyService.getById(1);
+        HistoryWithCustomerDto history1=historyService.getHistoryWithCustomer(3);
+        HistoryWithProductDto history2=historyService.getHistoryWithProduct(1);
 //
-
-        UserService userService = applicationContext.getBean(UserService.class);
-//        User user1 = userService.getUserWithLogin("user");
-//        List<User> userList=userService.getAllAdmin();
-//        User user2=userService.getUserWithCredentials(1);
-//        User user3=userService.getUserWithProducts(1);
-//        User user4=userService.getUserWithRole(1);
-//
-
-//        RoleService roleService = applicationContext.getBean(RoleService.class);
-//        Role role = roleService.getById(1);
-//        Role role1=roleService.getRoleWithUsers(1);
-//
-
-//        HistoryService historyService=applicationContext.getBean(HistoryService.class);
-//        History history=historyService.getById(1);
-//        History history1=historyService.getHistoryWithCustomer(3);
-//        History history2=historyService.getHistoryWithProduct(1);
-//
-
-//        ProductService productService = applicationContext.getBean(ProductService.class);
-//        List<Product> products=productService.getActiveProducts();
-//        Product product = productService.getById(1);
-//        Product product1=productService.getProductWithCategory(1);
-//        Product product2=productService.getProductWithUser(1);
-//
-
-//        ProductConfigurationService productConfigurationService = applicationContext.getBean(ProductConfigurationService.class);
-//        ProductConfiguration productConfiguration = productConfigurationService.getById(1);
-//        ProductConfiguration productConfiguration1=productConfigurationService.getProductConfigWithProduct(2);
-//
-
         CredentialsService credentialsService = applicationContext.getBean(CredentialsService.class);
-        CredentialsDto credentials1=credentialsService.getCredentialsWithUser(1);
-        CredentialsDto credentials = credentialsService.getById(1);
+
+        CredentialsInfoDto credentials = credentialsService.getById(1);
+        CredentialsWithUserDto credentials1=credentialsService.getCredentialsWithUser(1);
+////
+//
+        UserService userService = applicationContext.getBean(UserService.class);
+        UserInfoDto user1 = userService.getUserWithLogin("user");
+        List<UserInfoDto> userList=userService.getAllAdmin();
+        UserWithCredentialsDto user2=userService.getUserWithCredentials(1);
+        UserWithProductsDto user3=userService.getUserWithProducts(1);
+        UserWithRolesDto user4=userService.getUserWithRole(1);
+//
+
+        RoleService roleService = applicationContext.getBean(RoleService.class);
+//        RoleInfoDto role = roleService.getById(1);
+//        RoleWitUsersDto role1=roleService.getRoleWithUsers(1);
+////
+        ProductService productService = applicationContext.getBean(ProductService.class);
+        ProductInfoDto product = productService.getById(1);
+        List<ProductInfoDto> products=productService.getActiveProducts();
+        ProductWithCategoryDto product1=productService.getProductWithCategory(1);
+        ProductWithUserDto product2=productService.getProductWithUser(1);
+////
+//
+//        ProductConfigurationService productConfigurationService = applicationContext.getBean(ProductConfigurationService.class);
+//        ProductConfigurationInfoDto productConfiguration = productConfigurationService.getById(1);
+//        ProductConfigurationWithProductDto productConfiguration1=productConfigurationService.getProductConfigWithProduct(1);
+//
+
+
 
 //
 

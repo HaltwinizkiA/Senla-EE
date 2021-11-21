@@ -1,19 +1,19 @@
 package com.senla.haltvinizki.services;
 
-import com.senla.haltvinizki.entity.history.History;
-
-import java.util.List;
+import com.senla.haltvinizki.dto.history.HistoryInfoDto;
+import com.senla.haltvinizki.dto.history.HistoryWithCustomerDto;
+import com.senla.haltvinizki.dto.history.HistoryWithProductDto;
 
 public interface HistoryService {
-    History delete(History history);
+    HistoryInfoDto delete(HistoryInfoDto historyDto);
 
-    History create(History history);
+    HistoryInfoDto create(HistoryInfoDto historyDto);
 
-    History update(History history);
+    HistoryInfoDto update(HistoryInfoDto historyDto);
 
-    History getById(int id);
+    HistoryInfoDto getById(int id);
 
-    History getHistoryWithProduct(int id);
+    HistoryWithProductDto getHistoryWithProduct(int id);
 
-    History getHistoryWithCustomer(int id);
+    HistoryWithCustomerDto getHistoryWithCustomer(int id);
 }

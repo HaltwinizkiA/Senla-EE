@@ -2,7 +2,7 @@ package com.senla.haltvinizki.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
-import com.senla.haltvinizki.entity.productCofniguration.ProductConfiguration;
+import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationInfoDto;
 import com.senla.haltvinizki.services.ProductConfigurationService;
 
 public class ProductConfigurationController {
@@ -16,8 +16,8 @@ public class ProductConfigurationController {
 
     public String createProductConfiguration(String jsonProductConfiguration) {
         try {
-            ProductConfiguration productConfiguration = productConfigurationService.create((ProductConfiguration) gsonMapper.createObj(jsonProductConfiguration, ProductConfiguration.class));
-            return gsonMapper.createJson(productConfiguration);
+            ProductConfigurationInfoDto productConfigurationDto = productConfigurationService.create((ProductConfigurationInfoDto) gsonMapper.createObj(jsonProductConfiguration, ProductConfigurationInfoDto.class));
+            return gsonMapper.createJson(productConfigurationDto);
 
         } catch (JsonProcessingException e) {
             return "productConfiguration not create";
@@ -31,8 +31,8 @@ public class ProductConfigurationController {
 
     public String updateProductConfiguration(String jsonProductConfiguration) {
         try {
-            ProductConfiguration productConfiguration = productConfigurationService.update((ProductConfiguration) gsonMapper.createObj(jsonProductConfiguration, ProductConfiguration.class));
-            return gsonMapper.createJson(productConfiguration);
+            ProductConfigurationInfoDto productConfigurationDto = productConfigurationService.update((ProductConfigurationInfoDto) gsonMapper.createObj(jsonProductConfiguration, ProductConfigurationInfoDto.class));
+            return gsonMapper.createJson(productConfigurationDto);
 
         } catch (JsonProcessingException e) {
             return "productConfiguration not update";
@@ -41,8 +41,8 @@ public class ProductConfigurationController {
 
     public String deleteProductConfiguration(String jsonProductConfiguration) {
         try {
-            ProductConfiguration productConfiguration = productConfigurationService.delete((ProductConfiguration) gsonMapper.createObj(jsonProductConfiguration, ProductConfiguration.class));
-            return gsonMapper.createJson(productConfiguration);
+            ProductConfigurationInfoDto productConfigurationDto = productConfigurationService.delete((ProductConfigurationInfoDto) gsonMapper.createObj(jsonProductConfiguration, ProductConfigurationInfoDto.class));
+            return gsonMapper.createJson(productConfigurationDto);
 
         } catch (JsonProcessingException e) {
             return "productConfiguration not delete";

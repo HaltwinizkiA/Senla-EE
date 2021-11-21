@@ -3,7 +3,7 @@ package com.senla.haltvinizki.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
-import com.senla.haltvinizki.entity.role.Role;
+import com.senla.haltvinizki.dto.role.RoleInfoDto;
 import com.senla.haltvinizki.services.RoleService;
 
 public class RoleController {
@@ -17,11 +17,10 @@ public class RoleController {
     }
 
     public String createRole(String jsonProduct) {
-        Role role = null;
         try {
-            role = roleService.create((Role) gsonMapper.createObj(jsonProduct, Role.class));
+         RoleInfoDto roleDto = roleService.create((RoleInfoDto) gsonMapper.createObj(jsonProduct, RoleInfoDto.class));
 
-            return gsonMapper.createJson(role);
+            return gsonMapper.createJson(roleDto);
         } catch (JsonProcessingException e) {
             return "role not created";
 
@@ -35,7 +34,7 @@ public class RoleController {
 
     public String updateRole(String jsonProduct) {
         try {
-            Role role = roleService.update((Role) gsonMapper.createObj(jsonProduct, Role.class));
+            RoleInfoDto role = roleService.update((RoleInfoDto) gsonMapper.createObj(jsonProduct, RoleInfoDto.class));
             return gsonMapper.createJson(role);
         } catch (JsonProcessingException e) {
             return "role not update";
@@ -45,7 +44,7 @@ public class RoleController {
 
     public String deleteRole(String jsonProduct) {
         try {
-            Role role = roleService.delete((Role) gsonMapper.createObj(jsonProduct, Role.class));
+            RoleInfoDto role = roleService.delete((RoleInfoDto) gsonMapper.createObj(jsonProduct, RoleInfoDto.class));
             return gsonMapper.createJson(role);
         } catch (JsonProcessingException e) {
             return "role not deleted";

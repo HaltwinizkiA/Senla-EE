@@ -1,54 +1,56 @@
 package com.senla.haltvinizki.services.impl;
 
 import com.senla.haltvinizki.dao.CategoryDao;
-import com.senla.haltvinizki.dto.CategoryDto;
+import com.senla.haltvinizki.dto.category.CategoryInfoDto;
+import com.senla.haltvinizki.dto.category.CategoryWithProductDto;
 import com.senla.haltvinizki.entity.category.Category;
 import com.senla.haltvinizki.services.CategoryService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Component
 @Transactional
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-
+    @Autowired
     private final CategoryDao categoryDao;
+    @Autowired
+    private ModelMapper mapper;
 
-    public CategoryServiceImpl(CategoryDao categoryDao) {
-        this.categoryDao = categoryDao;
 
+    @Override
+    public CategoryInfoDto delete(CategoryInfoDto categoryDto) {
+        Category category = mapper.map(categoryDto, Category.class);
+        return mapper.map(categoryDao.delete(category), CategoryInfoDto.class);
     }
 
     @Override
-    public CategoryDto delete(CategoryDto categoryDto) {
-        Category category = Category.builder().name(categoryDto.getName()).build();
-        return CategoryDto.builder().name(categoryDao.delete(category).getName()).build();
-    }
-
-    @Override
-    public CategoryDto create(CategoryDto categoryDto) {
-        Category category = Category.builder().name(categoryDto.getName()).build();
-        return CategoryDto.builder().name(categoryDao.create(category).getName()).build();
+    public CategoryInfoDto create(CategoryInfoDto categoryDto) {
+        Category category = mapper.map(categoryDto, Category.class);
+        return mapper.map(categoryDao.create(category), CategoryInfoDto.class);
     }
 
 
     @Override
-    public CategoryDto update(CategoryDto categoryDto) {
-        Category category = Category.builder().name(categoryDto.getName()).build();
-        return CategoryDto.builder().name(categoryDao.update(category).getName()).build();
+    public CategoryInfoDto update(CategoryInfoDto categoryDto) {
+        Category category = mapper.map(categoryDto, Category.class);
+        return mapper.map(categoryDao.update(category), CategoryInfoDto.class);
     }
 
     @Override
-    public CategoryDto getById(int id) {
+    public CategoryInfoDto getById(int id) {
         Category category = categoryDao.getById(id);
-        return CategoryDto.builder().name(category.getName()).build();
+        return mapper.map(category, CategoryInfoDto.class);
     }
 
-
     @Override
-    public CategoryDto getCategoryWithProduct(int id) {
+    public CategoryWithProductDto getCategoryWithProduct(int id) {
         Category category = categoryDao.getCategoryWithProduct(id);
-        return CategoryDto.builder().name(category.getName()).build();
-
+        CategoryWithProductDto categoryWithProductDto = mapper.map(category, CategoryWithProductDto.class);
+        return categoryWithProductDto;
     }
 }

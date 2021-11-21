@@ -3,8 +3,7 @@ package com.senla.haltvinizki.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
-import com.senla.haltvinizki.dto.CredentialsDto;
-import com.senla.haltvinizki.entity.credentials.Credentials;
+import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
 import com.senla.haltvinizki.services.CredentialsService;
 
 import org.springframework.stereotype.Component;
@@ -23,8 +22,8 @@ public class CredentialsController {
 
     public String createCredentials(String jsonCredentials) {
         try {
-            CredentialsDto credentials = credentialsService.create((CredentialsDto) gsonMapper.createObj(jsonCredentials, Credentials.class));
-            return gsonMapper.createJson(credentials);
+            CredentialsInfoDto credentialsDto = credentialsService.create((CredentialsInfoDto) gsonMapper.createObj(jsonCredentials, CredentialsInfoDto.class));
+            return gsonMapper.createJson(credentialsDto);
         } catch (JsonProcessingException e) {
             return "credentials not created";
         }
@@ -37,9 +36,8 @@ public class CredentialsController {
 
     public String updateCredentials(String jsonCredentials) {
         try {
-            CredentialsDto credentials = credentialsService.update((CredentialsDto) gsonMapper.createObj(jsonCredentials, Credentials.class));
-            return gsonMapper.createJson(credentials);
-
+            CredentialsInfoDto credentialsDto = credentialsService.update((CredentialsInfoDto) gsonMapper.createObj(jsonCredentials, CredentialsInfoDto.class));
+            return gsonMapper.createJson(credentialsDto);
         } catch (JsonProcessingException e) {
             return "credentials not update";
         }
@@ -47,9 +45,8 @@ public class CredentialsController {
 
     public String deleteCredentials(String jsonCredentials) {
         try {
-            CredentialsDto credentials = credentialsService.delete((CredentialsDto) gsonMapper.createObj(jsonCredentials, Credentials.class));
-            return gsonMapper.createJson(credentials);
-
+            CredentialsInfoDto credentialsDto = credentialsService.delete((CredentialsInfoDto) gsonMapper.createObj(jsonCredentials, CredentialsInfoDto.class));
+            return gsonMapper.createJson(credentialsDto);
         } catch (JsonProcessingException e) {
             return "credentials not deleted";
         }

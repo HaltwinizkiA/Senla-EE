@@ -1,16 +1,15 @@
-package com.senla.haltvinizki.dto;
+package com.senla.haltvinizki.dto.productConfiguration;
 
+import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ProductConfigurationDto {
+public class ProductConfigurationInfoDto {
     private int id;
     private float maxPrice;
-    private ProductDto product;
     private float minPrice;
     private float priceStep;
     private int frequency;
@@ -29,14 +28,6 @@ public class ProductConfigurationDto {
 
     public void setMaxPrice(float maxPrice) {
         this.maxPrice = maxPrice;
-    }
-
-    public ProductDto getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductDto product) {
-        this.product = product;
     }
 
     public float getMinPrice() {

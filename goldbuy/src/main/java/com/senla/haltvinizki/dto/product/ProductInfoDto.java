@@ -1,43 +1,18 @@
-package com.senla.haltvinizki.dto;
+package com.senla.haltvinizki.dto.product;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ProductDto {
+public class ProductInfoDto {
     private int id;
-
-    private UserDto user;
-
-    private CategoryDto category;
-
     private String name;
-
     private Date addedDate;
-
     private String status;
-
     private Double price;
-
-    public UserDto getUser() {
-        return user;
-    }
-
-    public void setUser(UserDto user) {
-        this.user = user;
-    }
-
-    public CategoryDto getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryDto category) {
-        this.category = category;
-    }
 
     public int getId() {
         return id;
@@ -73,6 +48,10 @@ public class ProductDto {
 
     public Double getPrice() {
         return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public void setPrice(double price) {

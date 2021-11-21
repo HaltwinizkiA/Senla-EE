@@ -1,46 +1,17 @@
-package com.senla.haltvinizki.dto;
+package com.senla.haltvinizki.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDto {
+public class UserInfoDto {
     private int id;
-    private CredentialsDto credentials;
-    private List<RoleDto> roles;
-    private List<ProductDto> products;
     private String name;
     private String phoneNumber;
     private String mail;
-
-
-    public List<RoleDto> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<RoleDto> roles) {
-        this.roles = roles;
-    }
-
-    public List<ProductDto> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<ProductDto> products) {
-        this.products = products;
-    }
-
-    public CredentialsDto getCredentials() {
-        return credentials;
-    }
-
-    public void setCredentials(CredentialsDto credentials) {
-        this.credentials = credentials;
-    }
 
     public int getId() {
         return id;

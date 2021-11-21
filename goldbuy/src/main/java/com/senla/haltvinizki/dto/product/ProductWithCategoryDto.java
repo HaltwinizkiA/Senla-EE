@@ -1,0 +1,28 @@
+package com.senla.haltvinizki.dto.product;
+
+import com.senla.haltvinizki.dto.category.CategoryInfoDto;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductWithCategoryDto {
+    private ProductInfoDto product;
+    private CategoryInfoDto category;
+
+    public ProductInfoDto getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductInfoDto product) {
+        this.product = product;
+    }
+
+    public CategoryInfoDto getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryInfoDto category) {
+        this.category = category;
+    }
+}

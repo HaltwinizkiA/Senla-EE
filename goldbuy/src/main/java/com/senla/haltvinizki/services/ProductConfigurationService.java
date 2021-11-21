@@ -1,15 +1,16 @@
 package com.senla.haltvinizki.services;
 
-import com.senla.haltvinizki.entity.productCofniguration.ProductConfiguration;
+import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationInfoDto;
+import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationWithProductDto;
 
 public interface ProductConfigurationService {
-    ProductConfiguration delete(ProductConfiguration productConfiguration);
+    ProductConfigurationInfoDto delete(ProductConfigurationInfoDto productConfigurationDto);
 
-    ProductConfiguration create(ProductConfiguration productConfiguration);
+    ProductConfigurationInfoDto create(ProductConfigurationInfoDto productConfigurationDto);
 
-    ProductConfiguration update(ProductConfiguration productConfiguration);
+    ProductConfigurationInfoDto update(ProductConfigurationInfoDto productConfigurationDto);
 
-    ProductConfiguration getById(int id);
+    ProductConfigurationInfoDto getById(int id);
 
-    ProductConfiguration getProductConfigWithProduct(int id);
+    ProductConfigurationWithProductDto getProductConfigWithProduct(int id);
 }

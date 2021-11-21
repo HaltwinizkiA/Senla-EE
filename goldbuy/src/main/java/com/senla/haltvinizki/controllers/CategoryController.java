@@ -3,8 +3,8 @@ package com.senla.haltvinizki.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
-import com.senla.haltvinizki.dto.CategoryDto;
-import com.senla.haltvinizki.entity.category.Category;
+import com.senla.haltvinizki.dto.category.CategoryInfoDto;
+
 import com.senla.haltvinizki.services.CategoryService;
 
 import org.springframework.stereotype.Component;
@@ -23,8 +23,8 @@ public class CategoryController {
 
     public String createCategory(String jsonCategory) {
         try {
-            CategoryDto category = categoryService.create((CategoryDto) gsonMapper.createObj(jsonCategory, Category.class));
-            return gsonMapper.createJson(category);
+            CategoryInfoDto categoryDto = categoryService.create((CategoryInfoDto) gsonMapper.createObj(jsonCategory, CategoryInfoDto.class));
+            return gsonMapper.createJson(categoryDto);
         } catch (JsonProcessingException e) {
 
             return "category not created";
@@ -37,8 +37,8 @@ public class CategoryController {
 
     public String updateCategory(String jsonCategory) {
         try {
-            CategoryDto category = categoryService.update((CategoryDto) gsonMapper.createObj(jsonCategory, Category.class));
-            return gsonMapper.createJson(category);
+            CategoryInfoDto categoryDto = categoryService.update((CategoryInfoDto) gsonMapper.createObj(jsonCategory, CategoryInfoDto.class));
+            return gsonMapper.createJson(categoryDto);
 
         } catch (JsonProcessingException e) {
             return "category not updated";
@@ -47,8 +47,8 @@ public class CategoryController {
 
     public String deleteCategory(String jsonCategory) {
         try {
-            CategoryDto category = categoryService.delete((CategoryDto) gsonMapper.createObj(jsonCategory, Category.class));
-            return gsonMapper.createJson(category);
+            CategoryInfoDto categoryDto = categoryService.delete((CategoryInfoDto) gsonMapper.createObj(jsonCategory, CategoryInfoDto.class));
+            return gsonMapper.createJson(categoryDto);
 
         } catch (JsonProcessingException e) {
             return "category not deleted";

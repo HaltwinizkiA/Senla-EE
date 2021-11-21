@@ -64,9 +64,8 @@ public class History {
         this.id = id;
     }
 
-    public double getSellingPrice() {
+    public Double getSellingPrice() {
         return sellingPrice;
-
     }
 
     public void setSellingPrice(Double sellingPrice) {

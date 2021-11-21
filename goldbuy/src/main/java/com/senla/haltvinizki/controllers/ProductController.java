@@ -3,7 +3,7 @@ package com.senla.haltvinizki.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
-import com.senla.haltvinizki.entity.product.Product;
+import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import com.senla.haltvinizki.services.ProductService;
 
 public class ProductController {
@@ -18,8 +18,8 @@ public class ProductController {
 
     public String createProduct(String jsonProduct) {
         try {
-            Product product = productService.create((Product) gsonMapper.createObj(jsonProduct, Product.class));
-            return gsonMapper.createJson(product);
+            ProductInfoDto productDto = productService.create((ProductInfoDto) gsonMapper.createObj(jsonProduct, ProductInfoDto.class));
+            return gsonMapper.createJson(productDto);
         } catch (JsonProcessingException e) {
             return "product not create";
 
@@ -32,8 +32,8 @@ public class ProductController {
 
     public String updateProduct(String jsonProduct) {
         try {
-            Product product = productService.update((Product) gsonMapper.createObj(jsonProduct, Product.class));
-            return gsonMapper.createJson(product);
+            ProductInfoDto productDto = productService.update((ProductInfoDto) gsonMapper.createObj(jsonProduct, ProductInfoDto.class));
+            return gsonMapper.createJson(productDto);
         } catch (JsonProcessingException e) {
             return "product not update";
 
@@ -42,8 +42,8 @@ public class ProductController {
 
     public String deleteProduct(String jsonProduct) {
         try {
-            Product product = productService.delete((Product) gsonMapper.createObj(jsonProduct, Product.class));
-            return gsonMapper.createJson(product);
+            ProductInfoDto productDto = productService.delete((ProductInfoDto) gsonMapper.createObj(jsonProduct, ProductInfoDto.class));
+            return gsonMapper.createJson(productDto);
         } catch (JsonProcessingException e) {
             return "product not delete";
 

@@ -1,18 +1,17 @@
 package com.senla.haltvinizki.services;
 
-import com.senla.haltvinizki.entity.role.Role;
-
-import java.util.List;
+import com.senla.haltvinizki.dto.role.RoleInfoDto;
+import com.senla.haltvinizki.dto.role.RoleWitUsersDto;
 
 public interface RoleService {
-    Role delete(Role role);
+    RoleInfoDto delete(RoleInfoDto roleDto);
 
-    Role create(Role role);
+    RoleInfoDto create(RoleInfoDto roleDto);
 
-    Role update(Role role);
+    RoleInfoDto update(RoleInfoDto roleDto);
 
-    Role getById(int id);
+    RoleInfoDto getById(int id);
 
-    Role getRoleWithUsers(int id);
+    RoleWitUsersDto getRoleWithUsers(int id);
 
 }

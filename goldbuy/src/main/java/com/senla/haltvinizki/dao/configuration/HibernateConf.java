@@ -2,6 +2,7 @@ package com.senla.haltvinizki.dao.configuration;
 
 import lombok.SneakyThrows;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
