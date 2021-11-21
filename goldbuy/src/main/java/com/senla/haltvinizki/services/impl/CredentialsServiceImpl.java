@@ -2,6 +2,9 @@ package com.senla.haltvinizki.services.impl;
 
 
 import com.senla.haltvinizki.dao.CredentialsDao;
+import com.senla.haltvinizki.dto.CategoryDto;
+import com.senla.haltvinizki.dto.CredentialsDto;
+import com.senla.haltvinizki.entity.category.Category;
 import com.senla.haltvinizki.entity.credentials.Credentials;
 import com.senla.haltvinizki.services.CredentialsService;
 import lombok.RequiredArgsConstructor;
@@ -18,27 +21,32 @@ public class CredentialsServiceImpl implements CredentialsService {
     private final CredentialsDao credentialsDao;
 
     @Override
-    public Credentials delete(Credentials credentials) {
-        return credentialsDao.delete(credentials);
+    public CredentialsDto delete(CredentialsDto credentialsDto) {
+        Credentials credentials = Credentials.builder().id(credentialsDto.getId()).build();
+        return CredentialsDto.builder().id(credentialsDao.delete(credentials).getId()).build();
     }
 
     @Override
-    public Credentials create(Credentials credentials) {
-        return credentialsDao.create(credentials);
+    public CredentialsDto create(CredentialsDto credentialsDto) {
+        Credentials credentials = Credentials.builder().id(credentialsDto.getId()).build();
+        return CredentialsDto.builder().id(credentialsDao.create(credentials).getId()).build();
     }
 
     @Override
-    public Credentials update(Credentials credentials) {
-        return credentialsDao.update(credentials);
+    public CredentialsDto update(CredentialsDto credentialsDto) {
+        Credentials credentials = Credentials.builder().id(credentialsDto.getId()).build();
+        return CredentialsDto.builder().id(credentialsDao.update(credentials).getId()).build();
     }
 
     @Override
-    public Credentials getById(int id) {
-        return credentialsDao.getById(id);
+    public CredentialsDto getById(int id) {
+        Credentials credentials=credentialsDao.getById(id);
+        return CredentialsDto.builder().id(credentials.getId()).build();
     }
 
     @Override
-    public Credentials getCredentialsWithUser(int id) {
-        return credentialsDao.getCredentialsWithUser(id);
+    public CredentialsDto getCredentialsWithUser(int id) {
+        Credentials credentials=credentialsDao.getCredentialsWithUser(id);
+        return CredentialsDto.builder().id(credentials.getId()).build();
     }
 }

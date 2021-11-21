@@ -1,15 +1,22 @@
 package com.senla.haltvinizki.entity.user;
 
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.credentials.Credentials;
 import com.senla.haltvinizki.entity.product.Product;
 import com.senla.haltvinizki.entity.role.Role;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-@NamedEntityGraph(name = "user-credentials", attributeNodes = @NamedAttributeNode("credentials"))
+@NamedEntityGraph(name = GraphConfiguration.USER_CREDENTIALS, attributeNodes = @NamedAttributeNode("credentials"))
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,20 +38,6 @@ public class User {
     private String phoneNumber;
     @Column(name = "mail")
     private String mail;
-
-
-    public User(int id, Credentials credentials, List<Role> roles, String name, String phoneNumber, String mail, List<Product> products) {
-        this.id = id;
-        this.credentials = credentials;
-        this.roles = roles;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.mail = mail;
-        this.products = products;
-    }
-
-    public User() {
-    }
 
     public List<Role> getRoles() {
         return roles;

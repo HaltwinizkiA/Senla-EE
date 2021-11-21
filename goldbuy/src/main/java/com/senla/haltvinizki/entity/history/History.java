@@ -1,14 +1,21 @@
 package com.senla.haltvinizki.entity.history;
 
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.product.Product;
 import com.senla.haltvinizki.entity.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "history")
-@NamedEntityGraph(name = "history-product", attributeNodes = @NamedAttributeNode("product"))
+@NamedEntityGraph(name = GraphConfiguration.HISTORY_PRODUCT, attributeNodes = @NamedAttributeNode("product"))
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,17 +31,6 @@ public class History {
     private Double sellingPrice;
     @Column(name = "sellingDate")
     private Date sellingDate;
-
-    public History(Double sellingPrice, Date sellingDate, Product product, User customer, int id) {
-        this.sellingPrice = sellingPrice;
-        this.sellingDate = sellingDate;
-        this.product = product;
-        this.customer = customer;
-        this.id = id;
-    }
-
-    public History() {
-    }
 
     public Product getProduct() {
         return product;

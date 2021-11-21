@@ -1,9 +1,11 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.UserDao;
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.user.User;
 import com.senla.haltvinizki.entity.user.User_;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
@@ -16,10 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
+@Repository
 public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public UserDaoImpl() {
         super(User.class);
@@ -27,9 +27,9 @@ public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
 
     @Override
     public User getUserWithCredentials(int id) {
-        EntityGraph userGraph = entityManager.getEntityGraph("user-credentials");
+        EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.USER_CREDENTIALS);
         Map hints = new HashMap();
-        hints.put("javax.persistence.fetchgraph", userGraph);
+        hints.put(graphPersistence, userGraph);
         return entityManager.find(User.class, id, hints);
     }
 

@@ -3,6 +3,7 @@ package com.senla.haltvinizki.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
+import com.senla.haltvinizki.dto.CredentialsDto;
 import com.senla.haltvinizki.entity.credentials.Credentials;
 import com.senla.haltvinizki.services.CredentialsService;
 
@@ -22,7 +23,7 @@ public class CredentialsController {
 
     public String createCredentials(String jsonCredentials) {
         try {
-            Credentials credentials = credentialsService.create((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
+            CredentialsDto credentials = credentialsService.create((CredentialsDto) gsonMapper.createObj(jsonCredentials, Credentials.class));
             return gsonMapper.createJson(credentials);
         } catch (JsonProcessingException e) {
             return "credentials not created";
@@ -36,7 +37,7 @@ public class CredentialsController {
 
     public String updateCredentials(String jsonCredentials) {
         try {
-            Credentials credentials = credentialsService.update((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
+            CredentialsDto credentials = credentialsService.update((CredentialsDto) gsonMapper.createObj(jsonCredentials, Credentials.class));
             return gsonMapper.createJson(credentials);
 
         } catch (JsonProcessingException e) {
@@ -46,7 +47,7 @@ public class CredentialsController {
 
     public String deleteCredentials(String jsonCredentials) {
         try {
-            Credentials credentials = credentialsService.delete((Credentials) gsonMapper.createObj(jsonCredentials, Credentials.class));
+            CredentialsDto credentials = credentialsService.delete((CredentialsDto) gsonMapper.createObj(jsonCredentials, Credentials.class));
             return gsonMapper.createJson(credentials);
 
         } catch (JsonProcessingException e) {

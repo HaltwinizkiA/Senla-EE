@@ -1,36 +1,19 @@
-package com.senla.haltvinizki.entity.productCofniguration;
+package com.senla.haltvinizki.dto;
 
-import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
-import com.senla.haltvinizki.entity.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "productConfig")
-@NamedEntityGraph(name = GraphConfiguration.PRODUCTCONFIG_PRODUCT, attributeNodes = @NamedAttributeNode("product"))
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductConfiguration {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+public class ProductConfigurationDto {
     private int id;
-    @Column(name = "maxPrice")
     private float maxPrice;
-    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "productId")
-    private Product product;
-    @Column(name = "minPrice")
+    private ProductDto product;
     private float minPrice;
-    @Column(name = "priceStep")
     private float priceStep;
-    @Column(name = "frequency")
     private int frequency;
-
 
     public int getId() {
         return id;
@@ -48,11 +31,11 @@ public class ProductConfiguration {
         this.maxPrice = maxPrice;
     }
 
-    public Product getProduct() {
+    public ProductDto getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductDto product) {
         this.product = product;
     }
 
@@ -79,6 +62,4 @@ public class ProductConfiguration {
     public void setFrequency(int frequency) {
         this.frequency = frequency;
     }
-
-
 }

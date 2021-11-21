@@ -1,16 +1,22 @@
 package com.senla.haltvinizki.entity.product;
 
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.category.Category;
 import com.senla.haltvinizki.entity.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "products")
-@NamedEntityGraph(name = "with-category", attributeNodes = @NamedAttributeNode("category"))
-@NamedEntityGraph(name = "with-user", attributeNodes = @NamedAttributeNode("user"))
-
+@NamedEntityGraph(name = GraphConfiguration.PRODUCT_CATEGORY, attributeNodes = @NamedAttributeNode("category"))
+@NamedEntityGraph(name = GraphConfiguration.PRODUCT_USER, attributeNodes = @NamedAttributeNode("user"))
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,20 +42,6 @@ public class Product {
 
     @Column(name = "price")
     private Double price;
-
-
-    public Product() {
-    }
-
-    public Product(int id, String name, Date addedDate, User user, Category category, String status, double price) {
-        this.id = id;
-        this.name = name;
-        this.addedDate = addedDate;
-        this.user = user;
-        this.category = category;
-        this.status = status;
-        this.price = price;
-    }
 
     public User getUser() {
         return user;

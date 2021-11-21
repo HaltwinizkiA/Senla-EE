@@ -1,12 +1,19 @@
 package com.senla.haltvinizki.entity.credentials;
 
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "credentials")
-@NamedEntityGraph(name = "credentials-user", attributeNodes = @NamedAttributeNode("user"))
+@NamedEntityGraph(name = GraphConfiguration.CREDENTIALS_USER, attributeNodes = @NamedAttributeNode("user"))
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Credentials {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,16 +25,6 @@ public class Credentials {
     private String login;
     @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "credentials")
     private User user;
-
-    public Credentials(int id, String password, String login, User user) {
-        this.id = id;
-        this.password = password;
-        this.login = login;
-        this.user = user;
-    }
-
-    public Credentials() {
-    }
 
     public User getUser() {
         return user;

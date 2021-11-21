@@ -1,20 +1,16 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.HistoryDao;
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.history.History;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Repository
 public class HistoryDaoImpl extends AbstractDao<History, Integer> implements HistoryDao {
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public HistoryDaoImpl() {
         super(History.class);
@@ -23,9 +19,9 @@ public class HistoryDaoImpl extends AbstractDao<History, Integer> implements His
     @Override
     public History getHistoryWithProduct(int id) {
 
-        EntityGraph userGraph=entityManager.getEntityGraph("history-product");
+        EntityGraph userGraph=entityManager.getEntityGraph(GraphConfiguration.HISTORY_PRODUCT);
         Map hints=new HashMap();
-        hints.put("javax.persistence.fetchgraph",userGraph);
+        hints.put(graphPersistence,userGraph);
         return entityManager.find(History.class,id,hints);
     }
 

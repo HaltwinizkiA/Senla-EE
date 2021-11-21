@@ -1,9 +1,11 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.ProductDao;
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.product.Product;
 import com.senla.haltvinizki.entity.product.Product_;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
@@ -15,11 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
+@Repository
 public class ProductDaoImpl extends AbstractDao<Product, Integer> implements ProductDao {
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public ProductDaoImpl() {
         super(Product.class);
@@ -42,17 +41,17 @@ public class ProductDaoImpl extends AbstractDao<Product, Integer> implements Pro
 
     @Override
     public Product getProductWithUser(int id) {
-        EntityGraph userGraph = entityManager.getEntityGraph("with-user");
+        EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.PRODUCT_USER);
         Map hints = new HashMap();
-        hints.put("javax.persistence.fetchgraph", userGraph);
+        hints.put(graphPersistence, userGraph);
         return entityManager.find(Product.class, id, hints);
     }
 
     @Override
     public Product getProductWithCategory(int id) {
-        EntityGraph userGraph = entityManager.getEntityGraph("with-category");
+        EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.PRODUCT_CATEGORY);
         Map hints = new HashMap();
-        hints.put("javax.persistence.fetchgraph", userGraph);
+        hints.put(graphPersistence, userGraph);
         return entityManager.find(Product.class, id, hints);
     }
 }

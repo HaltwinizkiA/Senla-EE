@@ -1,16 +1,17 @@
 package com.senla.haltvinizki.services;
 
+import com.senla.haltvinizki.dto.CategoryDto;
 import com.senla.haltvinizki.entity.category.Category;
 
 public interface CategoryService {
-    Category delete(Category categoryDao);
+    CategoryDto delete(CategoryDto categoryDao);
 
-    Category create(Category categoryDao);
+    CategoryDto create(CategoryDto categoryDao);
 
-    Category update(Category categoryDao);
+    CategoryDto update(CategoryDto categoryDao);
 
-    Category getById(int id);
+    CategoryDto getById(int id);
 
-    Category getCategoryWithProduct(int id);
+    CategoryDto getCategoryWithProduct(int id);
 
 }

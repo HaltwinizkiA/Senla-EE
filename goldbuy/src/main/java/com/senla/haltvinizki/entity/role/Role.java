@@ -1,14 +1,21 @@
 package com.senla.haltvinizki.entity.role;
 
 
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "roles")
-@NamedEntityGraph(name = "role-users", attributeNodes = @NamedAttributeNode("users"))
+@NamedEntityGraph(name = GraphConfiguration.ROLE_USERS, attributeNodes = @NamedAttributeNode("users"))
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,15 +25,6 @@ public class Role {
     private String name;
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
-
-    public Role() {
-    }
-
-    public Role(int id, String name, List<User> userList) {
-        this.id = id;
-        this.name = name;
-        this.users = userList;
-    }
 
     public List<User> getUsers() {
         return users;
