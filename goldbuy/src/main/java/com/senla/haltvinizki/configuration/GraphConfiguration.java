@@ -1,4 +1,4 @@
-package com.senla.haltvinizki.dao.configuration;
+package com.senla.haltvinizki.configuration;
 
 public class GraphConfiguration {
     public static final String CATEGORY_PRODUCTS ="category-product";

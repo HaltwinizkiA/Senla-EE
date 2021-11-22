@@ -3,7 +3,7 @@ package com.senla.haltvinizki.services.impl;
 import com.senla.haltvinizki.dao.CategoryDao;
 import com.senla.haltvinizki.dto.category.CategoryInfoDto;
 import com.senla.haltvinizki.dto.category.CategoryWithProductDto;
-import com.senla.haltvinizki.entity.category.Category;
+import com.senla.haltvinizki.entity.Category;
 import com.senla.haltvinizki.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    @Autowired
     private final CategoryDao categoryDao;
     @Autowired
     private ModelMapper mapper;
@@ -50,7 +49,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryWithProductDto getCategoryWithProduct(int id) {
         Category category = categoryDao.getCategoryWithProduct(id);
-        CategoryWithProductDto categoryWithProductDto = mapper.map(category, CategoryWithProductDto.class);
-        return categoryWithProductDto;
+        return mapper.map(category, CategoryWithProductDto.class);
     }
 }

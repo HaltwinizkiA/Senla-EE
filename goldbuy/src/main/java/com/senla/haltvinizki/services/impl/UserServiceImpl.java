@@ -2,12 +2,11 @@ package com.senla.haltvinizki.services.impl;
 
 
 import com.senla.haltvinizki.dao.UserDao;
-import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
 import com.senla.haltvinizki.dto.user.UserWithProductsDto;
 import com.senla.haltvinizki.dto.user.UserWithRolesDto;
-import com.senla.haltvinizki.entity.user.User;
+import com.senla.haltvinizki.entity.User;
 import com.senla.haltvinizki.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Autowired
     private final UserDao userDao;
     @Autowired
     private ModelMapper mapper;
@@ -80,10 +78,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserInfoDto> getAllAdmin() {
         List<User> users = userDao.getAllAdmin();
-        List<UserInfoDto> usersInfoDto = users.stream().
+        return users.stream().
                 map(user -> mapper.map(user, UserInfoDto.class))
                 .collect(Collectors.toList());
-        return usersInfoDto;
 
     }
 }

@@ -1,6 +1,6 @@
 package com.senla.haltvinizki.dao;
 
-import com.senla.haltvinizki.entity.history.History;
+import com.senla.haltvinizki.entity.History;
 
 
 public interface HistoryDao extends GenericDao<History, Integer> {

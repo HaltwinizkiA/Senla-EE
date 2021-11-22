@@ -1,7 +1,7 @@
 package com.senla.haltvinizki.services;
 
-import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationInfoDto;
-import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationWithProductDto;
+import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoDto;
+import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationWithProductDto;
 
 public interface ProductConfigurationService {
     ProductConfigurationInfoDto delete(ProductConfigurationInfoDto productConfigurationDto);

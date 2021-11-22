@@ -1,6 +1,6 @@
 package com.senla.haltvinizki.dao;
 
-import com.senla.haltvinizki.entity.product.Product;
+import com.senla.haltvinizki.entity.Product;
 
 import java.util.List;
 

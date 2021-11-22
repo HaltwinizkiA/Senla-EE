@@ -4,7 +4,7 @@ package com.senla.haltvinizki.services.impl;
 import com.senla.haltvinizki.dao.CredentialsDao;
 import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
 import com.senla.haltvinizki.dto.credentials.CredentialsWithUserDto;
-import com.senla.haltvinizki.entity.credentials.Credentials;
+import com.senla.haltvinizki.entity.Credentials;
 import com.senla.haltvinizki.services.CredentialsService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CredentialsServiceImpl implements CredentialsService {
 
-    @Autowired
     private final CredentialsDao credentialsDao;
     @Autowired
     private ModelMapper mapper;
@@ -49,7 +48,6 @@ public class CredentialsServiceImpl implements CredentialsService {
     @Override
     public CredentialsWithUserDto getCredentialsWithUser(int id) {
         Credentials credentials = credentialsDao.getCredentialsWithUser(id);
-        CredentialsWithUserDto credentialsWithUserDto=mapper.map(credentials,CredentialsWithUserDto.class);
-        return credentialsWithUserDto;
+        return mapper.map(credentials,CredentialsWithUserDto.class);
     }
 }

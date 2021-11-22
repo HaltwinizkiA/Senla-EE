@@ -1,4 +1,4 @@
-package com.senla.haltvinizki.services.mapper;
+package com.senla.haltvinizki.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

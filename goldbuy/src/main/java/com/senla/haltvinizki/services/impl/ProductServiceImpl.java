@@ -5,7 +5,7 @@ import com.senla.haltvinizki.dao.ProductDao;
 import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import com.senla.haltvinizki.dto.product.ProductWithCategoryDto;
 import com.senla.haltvinizki.dto.product.ProductWithUserDto;
-import com.senla.haltvinizki.entity.product.Product;
+import com.senla.haltvinizki.entity.Product;
 import com.senla.haltvinizki.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private final ProductDao productDao;
     @Autowired
     private ModelMapper mapper;
@@ -60,23 +59,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductWithUserDto getProductWithUser(int id) {
         Product product = productDao.getProductWithUser(id);
-        ProductWithUserDto productWithUserDto = mapper.map(product, ProductWithUserDto.class);
-        return productWithUserDto;
+        return mapper.map(product, ProductWithUserDto.class);
     }
 
     @Override
     public ProductWithCategoryDto getProductWithCategory(int id) {
         Product product = productDao.getProductWithCategory(id);
-        ProductWithCategoryDto productWithCategoryDto = mapper.map(product, ProductWithCategoryDto.class);
-        return productWithCategoryDto;
+        return mapper.map(product, ProductWithCategoryDto.class);
     }
 
     @Override
     public List<ProductInfoDto> getActiveProducts() {
         List<Product> products = productDao.getActiveProducts();
-        List<ProductInfoDto> products1 = products.stream().
+        return products.stream().
                 map(product -> mapper.map(product, ProductInfoDto.class))
                 .collect(Collectors.toList());
-        return products1;
     }
 }

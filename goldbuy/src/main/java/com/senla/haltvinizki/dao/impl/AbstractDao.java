@@ -10,7 +10,7 @@ public class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
     @PersistenceContext
     protected EntityManager entityManager;
     protected Class<Entity> entityClass;
-    public static final String graphPersistence="javax.persistence.fetchgraph";
+    public static final String GRAPH_PERSISTENCE ="javax.persistence.fetchgraph";
 
     public AbstractDao(Class<Entity> entityClass) {
         this.entityClass = entityClass;

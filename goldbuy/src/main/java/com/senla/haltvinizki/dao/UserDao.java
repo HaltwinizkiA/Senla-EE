@@ -1,6 +1,6 @@
 package com.senla.haltvinizki.dao;
 
-import com.senla.haltvinizki.entity.user.User;
+import com.senla.haltvinizki.entity.User;
 
 import java.util.List;
 

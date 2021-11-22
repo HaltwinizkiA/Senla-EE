@@ -1,9 +1,9 @@
 package com.senla.haltvinizki.services.impl;
 
 import com.senla.haltvinizki.dao.impl.ProductConfigurationDaoImpl;
-import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationInfoDto;
-import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationWithProductDto;
-import com.senla.haltvinizki.entity.productCofniguration.ProductConfiguration;
+import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoDto;
+import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationWithProductDto;
+import com.senla.haltvinizki.entity.ProductConfiguration;
 import com.senla.haltvinizki.services.ProductConfigurationService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class ProductConfigurationServiceImpl implements ProductConfigurationService {
-    @Autowired
     private final ProductConfigurationDaoImpl productConfigurationDao;
     @Autowired
     private ModelMapper mapper;

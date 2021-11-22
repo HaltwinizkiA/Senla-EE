@@ -1,7 +1,6 @@
-package com.senla.haltvinizki.entity.credentials;
+package com.senla.haltvinizki.entity;
 
-import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
-import com.senla.haltvinizki.entity.user.User;
+import com.senla.haltvinizki.configuration.GraphConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

@@ -2,7 +2,6 @@ package com.senla.haltvinizki.dto.user;
 
 import com.senla.haltvinizki.dto.role.RoleInfoDto;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.List;

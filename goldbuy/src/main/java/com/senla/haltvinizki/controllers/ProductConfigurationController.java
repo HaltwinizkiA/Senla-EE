@@ -2,7 +2,7 @@ package com.senla.haltvinizki.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
-import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationInfoDto;
+import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoDto;
 import com.senla.haltvinizki.services.ProductConfigurationService;
 
 public class ProductConfigurationController {

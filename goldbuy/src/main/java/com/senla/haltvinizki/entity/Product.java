@@ -1,8 +1,6 @@
-package com.senla.haltvinizki.entity.product;
+package com.senla.haltvinizki.entity;
 
-import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
-import com.senla.haltvinizki.entity.category.Category;
-import com.senla.haltvinizki.entity.user.User;
+import com.senla.haltvinizki.configuration.GraphConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

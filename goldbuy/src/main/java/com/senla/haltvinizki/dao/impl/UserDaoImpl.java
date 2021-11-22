@@ -1,15 +1,12 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.UserDao;
-import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
-import com.senla.haltvinizki.entity.user.User;
-import com.senla.haltvinizki.entity.user.User_;
-import org.springframework.stereotype.Component;
+import com.senla.haltvinizki.configuration.GraphConfiguration;
+import com.senla.haltvinizki.entity.User;
+import com.senla.haltvinizki.entity.User_;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityGraph;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -29,7 +26,7 @@ public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
     public User getUserWithCredentials(int id) {
         EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.USER_CREDENTIALS);
         Map hints = new HashMap();
-        hints.put(graphPersistence, userGraph);
+        hints.put(GRAPH_PERSISTENCE, userGraph);
         return entityManager.find(User.class, id, hints);
     }
 

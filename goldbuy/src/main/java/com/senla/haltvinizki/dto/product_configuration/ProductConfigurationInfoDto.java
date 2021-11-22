@@ -1,8 +1,6 @@
-package com.senla.haltvinizki.dto.productConfiguration;
+package com.senla.haltvinizki.dto.product_configuration;
 
-import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

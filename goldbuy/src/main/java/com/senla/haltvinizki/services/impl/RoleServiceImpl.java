@@ -3,7 +3,7 @@ package com.senla.haltvinizki.services.impl;
 import com.senla.haltvinizki.dao.impl.RoleDaoImpl;
 import com.senla.haltvinizki.dto.role.RoleInfoDto;
 import com.senla.haltvinizki.dto.role.RoleWitUsersDto;
-import com.senla.haltvinizki.entity.role.Role;
+import com.senla.haltvinizki.entity.Role;
 import com.senla.haltvinizki.services.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired
     private final RoleDaoImpl roleDao;
     @Autowired
     private ModelMapper mapper;
