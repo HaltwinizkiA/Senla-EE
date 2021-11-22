@@ -3,7 +3,7 @@ CREATE TABLE history
 (
  id     	  serial PRIMARY KEY ,
  sellingPrice float ,
- sellenigDate date ,
+ sellingDate date ,
  productId    int NOT NULL ,
  customerId   int  ,
 CONSTRAINT fk_products

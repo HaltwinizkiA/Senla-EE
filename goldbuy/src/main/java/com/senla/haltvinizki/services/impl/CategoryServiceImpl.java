@@ -1,54 +1,56 @@
 package com.senla.haltvinizki.services.impl;
 
-import com.senla.haltvinizki.annotation.Transactional;
-import com.senla.haltvinizki.dao.impl.JDBCCategoryDaoImpl;
+import com.senla.haltvinizki.dao.CategoryDao;
+import com.senla.haltvinizki.dto.category.CategoryInfoDto;
+import com.senla.haltvinizki.dto.category.CategoryWithProductDto;
 import com.senla.haltvinizki.entity.category.Category;
 import com.senla.haltvinizki.services.CategoryService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
-@Transactional
 @Component
+@Transactional
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-
     @Autowired
-    private final JDBCCategoryDaoImpl categoryDao;
+    private final CategoryDao categoryDao;
+    @Autowired
+    private ModelMapper mapper;
 
-    public CategoryServiceImpl(JDBCCategoryDaoImpl categoryDao) {
 
-        this.categoryDao = categoryDao;
+    @Override
+    public CategoryInfoDto delete(CategoryInfoDto categoryDto) {
+        Category category = mapper.map(categoryDto, Category.class);
+        return mapper.map(categoryDao.delete(category), CategoryInfoDto.class);
     }
 
     @Override
-    @Transactional
-    public Category delete(Category category) {
-        return categoryDao.delete(category);
+    public CategoryInfoDto create(CategoryInfoDto categoryDto) {
+        Category category = mapper.map(categoryDto, Category.class);
+        return mapper.map(categoryDao.create(category), CategoryInfoDto.class);
+    }
+
+
+    @Override
+    public CategoryInfoDto update(CategoryInfoDto categoryDto) {
+        Category category = mapper.map(categoryDto, Category.class);
+        return mapper.map(categoryDao.update(category), CategoryInfoDto.class);
     }
 
     @Override
-    @Transactional
-    public Category create(Category category) {
-        return categoryDao.create(category);
+    public CategoryInfoDto getById(int id) {
+        Category category = categoryDao.getById(id);
+        return mapper.map(category, CategoryInfoDto.class);
     }
 
     @Override
-    @Transactional
-    public void runtimeTest(Category category) {
-        categoryDao.create(category);
-        throw new RuntimeException();
-    }
-
-    @Override
-    @Transactional
-    public Category update(Category category) {
-        return categoryDao.update(category);
-    }
-
-    @Override
-    @Transactional
-    public List<Category> read() {
-        return categoryDao.read();
+    public CategoryWithProductDto getCategoryWithProduct(int id) {
+        Category category = categoryDao.getCategoryWithProduct(id);
+        CategoryWithProductDto categoryWithProductDto = mapper.map(category, CategoryWithProductDto.class);
+        return categoryWithProductDto;
     }
 }

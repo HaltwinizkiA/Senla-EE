@@ -1,14 +1,37 @@
 package com.senla.haltvinizki.entity.credentials;
 
-public class Credentials {
-    private int id;
-    private String password;
-    private String login;
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
+import com.senla.haltvinizki.entity.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-    public Credentials(int id, String password, String login) {
-        this.id = id;
-        this.password = password;
-        this.login = login;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "credentials")
+@NamedEntityGraph(name = GraphConfiguration.CREDENTIALS_USER, attributeNodes = @NamedAttributeNode("user"))
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Credentials {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "login")
+    private String login;
+    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "credentials")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {

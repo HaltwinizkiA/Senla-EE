@@ -1,14 +1,12 @@
 package com.senla.haltvinizki.dao;
 
 import com.senla.haltvinizki.entity.history.History;
-import java.util.List;
 
-public interface HistoryDao {
-    History delete(History history);
 
-    History create(History history);
+public interface HistoryDao extends GenericDao<History, Integer> {
+    History getHistoryWithProduct(int id);
 
-    History update(History history);
+    History getHistoryWithCustomer(int id);
 
-    List<History> read();
+
 }

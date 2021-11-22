@@ -1,48 +1,34 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.HistoryDao;
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.history.History;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.EntityGraph;
+import java.util.HashMap;
+import java.util.Map;
 
-@Component
-public class HistoryDaoImpl implements HistoryDao {
-    List<History> historyList;
+@Repository
+public class HistoryDaoImpl extends AbstractDao<History, Integer> implements HistoryDao {
 
     public HistoryDaoImpl() {
-        this.historyList = new ArrayList<>();
-        historyList.add(new History(6000, new Date(), 0, 1, 0));
-        historyList.add(new History(60, new Date(), 1, 1, 1));
+        super(History.class);
     }
 
     @Override
-    public History delete(History history) {
-        historyList.removeIf(soughtHistory -> soughtHistory.getId() == history.getId());
-        return history;
+    public History getHistoryWithProduct(int id) {
+
+        EntityGraph userGraph=entityManager.getEntityGraph(GraphConfiguration.HISTORY_PRODUCT);
+        Map hints=new HashMap();
+        hints.put(graphPersistence,userGraph);
+        return entityManager.find(History.class,id,hints);
     }
 
     @Override
-    public History create(History history) {
-        historyList.add(history);
-        return history;
-    }
+    public History getHistoryWithCustomer(int id) {
+        return entityManager.createQuery("select history from History history left join fetch history.customer where history.id= :id",History.class)
+                .setParameter("id",id).getSingleResult();
 
-    @Override
-    public History update(History history) {
-        for (History soughtHistory : historyList) {
-            if (soughtHistory.getId() == history.getId()) {
-                historyList.remove(soughtHistory);
-                historyList.add(history);
-            }
-        }
-        return history;
-    }
-
-    @Override
-    public List<History> read() {
-        return historyList;
     }
 }

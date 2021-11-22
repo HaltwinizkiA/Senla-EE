@@ -1,43 +1,82 @@
 package com.senla.haltvinizki.entity.productCofniguration;
 
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
+import com.senla.haltvinizki.entity.product.Product;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "productConfig")
+@NamedEntityGraph(name = GraphConfiguration.PRODUCTCONFIG_PRODUCT, attributeNodes = @NamedAttributeNode("product"))
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProductConfiguration {
-    private final int id;
-    private final float maxPrice;
-    private final int productId;
-    private final float minPrice;
-    private final float priceStep;
-    private final int frequency;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
+    @Column(name = "maxPrice")
+    private float maxPrice;
+    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "productId")
+    private Product product;
+    @Column(name = "minPrice")
+    private float minPrice;
+    @Column(name = "priceStep")
+    private float priceStep;
+    @Column(name = "frequency")
+    private int frequency;
+
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Float getMaxPrice() {
         return maxPrice;
     }
 
-    public int getProductId() {
-        return productId;
+    public void setMaxPrice(float maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
-    public Float getMinPrice() {
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public float getMinPrice() {
         return minPrice;
+    }
+
+    public void setMinPrice(float minPrice) {
+        this.minPrice = minPrice;
     }
 
     public Float getPriceStep() {
         return priceStep;
     }
 
+    public void setPriceStep(float priceStep) {
+        this.priceStep = priceStep;
+    }
+
     public int getFrequency() {
         return frequency;
     }
 
-    public ProductConfiguration(int id, float maxPrice, int productId, float minPrice, float priceStep, int frequency) {
-        this.id = id;
-        this.maxPrice = maxPrice;
-        this.productId = productId;
-        this.minPrice = minPrice;
-        this.priceStep = priceStep;
+    public void setFrequency(int frequency) {
         this.frequency = frequency;
     }
 

@@ -2,14 +2,8 @@ package com.senla.haltvinizki.dao;
 
 import com.senla.haltvinizki.entity.credentials.Credentials;
 
-import java.util.List;
+public interface CredentialsDao extends GenericDao<Credentials,Integer> {
 
-public interface CredentialsDao {
-   Credentials delete(Credentials credentialsDao);
+    Credentials getCredentialsWithUser(int id);
 
-   Credentials create(Credentials credentialsDao);
-
-   Credentials update(Credentials credentialsDao);
-
-    List<Credentials> read();
 }

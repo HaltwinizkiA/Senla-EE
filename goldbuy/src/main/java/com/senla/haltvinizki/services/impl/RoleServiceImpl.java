@@ -1,40 +1,54 @@
 package com.senla.haltvinizki.services.impl;
 
 import com.senla.haltvinizki.dao.impl.RoleDaoImpl;
+import com.senla.haltvinizki.dto.role.RoleInfoDto;
+import com.senla.haltvinizki.dto.role.RoleWitUsersDto;
 import com.senla.haltvinizki.entity.role.Role;
 import com.senla.haltvinizki.services.RoleService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
+@Transactional
+@RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
+
     @Autowired
     private final RoleDaoImpl roleDao;
+    @Autowired
+    private ModelMapper mapper;
 
-    public RoleServiceImpl(RoleDaoImpl roleDao) {
-        this.roleDao = roleDao;
+    @Override
+    public RoleInfoDto delete(RoleInfoDto roleDto) {
+        Role role = mapper.map(roleDto, Role.class);
+        return mapper.map(roleDao.delete(role), RoleInfoDto.class);
     }
 
     @Override
-    public Role delete(Role role) {
-        return roleDao.delete(role);
+    public RoleInfoDto create(RoleInfoDto roleDto) {
+        Role role = mapper.map(roleDto, Role.class);
+        return mapper.map(roleDao.create(role), RoleInfoDto.class);
     }
 
     @Override
-    public Role create(Role role) {
-        return roleDao.create(role);
+    public RoleInfoDto update(RoleInfoDto roleDto) {
+        Role role = mapper.map(roleDto, Role.class);
+        return mapper.map(roleDao.update(role), RoleInfoDto.class);
     }
 
     @Override
-    public Role update(Role role) {
-        return roleDao.update(role);
+    public RoleInfoDto getById(int id) {
+        Role role = roleDao.getById(id);
+        return mapper.map(role, RoleInfoDto.class);
     }
 
     @Override
-    public List<Role> read() {
-        return roleDao.read();
+    public RoleWitUsersDto getRoleWithUsers(int id) {
+        Role role = roleDao.getRoleWithUsers(id);
+        return mapper.map(role, RoleWitUsersDto.class);
     }
 }
 

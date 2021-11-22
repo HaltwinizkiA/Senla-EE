@@ -1,48 +1,29 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.ProductConfigurationDao;
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.productCofniguration.ProductConfiguration;
-
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.HashMap;
+import java.util.Map;
 
-@Component
-public class ProductConfigurationDaoImpl implements ProductConfigurationDao {
-    List<ProductConfiguration> productConfigurationList;
+@Repository
+public class ProductConfigurationDaoImpl extends AbstractDao<ProductConfiguration, Integer> implements ProductConfigurationDao {
 
     public ProductConfigurationDaoImpl() {
-        this.productConfigurationList = new ArrayList<>();
-        productConfigurationList.add(new ProductConfiguration(0, 0, 0, 5000, 100, 12));
-        productConfigurationList.add(new ProductConfiguration(0, 0, 1, 50, 10, 10));
+        super(ProductConfiguration.class);
     }
 
     @Override
-    public ProductConfiguration delete(ProductConfiguration productConfiguration) {
-        productConfigurationList.removeIf(soughtProductConfiguration -> soughtProductConfiguration.getId() == productConfiguration.getId());
-        return productConfiguration;
-
-    }
-
-    @Override
-    public ProductConfiguration create(ProductConfiguration productConfiguration) {
-        productConfigurationList.add(productConfiguration);
-        return productConfiguration;
-    }
-
-    @Override
-    public ProductConfiguration update(ProductConfiguration productConfiguration) {
-        for (ProductConfiguration soughtProductConfiguration : read()) {
-            if (soughtProductConfiguration.getId() == productConfiguration.getId()) {
-                soughtProductConfiguration = productConfiguration;
-            }
-        }
-        return productConfiguration;
-    }
-
-    @Override
-    public List<ProductConfiguration> read() {
-        return productConfigurationList;
+    public ProductConfiguration getProductConfigWithProduct(int id) {
+        EntityGraph userGraph=entityManager.getEntityGraph(GraphConfiguration.PRODUCTCONFIG_PRODUCT);
+        Map hints=new HashMap();
+        hints.put(graphPersistence,userGraph);
+        return entityManager.find(ProductConfiguration.class,id,hints);
     }
 }

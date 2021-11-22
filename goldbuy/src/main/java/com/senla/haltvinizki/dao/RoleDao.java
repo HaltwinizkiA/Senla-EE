@@ -1,16 +1,9 @@
 package com.senla.haltvinizki.dao;
 
 import com.senla.haltvinizki.entity.role.Role;
-import com.senla.haltvinizki.entity.user.User;
 
-import java.util.List;
+public interface RoleDao extends GenericDao<Role, Integer> {
 
-public interface RoleDao {
-    Role delete(Role role);
+    Role getRoleWithUsers(int id);
 
-    Role create(Role role);
-
-    Role update(Role role);
-
-    List<Role> read();
 }

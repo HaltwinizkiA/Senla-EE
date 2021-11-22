@@ -1,48 +1,30 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.CategoryDao;
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.category.Category;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityGraph;
+import java.util.HashMap;
+import java.util.Map;
 
 
-@Component
-public class CategoryDaoImpl implements CategoryDao {
-   private List<Category> categoryList;
+@Repository
+public class CategoryDaoImpl extends AbstractDao<Category, Integer> implements CategoryDao {
 
     public CategoryDaoImpl() {
-        this.categoryList = new ArrayList<>();
-        categoryList.add(new Category(0, "Car"));
-        categoryList.add(new Category(0, "Health"));
+        super(Category.class);
     }
 
     @Override
-    public Category delete(Category category) {
-        categoryList.removeIf(soughtCategory -> soughtCategory.getId() == category.getId());
-        return category;
+    public Category getCategoryWithProduct(int id) {
+        EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.CATEGORY_PRODUCTS);
+        Map hints = new HashMap();
+        hints.put(graphPersistence, userGraph);
+        return entityManager.find(Category.class, id, hints);
     }
 
-    @Override
-    public Category create(Category category) {
-        categoryList.add(category);
-        return category;
-    }
 
-    @Override
-    public Category update(Category category) {
-        for (Category soughtCategory : read()) {
-            if (soughtCategory.getId() == category.getId()) {
-                categoryList.remove(soughtCategory);
-                categoryList.add(category);
-            }
-        }
-        return category;
-    }
-
-    @Override
-    public List<Category> read() {
-        return categoryList;
-    }
 }
+

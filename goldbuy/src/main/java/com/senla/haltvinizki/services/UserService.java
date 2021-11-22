@@ -1,16 +1,31 @@
 package com.senla.haltvinizki.services;
 
-import com.senla.haltvinizki.entity.user.User;
+import com.senla.haltvinizki.dto.user.UserInfoDto;
+import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
+import com.senla.haltvinizki.dto.user.UserWithProductsDto;
+import com.senla.haltvinizki.dto.user.UserWithRolesDto;
 
 import java.util.List;
 
 public interface UserService {
 
-    User delete(User user);
+    UserInfoDto delete(UserInfoDto userDto);
 
-    User create(User user);
+    UserInfoDto create(UserInfoDto userDto);
 
-    User update(User user);
+    UserInfoDto update(UserInfoDto userDto);
 
-    List<User> read();
+    UserInfoDto getById(int id);
+
+    UserWithCredentialsDto getUserWithCredentials(int id);
+
+    UserWithProductsDto getUserWithProducts(int id);
+
+    UserWithRolesDto getUserWithRole(int id);
+
+    UserInfoDto getUserWithLogin(String login);
+
+    List<UserInfoDto> getAllAdmin();
+
+
 }

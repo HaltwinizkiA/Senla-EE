@@ -1,48 +1,30 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.RoleDao;
-
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.role.Role;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.HashMap;
+import java.util.Map;
 
-@Component
-public class RoleDaoImpl implements RoleDao {
-    List<Role> roleList;
+@Repository
+public class RoleDaoImpl extends AbstractDao<Role, Integer> implements RoleDao {
 
     public RoleDaoImpl() {
-        this.roleList = new ArrayList<>();
-        roleList.add(new Role(0,"Admin"));
-        roleList.add(new Role(0,"User"));
+        super(Role.class);
     }
 
-    @Override
-    public Role delete(Role role) {
-        roleList.removeIf(soughtRole -> soughtRole.getId() == role.getId());
-        return role;
-    }
 
     @Override
-    public Role create(Role role) {
-        roleList.add(role);
-        return role;
-    }
-
-    @Override
-    public Role update(Role role) {
-        for (Role soughtRole : read()) {
-            if (soughtRole.getId() == role.getId()) {
-               roleList.remove(soughtRole);
-               roleList.add(role);
-            }
-        }
-        return role;
-    }
-
-    @Override
-    public List<Role> read() {
-        return roleList;
+    public Role getRoleWithUsers(int id) {
+        EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.ROLE_USERS);
+        Map hints = new HashMap();
+        hints.put(graphPersistence, userGraph);
+        return entityManager.find(Role.class, id, hints);
     }
 }

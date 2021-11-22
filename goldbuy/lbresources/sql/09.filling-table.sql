@@ -27,3 +27,10 @@ insert into productConfig(maxprice,productId,minprice,priceStep,frequency) value
 insert into history(productId) values(1);
 insert into history(productId) values(2);
 insert into history(productId) values(3);
+
+insert into user_role(userId,roleId) values(1,1);
+insert into user_role(userId,roleId) values(1,2);
+insert into user_role(userId,roleId) values(1,3);
+insert into user_role(userId,roleId) values(2,2);
+insert into user_role(userId,roleId) values(2,3);
+insert into user_role(userId,roleId) values(3,3);

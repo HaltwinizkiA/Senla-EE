@@ -1,48 +1,57 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.ProductDao;
+import com.senla.haltvinizki.dao.configuration.GraphConfiguration;
 import com.senla.haltvinizki.entity.product.Product;
+import com.senla.haltvinizki.entity.product.Product_;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Date;
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Component
-public class ProductDaoImpl implements ProductDao {
-    List<Product> productList;
+@Repository
+public class ProductDaoImpl extends AbstractDao<Product, Integer> implements ProductDao {
 
     public ProductDaoImpl() {
-        this.productList = new ArrayList<>();
-        productList.add(new Product(0,"Toyota",new Date(),0,0,"active",6444));
-        productList.add(new Product(1,"Oral-B",new Date(),1,1,"active",345));
+        super(Product.class);
     }
 
     @Override
-    public Product delete(Product product) {
-        productList.removeIf(soughtProduct -> soughtProduct.getId() == product.getId());
-        return product;
+    public Product getMostExpensiveProduct() {
+        return entityManager.
+                createQuery("SELECT p from Product p where p.price=(select max(pr.price) from Product pr)",
+                        Product.class).getSingleResult();
     }
 
     @Override
-    public Product create(Product product) {
-        productList.add(product);
-        return product;
+    public List<Product> getActiveProducts() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = query.from(Product.class);
+        return entityManager.createQuery(query.select(root).where(criteriaBuilder.equal(root.get(Product_.status), "active"))).getResultList();
     }
 
     @Override
-    public Product update(Product product) {
-        for (Product soughtProduct : read()) {
-            if (soughtProduct.getId() == product.getId()) {
-                productList.remove(soughtProduct);
-                productList.add(product);
-            }
-        }
-        return product;
+    public Product getProductWithUser(int id) {
+        EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.PRODUCT_USER);
+        Map hints = new HashMap();
+        hints.put(graphPersistence, userGraph);
+        return entityManager.find(Product.class, id, hints);
     }
 
     @Override
-    public List<Product> read() {
-        return productList;
+    public Product getProductWithCategory(int id) {
+        EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.PRODUCT_CATEGORY);
+        Map hints = new HashMap();
+        hints.put(graphPersistence, userGraph);
+        return entityManager.find(Product.class, id, hints);
     }
 }

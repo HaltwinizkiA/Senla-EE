@@ -2,9 +2,8 @@ package com.senla.haltvinizki.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
-import com.senla.haltvinizki.entity.productCofniguration.ProductConfiguration;
+import com.senla.haltvinizki.dto.productConfiguration.ProductConfigurationInfoDto;
 import com.senla.haltvinizki.services.ProductConfigurationService;
-import com.senla.haltvinizki.util.Logger;
 
 public class ProductConfigurationController {
     private final ProductConfigurationService productConfigurationService;
@@ -17,38 +16,35 @@ public class ProductConfigurationController {
 
     public String createProductConfiguration(String jsonProductConfiguration) {
         try {
-            ProductConfiguration productConfiguration = productConfigurationService.create((ProductConfiguration) gsonMapper.createObj(jsonProductConfiguration, ProductConfiguration.class));
-            return gsonMapper.createJson(productConfiguration);
+            ProductConfigurationInfoDto productConfigurationDto = productConfigurationService.create((ProductConfigurationInfoDto) gsonMapper.createObj(jsonProductConfiguration, ProductConfigurationInfoDto.class));
+            return gsonMapper.createJson(productConfigurationDto);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "productConfiguration not create";
         }
 
     }
 
-    public String readProductConfiguration() {
-        return gsonMapper.createJson(productConfigurationService.read());
+    public String getById(int id) {
+        return gsonMapper.createJson(productConfigurationService.getById(id));
     }
 
     public String updateProductConfiguration(String jsonProductConfiguration) {
         try {
-            ProductConfiguration productConfiguration = productConfigurationService.update((ProductConfiguration) gsonMapper.createObj(jsonProductConfiguration, ProductConfiguration.class));
-            return gsonMapper.createJson(productConfiguration);
+            ProductConfigurationInfoDto productConfigurationDto = productConfigurationService.update((ProductConfigurationInfoDto) gsonMapper.createObj(jsonProductConfiguration, ProductConfigurationInfoDto.class));
+            return gsonMapper.createJson(productConfigurationDto);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "productConfiguration not update";
         }
     }
 
     public String deleteProductConfiguration(String jsonProductConfiguration) {
         try {
-            ProductConfiguration productConfiguration = productConfigurationService.delete((ProductConfiguration) gsonMapper.createObj(jsonProductConfiguration, ProductConfiguration.class));
-            return gsonMapper.createJson(productConfiguration);
+            ProductConfigurationInfoDto productConfigurationDto = productConfigurationService.delete((ProductConfigurationInfoDto) gsonMapper.createObj(jsonProductConfiguration, ProductConfigurationInfoDto.class));
+            return gsonMapper.createJson(productConfigurationDto);
 
         } catch (JsonProcessingException e) {
-            Logger.execute(this.getClass(), e);
             return "productConfiguration not delete";
         }
     }

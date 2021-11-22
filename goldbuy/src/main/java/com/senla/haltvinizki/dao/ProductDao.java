@@ -1,16 +1,15 @@
 package com.senla.haltvinizki.dao;
 
 import com.senla.haltvinizki.entity.product.Product;
-import com.senla.haltvinizki.entity.user.User;
 
 import java.util.List;
 
-public interface ProductDao {
-    Product delete(Product product);
+public interface ProductDao extends GenericDao<Product,Integer>{
+    Product getMostExpensiveProduct();
 
-    Product create(Product product);
+    List<Product> getActiveProducts();
 
-    Product update(Product product);
+    Product getProductWithUser(int id);
 
-    List<Product> read();
+    Product getProductWithCategory(int id);
 }
