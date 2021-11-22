@@ -22,8 +22,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleInfoDto delete(RoleInfoDto roleDto) {
-        Role role = mapper.map(roleDto, Role.class);
-        return mapper.map(roleDao.delete(role), RoleInfoDto.class);
+        return mapper.map(roleDao.delete(roleDto.getId()), RoleInfoDto.class);
     }
 
     @Override

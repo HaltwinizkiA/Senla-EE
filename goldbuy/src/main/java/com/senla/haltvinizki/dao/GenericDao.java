@@ -7,7 +7,7 @@ public interface GenericDao<Entity, Id> {
 
     Entity update(Entity entity);
 
-    Entity delete(Entity entity);
+    Entity delete(int id);
 
 
 }

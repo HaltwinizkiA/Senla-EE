@@ -2,7 +2,6 @@ package com.senla.haltvinizki.entity;
 
 import com.senla.haltvinizki.configuration.GraphConfiguration;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -14,36 +13,37 @@ import java.util.Date;
 @NamedEntityGraph(name = GraphConfiguration.PRODUCT_USER, attributeNodes = @NamedAttributeNode("user"))
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
     private User user;
-
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId")
     private Category category;
-
     @Column(name = "name")
     private String name;
-
     @Column(name = "addedDate")
     private Date addedDate;
-
     @Column(name = "status")
     private String status;
-
     @Column(name = "price")
     private Double price;
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private History history;
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private ProductConfiguration productConfiguration;
+
+    public History getHistory() {
+        return history;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
+    }
 
     public User getUser() {
         return user;
@@ -95,6 +95,10 @@ public class Product {
 
     public Double getPrice() {
         return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public void setPrice(double price) {

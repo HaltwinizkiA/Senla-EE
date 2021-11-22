@@ -24,8 +24,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public HistoryInfoDto delete(HistoryInfoDto historyDto) {
-        History history = mapper.map(historyDto, History.class);
-        return mapper.map(historyDao.delete(history), HistoryInfoDto.class);
+        return mapper.map(historyDao.delete(historyDto.getId()), HistoryInfoDto.class);
     }
 
 

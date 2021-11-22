@@ -19,15 +19,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "credentialsId")
     private Credentials credentials;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "userid")},
             inverseJoinColumns = {@JoinColumn(name = "roleid")})
     private List<Role> roles;
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;
     @Column(name = "name")
     private String name;
@@ -35,6 +35,16 @@ public class User {
     private String phoneNumber;
     @Column(name = "mail")
     private String mail;
+    @OneToMany(mappedBy = "customer")
+    private List<History> histories;
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
+    }
 
     public List<Role> getRoles() {
         return roles;

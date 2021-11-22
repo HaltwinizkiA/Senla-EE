@@ -22,8 +22,7 @@ public class ProductConfigurationServiceImpl implements ProductConfigurationServ
 
     @Override
     public ProductConfigurationInfoDto delete(ProductConfigurationInfoDto productConfigurationDto) {
-        ProductConfiguration history = mapper.map(productConfigurationDto, ProductConfiguration.class);
-        return mapper.map(productConfigurationDao.delete(history), ProductConfigurationInfoDto.class);
+        return mapper.map(productConfigurationDao.delete(productConfigurationDto.getId()), ProductConfigurationInfoDto.class);
     }
 
     @Override

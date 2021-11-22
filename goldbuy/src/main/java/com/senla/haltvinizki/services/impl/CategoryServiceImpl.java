@@ -23,8 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryInfoDto delete(CategoryInfoDto categoryDto) {
-        Category category = mapper.map(categoryDto, Category.class);
-        return mapper.map(categoryDao.delete(category), CategoryInfoDto.class);
+        return mapper.map(categoryDao.delete(categoryDto.getId()), CategoryInfoDto.class);
     }
 
     @Override

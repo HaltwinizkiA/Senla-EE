@@ -2,7 +2,6 @@ package com.senla.haltvinizki.entity;
 
 import com.senla.haltvinizki.configuration.GraphConfiguration;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,22 +12,29 @@ import java.util.Date;
 @NamedEntityGraph(name = GraphConfiguration.HISTORY_PRODUCT, attributeNodes = @NamedAttributeNode("product"))
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "productId")
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "productid")
     private Product product;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "customerId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerid")
     private User customer;
     @Column(name = "sellingPrice")
     private Double sellingPrice;
     @Column(name = "sellingDate")
     private Date sellingDate;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Product getProduct() {
         return product;
@@ -36,14 +42,6 @@ public class History {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public Product getProductId() {
-        return product;
-    }
-
-    public void setProductId(Product productId) {
-        this.product = productId;
     }
 
     public User getCustomer() {
@@ -54,23 +52,11 @@ public class History {
         this.customer = customer;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Double getSellingPrice() {
         return sellingPrice;
     }
 
     public void setSellingPrice(Double sellingPrice) {
-        this.sellingPrice = sellingPrice;
-    }
-
-    public void setSellingPrice(double sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
 

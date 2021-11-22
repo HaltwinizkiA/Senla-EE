@@ -1,10 +1,11 @@
 package com.senla.haltvinizki.dao.impl;
 
-import com.senla.haltvinizki.dao.UserDao;
 import com.senla.haltvinizki.configuration.GraphConfiguration;
+import com.senla.haltvinizki.dao.UserDao;
 import com.senla.haltvinizki.entity.User;
 import com.senla.haltvinizki.entity.User_;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityGraph;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@Transactional
 public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
 
     public UserDaoImpl() {

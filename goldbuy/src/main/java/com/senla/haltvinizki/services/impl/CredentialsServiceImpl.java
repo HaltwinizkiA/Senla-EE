@@ -23,8 +23,7 @@ public class CredentialsServiceImpl implements CredentialsService {
 
     @Override
     public CredentialsInfoDto delete(CredentialsInfoDto credentialsDto) {
-        Credentials credentials = mapper.map(credentialsDto, Credentials.class);
-        return mapper.map(credentialsDao.delete(credentials), CredentialsInfoDto.class);
+        return mapper.map(credentialsDao.delete(credentialsDto.getId()), CredentialsInfoDto.class);
     }
 
     @Override

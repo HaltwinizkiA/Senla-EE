@@ -4,6 +4,7 @@ import com.senla.haltvinizki.configuration.GraphConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 

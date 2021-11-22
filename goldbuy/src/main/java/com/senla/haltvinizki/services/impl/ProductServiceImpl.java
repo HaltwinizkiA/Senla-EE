@@ -27,8 +27,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductInfoDto delete(ProductInfoDto productDto) {
-        Product product = mapper.map(productDto, Product.class);
-        return mapper.map(productDao.delete(product), ProductInfoDto.class);
+        return mapper.map(productDao.delete(productDto.getId()), ProductInfoDto.class);
     }
 
     @Override

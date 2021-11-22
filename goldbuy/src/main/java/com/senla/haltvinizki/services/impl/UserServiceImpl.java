@@ -27,9 +27,9 @@ public class UserServiceImpl implements UserService {
     private ModelMapper mapper;
 
     @Override
+    @Transactional
     public UserInfoDto delete(UserInfoDto userDto) {
-        User user = mapper.map(userDto, User.class);
-        return mapper.map(userDao.delete(user), UserInfoDto.class);
+        return mapper.map(userDao.delete(userDto.getId()), UserInfoDto.class);
     }
 
     @Override

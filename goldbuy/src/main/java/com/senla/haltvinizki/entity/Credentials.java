@@ -22,7 +22,7 @@ public class Credentials {
     private String password;
     @Column(name = "login")
     private String login;
-    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "credentials")
+    @OneToOne(optional = false, fetch = FetchType.LAZY, mappedBy = "credentials")
     private User user;
 
     public User getUser() {

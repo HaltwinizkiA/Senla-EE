@@ -20,7 +20,7 @@ public class ProductConfiguration {
     private int id;
     @Column(name = "maxPrice")
     private float maxPrice;
-    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "productId")
     private Product product;
     @Column(name = "minPrice")
