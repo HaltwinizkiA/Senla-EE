@@ -16,8 +16,8 @@ import java.util.List;
 @NamedEntityGraph(name = GraphConfiguration.CATEGORY_PRODUCTS, attributeNodes = @NamedAttributeNode("products"))
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "id",insertable = false, updatable = false)
     private int id;
     @Column(name = "name")
     private String name;

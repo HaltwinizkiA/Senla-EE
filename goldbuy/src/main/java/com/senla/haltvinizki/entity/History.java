@@ -14,18 +14,18 @@ import java.util.Date;
 @AllArgsConstructor
 public class History {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private int id;
     @OneToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "productid")
+    @JoinColumn(name = "product_id")
     private Product product;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerid")
+    @JoinColumn(name = "customer_id")
     private User customer;
-    @Column(name = "sellingPrice")
+    @Column(name = "selling_price")
     private float sellingPrice;
-    @Column(name = "sellingDate")
+    @Column(name = "selling_date")
     private Date sellingDate;
 
     public int getId() {

@@ -52,7 +52,13 @@ public class Application {
 //        roleDao.create(role);
 //        System.out.println("123123");
         RoleService roleService=applicationContext.getBean(RoleService.class);
-        roleService.create(new RoleInfoDto());
+        RoleInfoDto role=new RoleInfoDto();
+        role.setName("sdfsdf");
+        roleService.create(role);
+//        CategoryService categoryDao=applicationContext.getBean(CategoryService.class);
+//        CategoryInfoDto category=new CategoryInfoDto() ;
+//        category.setName("Basd");
+//        categoryDao.create(category);
 
 //
 //////
@@ -83,9 +89,9 @@ public class Application {
 ////        RoleInfoDto role = roleService.getById(1);
 ////        RoleWitUsersDto role1=roleService.getRoleWithUsers(1);
 //////
-        ProductService productService = applicationContext.getBean(ProductService.class);
-        ProductInfoDto product = productService.getById(5);
-        productService.delete(product);
+//        ProductService productService = applicationContext.getBean(ProductService.class);
+//        ProductInfoDto product = productService.getById(5);
+//        productService.delete(product);
 //        List<ProductInfoDto> products=productService.getActiveProducts();
 //        ProductWithCategoryDto product1=productService.getProductWithCategory(1);
 //        ProductWithUserDto product2=productService.getProductWithUser(1);

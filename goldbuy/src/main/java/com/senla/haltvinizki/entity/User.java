@@ -16,11 +16,11 @@ import java.util.List;
 @Builder
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private int id;
     @OneToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "credentialsId")
+    @JoinColumn(name = "credentials_id")
     private Credentials credentials;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
@@ -31,7 +31,7 @@ public class User {
     private List<Product> products;
     @Column(name = "name")
     private String name;
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_umber")
     private String phoneNumber;
     @Column(name = "mail")
     private String mail;

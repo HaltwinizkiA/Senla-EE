@@ -15,18 +15,18 @@ import java.util.Date;
 @AllArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private int id;
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "category_id")
     private Category category;
     @Column(name = "name")
     private String name;
-    @Column(name = "addedDate")
+    @Column(name = "added_date")
     private Date addedDate;
     @Column(name = "status")
     private String status;

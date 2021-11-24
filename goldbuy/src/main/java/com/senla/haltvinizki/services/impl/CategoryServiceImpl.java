@@ -8,6 +8,7 @@ import com.senla.haltvinizki.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Modifying
+    @Transactional
     public CategoryInfoDto create(CategoryInfoDto categoryDto) {
         Category category = mapper.map(categoryDto, Category.class);
         return mapper.map(categoryDao.create(category), CategoryInfoDto.class);

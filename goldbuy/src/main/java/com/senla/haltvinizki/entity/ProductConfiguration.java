@@ -15,17 +15,17 @@ import javax.persistence.*;
 @Builder
 public class ProductConfiguration {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private int id;
-    @Column(name = "maxPrice")
+    @Column(name = "max_price")
     private float maxPrice;
     @OneToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId")
+    @JoinColumn(name = "product_id")
     private Product product;
-    @Column(name = "minPrice")
+    @Column(name = "min_Price")
     private float minPrice;
-    @Column(name = "priceStep")
+    @Column(name = "price_step")
     private float priceStep;
     @Column(name = "frequency")
     private int frequency;
