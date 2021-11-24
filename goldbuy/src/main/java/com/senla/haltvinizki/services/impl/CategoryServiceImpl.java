@@ -23,6 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
+    @Transactional
     public CategoryInfoDto delete(CategoryInfoDto categoryDto) {
         return mapper.map(categoryDao.delete(categoryDto.getId()), CategoryInfoDto.class);
     }
@@ -37,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
+    @Transactional
     public CategoryInfoDto update(CategoryInfoDto categoryDto) {
         Category category = mapper.map(categoryDto, Category.class);
         return mapper.map(categoryDao.update(category), CategoryInfoDto.class);
