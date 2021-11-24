@@ -28,7 +28,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleInfoDto create(RoleInfoDto roleDto) {
         Role role = mapper.map(roleDto, Role.class);
-        return mapper.map(roleDao.create(role), RoleInfoDto.class);
+        Role roles=new Role();
+        role.setName("TEST");
+        role.setId(1);
+        roleDao.create(roles);
+        return mapper.map(roleDao.create(roles), RoleInfoDto.class);
     }
 
     @Override

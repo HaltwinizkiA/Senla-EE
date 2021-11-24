@@ -27,7 +27,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "userid")},
             inverseJoinColumns = {@JoinColumn(name = "roleid")})
     private List<Role> roles;
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Product> products;
     @Column(name = "name")
     private String name;

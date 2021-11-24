@@ -1,6 +1,8 @@
 package com.senla.haltvinizki;
 
 
+import com.senla.haltvinizki.dao.CategoryDao;
+import com.senla.haltvinizki.dao.RoleDao;
 import com.senla.haltvinizki.dao.UserDao;
 import com.senla.haltvinizki.dto.category.CategoryInfoDto;
 import com.senla.haltvinizki.dto.category.CategoryWithProductDto;
@@ -13,17 +15,21 @@ import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import com.senla.haltvinizki.dto.product.ProductWithCategoryDto;
 import com.senla.haltvinizki.dto.product.ProductWithUserDto;
 import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoDto;
+import com.senla.haltvinizki.dto.role.RoleInfoDto;
 import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
 import com.senla.haltvinizki.dto.user.UserWithProductsDto;
 import com.senla.haltvinizki.dto.user.UserWithRolesDto;
+import com.senla.haltvinizki.entity.Category;
 import com.senla.haltvinizki.entity.Credentials;
+import com.senla.haltvinizki.entity.Role;
 import com.senla.haltvinizki.entity.User;
 import com.senla.haltvinizki.services.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.List;
+import java.net.Socket;
+
 
 public class Application {
     public static void main(String[] args) {
@@ -36,9 +42,17 @@ public class Application {
 ////        UserInfoDto userInfoDto=new UserInfoDto(3,"Petya","767544","petyag@gmail.com");
 //        UserInfoDto userInfoDto=userService.getById(3);
 //        userService.delete(userInfoDto);
-
-
-
+//        Category category=new Category();
+//        category.setName("wheels");
+//        CategoryDao categoryDao=applicationContext.getBean(CategoryDao.class);
+//        categoryDao.create(category);
+//        Role role=new Role();
+//        role.setName("TEST");
+//        RoleDao roleDao=applicationContext.getBean(RoleDao.class);
+//        roleDao.create(role);
+//        System.out.println("123123");
+        RoleService roleService=applicationContext.getBean(RoleService.class);
+        roleService.create(new RoleInfoDto());
 
 //
 //////
@@ -66,12 +80,11 @@ public class Application {
 //        UserWithRolesDto user4=userService.getUserWithRole(1);
 //
 
-//        RoleService roleService = applicationContext.getBean(RoleService.class);
 ////        RoleInfoDto role = roleService.getById(1);
 ////        RoleWitUsersDto role1=roleService.getRoleWithUsers(1);
 //////
         ProductService productService = applicationContext.getBean(ProductService.class);
-        ProductInfoDto product = productService.getById(9);
+        ProductInfoDto product = productService.getById(5);
         productService.delete(product);
 //        List<ProductInfoDto> products=productService.getActiveProducts();
 //        ProductWithCategoryDto product1=productService.getProductWithCategory(1);

@@ -1,6 +1,7 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.GenericDao;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,7 +12,6 @@ public class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
     @PersistenceContext
     protected EntityManager entityManager;
     protected Class<Entity> entityClass;
-
     public AbstractDao(Class<Entity> entityClass) {
         this.entityClass = entityClass;
     }

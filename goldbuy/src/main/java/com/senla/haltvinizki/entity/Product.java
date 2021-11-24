@@ -31,7 +31,7 @@ public class Product {
     @Column(name = "status")
     private String status;
     @Column(name = "price")
-    private Double price;
+    private float price;
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private History history;
     @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -93,15 +93,13 @@ public class Product {
         this.status = status;
     }
 
-    public Double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+
 }

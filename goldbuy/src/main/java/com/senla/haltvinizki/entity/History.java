@@ -24,7 +24,7 @@ public class History {
     @JoinColumn(name = "customerid")
     private User customer;
     @Column(name = "sellingPrice")
-    private Double sellingPrice;
+    private float sellingPrice;
     @Column(name = "sellingDate")
     private Date sellingDate;
 
@@ -52,11 +52,11 @@ public class History {
         this.customer = customer;
     }
 
-    public Double getSellingPrice() {
+    public float getSellingPrice() {
         return sellingPrice;
     }
 
-    public void setSellingPrice(Double sellingPrice) {
+    public void setSellingPrice(float sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
 
