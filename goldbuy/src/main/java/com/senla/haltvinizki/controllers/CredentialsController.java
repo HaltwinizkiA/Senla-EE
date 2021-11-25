@@ -6,21 +6,20 @@ import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
 import com.senla.haltvinizki.services.CredentialsService;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
 
 @Component
+@RestController
+@RequestMapping("/credentials")
+@RequiredArgsConstructor
 public class CredentialsController {
     private CredentialsService credentialsService;
     private JsonMapper gsonMapper;
-    public CredentialsController() {
-    }
 
-    public CredentialsController(CredentialsService credentialsService, JsonMapper gsonMapper) {
-        this.credentialsService = credentialsService;
-        this.gsonMapper = gsonMapper;
-    }
-
-    public String createCredentials(String jsonCredentials) {
+    @PostMapping
+    public String createCredentials(@RequestBody String jsonCredentials) {
         try {
             CredentialsInfoDto credentialsDto = credentialsService.create((CredentialsInfoDto) gsonMapper.createObj(jsonCredentials, CredentialsInfoDto.class));
             return gsonMapper.createJson(credentialsDto);
@@ -30,11 +29,13 @@ public class CredentialsController {
 
     }
 
-    public String getById(int id) {
+    @GetMapping(value = "/{id}")
+    public String getById(@PathVariable int id) {
         return gsonMapper.createJson(credentialsService.getById(id));
     }
 
-    public String updateCredentials(String jsonCredentials) {
+    @PutMapping
+    public String updateCredentials(@RequestBody String jsonCredentials) {
         try {
             CredentialsInfoDto credentialsDto = credentialsService.update((CredentialsInfoDto) gsonMapper.createObj(jsonCredentials, CredentialsInfoDto.class));
             return gsonMapper.createJson(credentialsDto);
@@ -43,7 +44,8 @@ public class CredentialsController {
         }
     }
 
-    public String deleteCredentials(String jsonCredentials) {
+    @DeleteMapping(value = "/{id}")
+    public String deleteCredentials(@RequestBody String jsonCredentials) {
         try {
             CredentialsInfoDto credentialsDto = credentialsService.delete((CredentialsInfoDto) gsonMapper.createObj(jsonCredentials, CredentialsInfoDto.class));
             return gsonMapper.createJson(credentialsDto);
