@@ -8,9 +8,13 @@ import com.senla.haltvinizki.services.CategoryService;
 import junit.framework.TestCase;
 import org.checkerframework.checker.units.qual.A;
 import org.checkerframework.checker.units.qual.C;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.event.annotation.BeforeTestExecution;
+import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,27 +28,35 @@ import java.util.List;
         classes = {HibernateConf.class},
         loader = AnnotationConfigContextLoader.class)
 @Transactional
+@DirtiesContext
 public class CategoryServiceImplTest extends TestCase {
 
     @Resource
     private CategoryService categoryService;
 
+    @Before
+    public void fillingTable(){
+        CategoryInfoDto categoryInfoDto1=new CategoryInfoDto();
+        categoryInfoDto1.setName("auto");
+        CategoryInfoDto categoryInfoDto2=new CategoryInfoDto();
+        categoryInfoDto2.setName("phone");
+        CategoryInfoDto categoryInfoDto3= new CategoryInfoDto();
+        categoryInfoDto3.setName("clothes");
+        categoryService.create(categoryInfoDto1);
+        categoryService.create(categoryInfoDto2);
+        categoryService.create(categoryInfoDto3);
+    }
     @Test
     public void createCategory() {
-        CategoryInfoDto category = new CategoryInfoDto();
-        category.setName("phone");
-        categoryService.create(category);
-        CategoryInfoDto category1 = categoryService.getById(1);
+        CategoryInfoDto category1 = categoryService.getById(2);
         assertEquals("phone", category1.getName());
     }
     @Test
     public void updateCategory(){
-        CategoryInfoDto category = new CategoryInfoDto();
-        category.setName("phone");
-        category=categoryService.create(category);
-        category.setName("car");
-        categoryService.update(category);
-        assertEquals("car",categoryService.getById(1).getName());
+        CategoryInfoDto categoryInfoDto=categoryService.getById(1);
+        categoryInfoDto.setName("airplane");
+        categoryService.update(categoryInfoDto);
+        assertEquals("airplane",categoryService.getById(1).getName());
 
     }
     @Test
@@ -58,7 +70,7 @@ public class CategoryServiceImplTest extends TestCase {
         List<ProductInfoDto> productInfoDtoList=new ArrayList<>();
         productInfoDtoList.add(productInfoDto);
         category.setProducts(productInfoDtoList);
-        categoryService.create(category);
+//        categoryService.create(category);
     }
     @Test
     public void deleteCategory(){

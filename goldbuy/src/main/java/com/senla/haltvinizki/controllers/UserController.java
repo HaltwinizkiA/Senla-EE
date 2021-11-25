@@ -5,9 +5,11 @@ import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.services.UserService;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Component
+@RequestMapping()
 public class UserController {
 
     private  UserService userService;
