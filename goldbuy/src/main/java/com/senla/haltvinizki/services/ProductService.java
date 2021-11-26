@@ -7,19 +7,19 @@ import com.senla.haltvinizki.dto.product.ProductWithUserDto;
 import java.util.List;
 
 public interface ProductService {
-    ProductInfoDto delete(ProductInfoDto productDto);
+    ProductInfoDto delete(Long id);
 
     ProductInfoDto create(ProductInfoDto productDto);
 
     ProductInfoDto update(ProductInfoDto productDto);
 
-    ProductInfoDto getById(int id);
+    ProductInfoDto getById(Long id);
 
     ProductInfoDto getMostExpensiveProduct();
 
-    ProductWithUserDto getProductWithUser(int id);
+    ProductWithUserDto getProductWithUser(Long id);
 
-    ProductWithCategoryDto getProductWithCategory(int id);
+    ProductWithCategoryDto getProductWithCategory(Long id);
 
     List<ProductInfoDto> getActiveProducts();
 

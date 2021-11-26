@@ -1,13 +1,13 @@
 package com.senla.haltvinizki.controllers;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.dto.role.RoleInfoDto;
 import com.senla.haltvinizki.services.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
 @Component
 @RestController
 @RequestMapping("/roles")
@@ -18,41 +18,23 @@ public class RoleController {
     private final JsonMapper gsonMapper;
 
     @PostMapping
-    public String createRole(String jsonProduct) {
-        try {
-            RoleInfoDto roleDto = roleService.create((RoleInfoDto) gsonMapper.createObj(jsonProduct, RoleInfoDto.class));
-
-            return gsonMapper.createJson(roleDto);
-        } catch (JsonProcessingException e) {
-            return "role not created";
-
-        }
+    public RoleInfoDto createRole(@RequestBody RoleInfoDto roleInfoDto) {
+        return roleService.create(roleInfoDto);
 
     }
 
     @GetMapping(value = "/{id}")
-    public String getById(int id) {
-        return gsonMapper.createJson(roleService.getById(id));
+    public RoleInfoDto getById(@PathVariable Long id) {
+        return roleService.getById(id);
     }
 
     @PutMapping
-    public String updateRole(String jsonProduct) {
-        try {
-            RoleInfoDto role = roleService.update((RoleInfoDto) gsonMapper.createObj(jsonProduct, RoleInfoDto.class));
-            return gsonMapper.createJson(role);
-        } catch (JsonProcessingException e) {
-            return "role not update";
-
-        }
+    public RoleInfoDto updateRole(@RequestBody RoleInfoDto roleInfoDto) {
+        return roleService.update(roleInfoDto);
     }
-    @DeleteMapping(value = "/{id}")
-    public String deleteRole(String jsonProduct) {
-        try {
-            RoleInfoDto role = roleService.delete((RoleInfoDto) gsonMapper.createObj(jsonProduct, RoleInfoDto.class));
-            return gsonMapper.createJson(role);
-        } catch (JsonProcessingException e) {
-            return "role not deleted";
 
-        }
+    @DeleteMapping(value = "/{id}")
+    public RoleInfoDto deleteRole(@PathVariable Long id) {
+        return roleService.delete(id);
     }
 }

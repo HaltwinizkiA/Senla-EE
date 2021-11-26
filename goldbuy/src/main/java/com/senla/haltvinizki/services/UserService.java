@@ -9,19 +9,19 @@ import java.util.List;
 
 public interface UserService {
 
-    UserInfoDto delete(UserInfoDto userDto);
+    UserInfoDto delete(Long id);
 
     UserInfoDto create(UserInfoDto userDto);
 
     UserInfoDto update(UserInfoDto userDto);
 
-    UserInfoDto getById(int id);
+    UserInfoDto getById(Long id);
 
-    UserWithCredentialsDto getUserWithCredentials(int id);
+    UserWithCredentialsDto getUserWithCredentials(Long id);
 
-    UserWithProductsDto getUserWithProducts(int id);
+    UserWithProductsDto getUserWithProducts(Long id);
 
-    UserWithRolesDto getUserWithRole(int id);
+    UserWithRolesDto getUserWithRole(Long id);
 
     UserInfoDto getUserWithLogin(String login);
 

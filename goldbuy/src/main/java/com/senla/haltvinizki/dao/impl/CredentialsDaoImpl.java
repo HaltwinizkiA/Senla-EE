@@ -10,14 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class CredentialsDaoImpl extends AbstractDao<Credentials, Integer> implements CredentialsDao {
+public class CredentialsDaoImpl extends AbstractDao<Credentials, Long> implements CredentialsDao {
 
     public CredentialsDaoImpl() {
         super(Credentials.class);
     }
 
     @Override
-    public Credentials getCredentialsWithUser(int id) {
+    public Credentials getCredentialsWithUser(Long id) {
         EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.CREDENTIALS_USER);
         Map hints = new HashMap();
         hints.put(GRAPH_PERSISTENCE, userGraph);

@@ -1,22 +1,24 @@
 package com.senla.haltvinizki.dto.history;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class HistoryInfoDto {
-    private int id;
+    private Long id;
     private Double sellingPrice;
     private Date sellingDate;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

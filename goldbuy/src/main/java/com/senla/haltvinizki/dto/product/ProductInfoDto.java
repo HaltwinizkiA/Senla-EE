@@ -1,24 +1,26 @@
 package com.senla.haltvinizki.dto.product;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ProductInfoDto {
-    private int id;
+    private Long id;
     private String name;
     private Date addedDate;
     private String status;
     private Double price;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

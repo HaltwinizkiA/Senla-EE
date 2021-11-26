@@ -1,8 +1,6 @@
 package com.senla.haltvinizki.controllers;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import com.senla.haltvinizki.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -15,43 +13,26 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     private final ProductService productService;
-    private final JsonMapper gsonMapper;
 
     @PostMapping
-    public String createProduct(String jsonProduct) {
-        try {
-            ProductInfoDto productDto = productService.create((ProductInfoDto) gsonMapper.createObj(jsonProduct, ProductInfoDto.class));
-            return gsonMapper.createJson(productDto);
-        } catch (JsonProcessingException e) {
-            return "product not create";
-
-        }
+    public ProductInfoDto createProduct(@RequestBody ProductInfoDto productInfoDto) {
+        return productService.create(productInfoDto);
     }
 
     @GetMapping(value = "/{id}")
-    public String getById(int id) {
-        return gsonMapper.createJson(productService.getById(id));
+    public ProductInfoDto getById(@PathVariable Long id) {
+        return productService.getById(id);
     }
 
     @PutMapping
-    public String updateProduct(String jsonProduct) {
-        try {
-            ProductInfoDto productDto = productService.update((ProductInfoDto) gsonMapper.createObj(jsonProduct, ProductInfoDto.class));
-            return gsonMapper.createJson(productDto);
-        } catch (JsonProcessingException e) {
-            return "product not update";
+    public ProductInfoDto updateProduct(@RequestBody ProductInfoDto productInfoDto) {
+        return productService.update(productInfoDto);
 
-        }
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteProduct(String jsonProduct) {
-        try {
-            ProductInfoDto productDto = productService.delete((ProductInfoDto) gsonMapper.createObj(jsonProduct, ProductInfoDto.class));
-            return gsonMapper.createJson(productDto);
-        } catch (JsonProcessingException e) {
-            return "product not delete";
+    public ProductInfoDto deleteProduct(@PathVariable Long id) {
+        return productService.delete(id);
 
-        }
     }
 }

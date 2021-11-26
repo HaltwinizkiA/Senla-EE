@@ -5,15 +5,15 @@ import com.senla.haltvinizki.dto.history.HistoryWithCustomerDto;
 import com.senla.haltvinizki.dto.history.HistoryWithProductDto;
 
 public interface HistoryService {
-    HistoryInfoDto delete(HistoryInfoDto historyDto);
+    HistoryInfoDto delete(Long id);
 
     HistoryInfoDto create(HistoryInfoDto historyDto);
 
     HistoryInfoDto update(HistoryInfoDto historyDto);
 
-    HistoryInfoDto getById(int id);
+    HistoryInfoDto getById(Long id);
 
-    HistoryWithProductDto getHistoryWithProduct(int id);
+    HistoryWithProductDto getHistoryWithProduct(Long id);
 
-    HistoryWithCustomerDto getHistoryWithCustomer(int id);
+    HistoryWithCustomerDto getHistoryWithCustomer(Long id);
 }

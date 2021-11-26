@@ -5,11 +5,11 @@ import com.senla.haltvinizki.entity.User;
 import java.util.List;
 
 public interface UserDao  extends GenericDao<User,Long> {
-    User getUserWithCredentials(int id);
+    User getUserWithCredentials(Long id);
 
-    User getUserWithProducts(int id);
+    User getUserWithProducts(Long id);
 
-    User getUserWithRole(int id);
+    User getUserWithRole(Long id);
 
     User getUserWithLogin(String login);
 

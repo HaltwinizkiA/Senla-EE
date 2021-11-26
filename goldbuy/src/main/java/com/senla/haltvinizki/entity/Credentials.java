@@ -16,8 +16,8 @@ import javax.persistence.*;
 public class Credentials {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "id",insertable = false, updatable = false)
+    private Long id;
     @Column(name = "password")
     private String password;
     @Column(name = "login")
@@ -33,11 +33,11 @@ public class Credentials {
         this.user = user;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

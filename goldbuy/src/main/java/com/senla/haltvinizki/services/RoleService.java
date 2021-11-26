@@ -4,14 +4,14 @@ import com.senla.haltvinizki.dto.role.RoleInfoDto;
 import com.senla.haltvinizki.dto.role.RoleWitUsersDto;
 
 public interface RoleService {
-    RoleInfoDto delete(RoleInfoDto roleDto);
+    RoleInfoDto delete(Long id);
 
     RoleInfoDto create(RoleInfoDto roleDto);
 
     RoleInfoDto update(RoleInfoDto roleDto);
 
-    RoleInfoDto getById(int id);
+    RoleInfoDto getById(Long id);
 
-    RoleWitUsersDto getRoleWithUsers(int id);
+    RoleWitUsersDto getRoleWithUsers(Long id);
 
 }

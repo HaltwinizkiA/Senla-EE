@@ -8,14 +8,12 @@ import com.senla.haltvinizki.dto.user.UserWithProductsDto;
 import com.senla.haltvinizki.dto.user.UserWithRolesDto;
 import com.senla.haltvinizki.entity.User;
 import com.senla.haltvinizki.services.UserService;
+import com.senla.haltvinizki.services.converter.UserConverter;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Component
@@ -23,64 +21,63 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
-    @Autowired
-    private ModelMapper mapper;
+    private final UserConverter userConverter;
 
     @Override
     @Transactional
-    public UserInfoDto delete(UserInfoDto userDto) {
-        return mapper.map(userDao.delete(userDto.getId()), UserInfoDto.class);
+    public UserInfoDto delete(Long id) {
+        return userConverter.convert(userDao.delete(id));
     }
 
     @Override
     public UserInfoDto create(UserInfoDto userDto) {
-        User user = mapper.map(userDto, User.class);
-        return mapper.map(userDao.create(user), UserInfoDto.class);
+        User user = userConverter.convert(userDto);
+        return userConverter.convert(userDao.create(user));
     }
 
     @Override
     public UserInfoDto update(UserInfoDto userDto) {
-        User user = mapper.map(userDto, User.class);
-        return mapper.map(userDao.update(user), UserInfoDto.class);
+        User user = userConverter.convert(userDto);
+        return userConverter.convert(userDao.update(user));
     }
 
     @Override
 
-    public UserInfoDto getById(int id) {
-        User user = userDao.getById(id);
-        return mapper.map(user, UserInfoDto.class);
+    public UserInfoDto getById(Long id) {
+        return userConverter.convert(userDao.getById(id));
     }
 
     @Override
-    public UserWithCredentialsDto getUserWithCredentials(int id) {
+    public UserWithCredentialsDto getUserWithCredentials(Long id) {
         User user = userDao.getUserWithCredentials(id);
-        return mapper.map(user, UserWithCredentialsDto.class);
+        UserWithCredentialsDto userWithCredentialsDto = userConverter.convertWithCredentials(user);
+        userWithCredentialsDto.setUser(userConverter.convert(user));
+        return userWithCredentialsDto;
     }
 
     @Override
-    public UserWithProductsDto getUserWithProducts(int id) {
-        User user = userDao.getUserWithProducts(id);
-        return mapper.map(user, UserWithProductsDto.class);
+    public UserWithProductsDto getUserWithProducts(Long id) {
+        User user = userDao.getUserWithCredentials(id);
+        UserWithProductsDto userWithProductsDto = userConverter.convertWithProduct(user);
+        userWithProductsDto.setUser(userConverter.convert(user));
+        return userWithProductsDto;
     }
 
     @Override
-    public UserWithRolesDto getUserWithRole(int id) {
-        User user = userDao.getUserWithRole(id);
-        return mapper.map(user, UserWithRolesDto.class);
+    public UserWithRolesDto getUserWithRole(Long id) {
+        User user = userDao.getUserWithCredentials(id);
+        UserWithRolesDto userWithRolesDto = userConverter.convertWithRoles(user);
+        userWithRolesDto.setUser(userConverter.convert(user));
+        return userWithRolesDto;
     }
 
     @Override
     public UserInfoDto getUserWithLogin(String login) {
-        User user = userDao.getUserWithLogin(login);
-        return mapper.map(user, UserInfoDto.class);
+        return userConverter.convert(userDao.getUserWithLogin(login));
     }
 
     @Override
     public List<UserInfoDto> getAllAdmin() {
-        List<User> users = userDao.getAllAdmin();
-        return users.stream().
-                map(user -> mapper.map(user, UserInfoDto.class))
-                .collect(Collectors.toList());
-
+        return userConverter.convert(userDao.getAllAdmin());
     }
 }

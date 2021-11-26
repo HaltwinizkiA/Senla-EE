@@ -23,7 +23,7 @@ public class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
     }
 
     @Override
-    public Entity getById(int id) {
+    public Entity getById(Id id) {
         return entityManager.find(entityClass, id);
     }
 
@@ -33,7 +33,7 @@ public class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
     }
 
     @Override
-    public Entity delete(int id) {
+    public Entity delete(Id id) {
         Entity entity = getById(id);
         entityManager.remove(entity);
         return entity;

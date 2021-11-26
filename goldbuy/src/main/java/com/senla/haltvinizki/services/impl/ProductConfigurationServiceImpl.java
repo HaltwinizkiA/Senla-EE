@@ -5,6 +5,7 @@ import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoD
 import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationWithProductDto;
 import com.senla.haltvinizki.entity.ProductConfiguration;
 import com.senla.haltvinizki.services.ProductConfigurationService;
+import com.senla.haltvinizki.services.converter.ProductConfigurationConverter;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,35 +18,34 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ProductConfigurationServiceImpl implements ProductConfigurationService {
     private final ProductConfigurationDaoImpl productConfigurationDao;
-    @Autowired
-    private ModelMapper mapper;
+   private final ProductConfigurationConverter productConfigurationConverter;
 
     @Override
-    public ProductConfigurationInfoDto delete(ProductConfigurationInfoDto productConfigurationDto) {
-        return mapper.map(productConfigurationDao.delete(productConfigurationDto.getId()), ProductConfigurationInfoDto.class);
+    public ProductConfigurationInfoDto delete(Long id) {
+        return productConfigurationConverter.convert(productConfigurationDao.delete(id));
     }
 
     @Override
     public ProductConfigurationInfoDto create(ProductConfigurationInfoDto productConfigurationDto) {
-        ProductConfiguration history = mapper.map(productConfigurationDto, ProductConfiguration.class);
-        return mapper.map(productConfigurationDao.create(history), ProductConfigurationInfoDto.class);
+       ProductConfiguration productConfiguration =productConfigurationConverter.convert(productConfigurationDto);
+       return productConfigurationConverter.convert(productConfigurationDao.create(productConfiguration));
     }
 
     @Override
     public ProductConfigurationInfoDto update(ProductConfigurationInfoDto productConfigurationDto) {
-        ProductConfiguration history = mapper.map(productConfigurationDto, ProductConfiguration.class);
-        return mapper.map(productConfigurationDao.update(history), ProductConfigurationInfoDto.class);
+        ProductConfiguration productConfiguration =productConfigurationConverter.convert(productConfigurationDto);
+        return productConfigurationConverter.convert(productConfigurationDao.update(productConfiguration));
     }
 
     @Override
-    public ProductConfigurationInfoDto getById(int id) {
-        ProductConfiguration productConfiguration = productConfigurationDao.getById(id);
-        return mapper.map(productConfiguration, ProductConfigurationInfoDto.class);
+    public ProductConfigurationInfoDto getById(Long id) {
+       return productConfigurationConverter.convert(productConfigurationDao.getById(id));
     }
 
     @Override
-    public ProductConfigurationWithProductDto getProductConfigWithProduct(int id) {
-        ProductConfiguration productConfiguration = productConfigurationDao.getProductConfigWithProduct(id);
-        return mapper.map(productConfiguration, ProductConfigurationWithProductDto.class);
+    public ProductConfigurationWithProductDto getProductConfigWithProduct(Long id) {
+        ProductConfigurationWithProductDto productConfigurationWithProductDto=productConfigurationConverter.convertWithProduct(productConfigurationDao.getProductConfigWithProduct(id));
+        productConfigurationWithProductDto.setProduct(productConfigurationConverter.convert(productConfigurationDao.getById(id)));
+        return productConfigurationWithProductDto;
     }
 }

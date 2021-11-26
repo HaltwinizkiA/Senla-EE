@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class RoleDaoImpl extends AbstractDao<Role, Integer> implements RoleDao {
+public class RoleDaoImpl extends AbstractDao<Role, Long> implements RoleDao {
 
     public RoleDaoImpl() {
         super(Role.class);
@@ -18,7 +18,7 @@ public class RoleDaoImpl extends AbstractDao<Role, Integer> implements RoleDao {
 
 
     @Override
-    public Role getRoleWithUsers(int id) {
+    public Role getRoleWithUsers(Long id) {
         EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.ROLE_USERS);
         Map hints = new HashMap();
         hints.put(GRAPH_PERSISTENCE, userGraph);

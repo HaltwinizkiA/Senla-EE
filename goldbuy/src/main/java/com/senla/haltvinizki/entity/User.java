@@ -18,7 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
-    private int id;
+    private Long id;
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "credentials_id")
     private Credentials credentials;
@@ -70,11 +70,11 @@ public class User {
         this.credentials = credentials;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

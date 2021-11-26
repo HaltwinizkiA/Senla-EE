@@ -5,51 +5,53 @@ import com.senla.haltvinizki.dto.category.CategoryInfoDto;
 import com.senla.haltvinizki.dto.category.CategoryWithProductDto;
 import com.senla.haltvinizki.entity.Category;
 import com.senla.haltvinizki.services.CategoryService;
+import com.senla.haltvinizki.services.converter.CategoryConverter;
+import com.senla.haltvinizki.services.exception.CategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import static java.util.Optional.ofNullable;
 
 @Component
 @Transactional
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
+
     private final CategoryDao categoryDao;
-    @Autowired
-    private ModelMapper mapper;
+    private final CategoryConverter categoryConverter;
 
 
     @Override
-    public CategoryInfoDto delete(CategoryInfoDto categoryDto) {
-        return mapper.map(categoryDao.delete(categoryDto.getId()), CategoryInfoDto.class);
+    public CategoryInfoDto delete(Long id) {
+        return categoryConverter.convert(categoryDao.delete(id));
     }
 
     @Override
-    @Modifying
     public CategoryInfoDto create(CategoryInfoDto categoryDto) {
-        Category category = mapper.map(categoryDto, Category.class);
-        return mapper.map(categoryDao.create(category), CategoryInfoDto.class);
+        Category category = categoryConverter.convert(categoryDto);
+        return categoryConverter.convert(categoryDao.create(category));
     }
 
 
     @Override
     public CategoryInfoDto update(CategoryInfoDto categoryDto) {
-        Category category = mapper.map(categoryDto, Category.class);
-        return mapper.map(categoryDao.update(category), CategoryInfoDto.class);
+        Category category = categoryConverter.convert(categoryDto);
+        return categoryConverter.convert(categoryDao.update(category));
     }
 
     @Override
-    public CategoryInfoDto getById(int id) {
-        Category category = categoryDao.getById(id);
-        return mapper.map(category, CategoryInfoDto.class);
+    public CategoryInfoDto getById(Long id) {
+        Category category = ofNullable(categoryDao.getById(id))
+                .orElseThrow(() -> new CategoryNotFoundException(id));
+        return categoryConverter.convert(category);
     }
 
     @Override
-    public CategoryWithProductDto getCategoryWithProduct(int id) {
+    public CategoryWithProductDto getCategoryWithProduct(Long id) {
         Category category = categoryDao.getCategoryWithProduct(id);
-        return mapper.map(category, CategoryWithProductDto.class);
+        CategoryWithProductDto categoryWithProductDto = categoryConverter.covert(category);
+        categoryWithProductDto.setCategoryInfoDto(categoryConverter.convert(category));
+        return categoryWithProductDto;
     }
 }

@@ -2,16 +2,18 @@ package com.senla.haltvinizki.services;
 
 import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
 import com.senla.haltvinizki.dto.credentials.CredentialsWithUserDto;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public interface CredentialsService {
-    CredentialsInfoDto delete(CredentialsInfoDto credentialsDto);
+    CredentialsInfoDto delete(Long id);
 
     CredentialsInfoDto create(CredentialsInfoDto credentialsDto);
 
     CredentialsInfoDto update(CredentialsInfoDto credentialsDto);
 
-    CredentialsInfoDto getById(int id);
+    CredentialsInfoDto getById(Long id);
 
-    CredentialsWithUserDto getCredentialsWithUser(int id);
+    CredentialsWithUserDto getCredentialsWithUser(Long id);
 
 }

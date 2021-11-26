@@ -4,13 +4,13 @@ import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoD
 import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationWithProductDto;
 
 public interface ProductConfigurationService {
-    ProductConfigurationInfoDto delete(ProductConfigurationInfoDto productConfigurationDto);
+    ProductConfigurationInfoDto delete(Long id);
 
     ProductConfigurationInfoDto create(ProductConfigurationInfoDto productConfigurationDto);
 
     ProductConfigurationInfoDto update(ProductConfigurationInfoDto productConfigurationDto);
 
-    ProductConfigurationInfoDto getById(int id);
+    ProductConfigurationInfoDto getById(Long id);
 
-    ProductConfigurationWithProductDto getProductConfigWithProduct(int id);
+    ProductConfigurationWithProductDto getProductConfigWithProduct(Long id);
 }

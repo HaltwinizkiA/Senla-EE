@@ -1,9 +1,11 @@
 package com.senla.haltvinizki.dao;
 
 import com.senla.haltvinizki.entity.Category;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface CategoryDao extends GenericDao<Category,Integer> {
-    Category getCategoryWithProduct(int id);
+@Transactional
+public interface CategoryDao extends GenericDao<Category,Long> {
+    Category getCategoryWithProduct(Long id);
 
 
 }

@@ -2,10 +2,12 @@ package com.senla.haltvinizki.dto.history;
 
 import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class HistoryWithProductDto {
     private HistoryInfoDto history;
     private ProductInfoDto product;

@@ -11,14 +11,14 @@ import java.util.Map;
 
 
 @Repository
-public class CategoryDaoImpl extends AbstractDao<Category, Integer> implements CategoryDao {
+public class CategoryDaoImpl extends AbstractDao<Category, Long> implements CategoryDao {
 
     public CategoryDaoImpl() {
         super(Category.class);
     }
 
     @Override
-    public Category getCategoryWithProduct(int id) {
+    public Category getCategoryWithProduct(Long id) {
         EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.CATEGORY_PRODUCTS);
         Map hints = new HashMap();
         hints.put(GRAPH_PERSISTENCE, userGraph);

@@ -7,14 +7,12 @@ import com.senla.haltvinizki.dto.product.ProductWithCategoryDto;
 import com.senla.haltvinizki.dto.product.ProductWithUserDto;
 import com.senla.haltvinizki.entity.Product;
 import com.senla.haltvinizki.services.ProductService;
+import com.senla.haltvinizki.services.converter.ProductConverter;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @Transactional
@@ -22,56 +20,54 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductDao productDao;
-    @Autowired
-    private ModelMapper mapper;
+    private final ProductConverter productConverter;
 
     @Override
-    public ProductInfoDto delete(ProductInfoDto productDto) {
-        return mapper.map(productDao.delete(productDto.getId()), ProductInfoDto.class);
+    public ProductInfoDto delete(Long id) {
+        return productConverter.convert(productDao.delete(id));
     }
 
     @Override
     public ProductInfoDto create(ProductInfoDto productDto) {
-        Product product = mapper.map(productDto, Product.class);
-        return mapper.map(productDao.create(product), ProductInfoDto.class);
+        Product product = productConverter.convert(productDto);
+        return productConverter.convert(productDao.create(product));
     }
 
     @Override
     public ProductInfoDto update(ProductInfoDto productDto) {
-        Product product = mapper.map(productDto, Product.class);
-        return mapper.map(productDao.update(product), ProductInfoDto.class);
+        Product product = productConverter.convert(productDto);
+        return productConverter.convert(productDao.update(product));
     }
 
     @Override
-    public ProductInfoDto getById(int id) {
-        Product product = productDao.getById(id);
-        return mapper.map(product, ProductInfoDto.class);
+    public ProductInfoDto getById(Long id) {
+        return productConverter.convert(productDao.getById(id));
 
     }
 
     @Override
     public ProductInfoDto getMostExpensiveProduct() {
-        Product product = productDao.getMostExpensiveProduct();
-        return mapper.map(product, ProductInfoDto.class);
+        return productConverter.convert(productDao.getMostExpensiveProduct());
     }
 
     @Override
-    public ProductWithUserDto getProductWithUser(int id) {
+    public ProductWithUserDto getProductWithUser(Long id) {
         Product product = productDao.getProductWithUser(id);
-        return mapper.map(product, ProductWithUserDto.class);
+        ProductWithUserDto productWithUserDto = productConverter.convertWithUser(product);
+        productWithUserDto.setProduct(productConverter.convert(product));
+        return productWithUserDto;
     }
 
     @Override
-    public ProductWithCategoryDto getProductWithCategory(int id) {
+    public ProductWithCategoryDto getProductWithCategory(Long id) {
         Product product = productDao.getProductWithCategory(id);
-        return mapper.map(product, ProductWithCategoryDto.class);
+        ProductWithCategoryDto productWithCategoryDto = productConverter.convertWithCategory(product);
+        productWithCategoryDto.setProduct(productConverter.convert(product));
+        return productWithCategoryDto;
     }
 
     @Override
     public List<ProductInfoDto> getActiveProducts() {
-        List<Product> products = productDao.getActiveProducts();
-        return products.stream().
-                map(product -> mapper.map(product, ProductInfoDto.class))
-                .collect(Collectors.toList());
+        return productConverter.convert(productDao.getActiveProducts());
     }
 }

@@ -1,21 +1,23 @@
 package com.senla.haltvinizki.dto.credentials;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CredentialsInfoDto {
-    private int id;
+    private Long id;
     private String password;
     private String login;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ProductDaoImpl extends AbstractDao<Product, Integer> implements ProductDao {
+public class ProductDaoImpl extends AbstractDao<Product, Long> implements ProductDao {
 
     public ProductDaoImpl() {
         super(Product.class);
@@ -37,7 +37,7 @@ public class ProductDaoImpl extends AbstractDao<Product, Integer> implements Pro
     }
 
     @Override
-    public Product getProductWithUser(int id) {
+    public Product getProductWithUser(Long id) {
         EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.PRODUCT_USER);
         Map hints = new HashMap();
         hints.put(GRAPH_PERSISTENCE, userGraph);
@@ -45,7 +45,7 @@ public class ProductDaoImpl extends AbstractDao<Product, Integer> implements Pro
     }
 
     @Override
-    public Product getProductWithCategory(int id) {
+    public Product getProductWithCategory(Long id) {
         EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.PRODUCT_CATEGORY);
         Map hints = new HashMap();
         hints.put(GRAPH_PERSISTENCE, userGraph);

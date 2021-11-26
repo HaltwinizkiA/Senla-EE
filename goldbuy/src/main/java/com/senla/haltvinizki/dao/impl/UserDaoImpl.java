@@ -18,14 +18,14 @@ import java.util.Map;
 
 @Repository
 @Transactional
-public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
+public class UserDaoImpl extends AbstractDao<User,Long> implements UserDao {
 
     public UserDaoImpl() {
         super(User.class);
     }
 
     @Override
-    public User getUserWithCredentials(int id) {
+    public User getUserWithCredentials(Long id) {
         EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.USER_CREDENTIALS);
         Map hints = new HashMap();
         hints.put(GRAPH_PERSISTENCE, userGraph);
@@ -33,7 +33,7 @@ public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
     }
 
     @Override
-    public User getUserWithProducts(int id) {
+    public User getUserWithProducts(Long id) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
         Root<User> userRoot = query.from(User.class);
@@ -42,7 +42,7 @@ public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
     }
 
     @Override
-    public User getUserWithRole(int id) {
+    public User getUserWithRole(Long id) {
         return entityManager.createQuery("select user from User user left join fetch user.roles where user.id= :id", User.class)
                 .setParameter("id", id).getSingleResult();
     }

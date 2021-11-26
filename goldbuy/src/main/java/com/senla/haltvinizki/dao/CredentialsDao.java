@@ -2,8 +2,8 @@ package com.senla.haltvinizki.dao;
 
 import com.senla.haltvinizki.entity.Credentials;
 
-public interface CredentialsDao extends GenericDao<Credentials,Integer> {
+public interface CredentialsDao extends GenericDao<Credentials,Long> {
 
-    Credentials getCredentialsWithUser(int id);
+    Credentials getCredentialsWithUser(Long id);
 
 }

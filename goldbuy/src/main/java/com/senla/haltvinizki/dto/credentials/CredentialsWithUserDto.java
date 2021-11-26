@@ -2,10 +2,12 @@ package com.senla.haltvinizki.dto.credentials;
 
 import com.senla.haltvinizki.dto.user.UserInfoDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CredentialsWithUserDto {
    private CredentialsInfoDto credentials;
    private UserInfoDto user;

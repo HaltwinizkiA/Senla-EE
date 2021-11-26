@@ -10,14 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class ProductConfigurationDaoImpl extends AbstractDao<ProductConfiguration, Integer> implements ProductConfigurationDao {
+public class ProductConfigurationDaoImpl extends AbstractDao<ProductConfiguration, Long> implements ProductConfigurationDao {
 
     public ProductConfigurationDaoImpl() {
         super(ProductConfiguration.class);
     }
 
     @Override
-    public ProductConfiguration getProductConfigWithProduct(int id) {
+    public ProductConfiguration getProductConfigWithProduct(Long id) {
         EntityGraph userGraph=entityManager.getEntityGraph(GraphConfiguration.PRODUCTCONFIG_PRODUCT);
         Map hints=new HashMap();
         hints.put(GRAPH_PERSISTENCE,userGraph);

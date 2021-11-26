@@ -1,6 +1,5 @@
 package com.senla.haltvinizki.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.services.UserService;
@@ -19,42 +18,25 @@ public class UserController {
     private JsonMapper gsonMapper;
 
     @PostMapping
-    public String createUser(String jsonUser) {
-        try {
-            UserInfoDto user = userService.create((UserInfoDto) gsonMapper.createObj(jsonUser, UserInfoDto.class));
-            return gsonMapper.createJson(user);
-        } catch (JsonProcessingException e) {
-            return "user not created";
-
-        }
+    public UserInfoDto createUser(@RequestBody UserInfoDto userInfoDto) {
+        return userService.create(userInfoDto);
 
     }
 
     @GetMapping(value = "/{id}")
-    public String getById(int id) {
-        return gsonMapper.createJson(userService.getById(id));
+    public UserInfoDto getById(@PathVariable Long id) {
+        return userService.getById(id);
     }
-    @PutMapping
-    public String updateUser(String jsonUser) {
-        try {
-            UserInfoDto user = userService.update((UserInfoDto) gsonMapper.createObj(jsonUser, UserInfoDto.class));
-            return gsonMapper.createJson(user);
-        } catch (JsonProcessingException e) {
-            return "user not update";
 
-        }
+    @PutMapping
+    public UserInfoDto updateUser(@RequestBody UserInfoDto userInfoDto) {
+        return userService.update(userInfoDto);
 
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteUser(String jsonUser) {
-        try {
-            UserInfoDto user = userService.delete((UserInfoDto) gsonMapper.createObj(jsonUser, UserInfoDto.class));
-            return gsonMapper.createJson(user);
-        } catch (JsonProcessingException e) {
-            return "user not deleted";
-
-        }
+    public UserInfoDto deleteUser(@PathVariable Long id) {
+        return userService.delete(id);
     }
 
 

@@ -6,6 +6,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebMvc
 @ComponentScan("com.senla.haltvinizki")
-@Configuration
+//@Configuration
 public class WebConfiguration {
 }

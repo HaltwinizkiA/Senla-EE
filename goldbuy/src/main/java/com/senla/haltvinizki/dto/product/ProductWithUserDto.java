@@ -2,10 +2,12 @@ package com.senla.haltvinizki.dto.product;
 
 import com.senla.haltvinizki.dto.user.UserInfoDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ProductWithUserDto {
     private ProductInfoDto product;
     private UserInfoDto user;

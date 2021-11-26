@@ -10,14 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class HistoryDaoImpl extends AbstractDao<History, Integer> implements HistoryDao {
+public class HistoryDaoImpl extends AbstractDao<History, Long> implements HistoryDao {
 
     public HistoryDaoImpl() {
         super(History.class);
     }
 
     @Override
-    public History getHistoryWithProduct(int id) {
+    public History getHistoryWithProduct(Long id) {
 
         EntityGraph userGraph=entityManager.getEntityGraph(GraphConfiguration.HISTORY_PRODUCT);
         Map hints=new HashMap();
@@ -26,7 +26,7 @@ public class HistoryDaoImpl extends AbstractDao<History, Integer> implements His
     }
 
     @Override
-    public History getHistoryWithCustomer(int id) {
+    public History getHistoryWithCustomer(Long id) {
         return entityManager.createQuery("select history from History history left join fetch history.customer where history.id= :id",History.class)
                 .setParameter("id",id).getSingleResult();
 

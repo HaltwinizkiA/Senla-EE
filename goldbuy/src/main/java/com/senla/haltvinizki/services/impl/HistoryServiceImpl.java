@@ -6,9 +6,8 @@ import com.senla.haltvinizki.dto.history.HistoryWithCustomerDto;
 import com.senla.haltvinizki.dto.history.HistoryWithProductDto;
 import com.senla.haltvinizki.entity.History;
 import com.senla.haltvinizki.services.HistoryService;
+import com.senla.haltvinizki.services.converter.HistoryConverter;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,42 +18,42 @@ import org.springframework.transaction.annotation.Transactional;
 public class HistoryServiceImpl implements HistoryService {
 
     private final HistoryDao historyDao;
-    @Autowired
-    private ModelMapper mapper;
+    private final HistoryConverter historyConverter;
 
     @Override
-    public HistoryInfoDto delete(HistoryInfoDto historyDto) {
-        return mapper.map(historyDao.delete(historyDto.getId()), HistoryInfoDto.class);
+    public HistoryInfoDto delete(Long id) {
+        return historyConverter.convert(historyDao.delete(id));
     }
 
 
     @Override
     public HistoryInfoDto create(HistoryInfoDto historyDto) {
-        History history = mapper.map(historyDto, History.class);
-        return mapper.map(historyDao.create(history), HistoryInfoDto.class);
+        History history = historyConverter.convert(historyDto);
+        return historyConverter.convert(historyDao.create(history));
     }
 
     @Override
     public HistoryInfoDto update(HistoryInfoDto historyDto) {
-        History history = mapper.map(historyDto, History.class);
-        return mapper.map(historyDao.update(history), HistoryInfoDto.class);
+        History history = historyConverter.convert(historyDto);
+        return historyConverter.convert(historyDao.update(history));
     }
 
     @Override
-    public HistoryInfoDto getById(int id) {
-        History history = historyDao.getById(id);
-        return mapper.map(history, HistoryInfoDto.class);
+    public HistoryInfoDto getById(Long id) {
+        return historyConverter.convert(historyDao.getById(id));
     }
 
     @Override
-    public HistoryWithProductDto getHistoryWithProduct(int id) {
-        History history = historyDao.getHistoryWithProduct(id);
-        return mapper.map(history,HistoryWithProductDto.class);
+    public HistoryWithProductDto getHistoryWithProduct(Long id) {
+        HistoryWithProductDto historyWithProductDto = historyConverter.convertWithProduct(historyDao.getHistoryWithProduct(id));
+        historyWithProductDto.setHistory(historyConverter.convert(historyDao.getById(id)));
+        return historyWithProductDto;
     }
 
     @Override
-    public HistoryWithCustomerDto getHistoryWithCustomer(int id) {
-        History history = historyDao.getHistoryWithCustomer(id);
-        return mapper.map(history,HistoryWithCustomerDto.class);
+    public HistoryWithCustomerDto getHistoryWithCustomer(Long id) {
+        HistoryWithCustomerDto historyWithCustomerDto = historyConverter.convertWithCustomer(historyDao.getHistoryWithCustomer(id));
+        historyWithCustomerDto.setHistory(historyConverter.convert(historyDao.getById(id)));
+        return historyWithCustomerDto;
     }
 }

@@ -1,22 +1,24 @@
 package com.senla.haltvinizki.dto.product_configuration;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ProductConfigurationInfoDto {
-    private int id;
+    private Long id;
     private float maxPrice;
     private float minPrice;
     private float priceStep;
     private int frequency;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
