@@ -52,18 +52,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductWithUserDto getProductWithUser(Long id) {
-        Product product = productDao.getProductWithUser(id);
-        ProductWithUserDto productWithUserDto = productConverter.convertWithUser(product);
-        productWithUserDto.setProduct(productConverter.convert(product));
-        return productWithUserDto;
+        return productConverter.convertWithUser(productDao.getProductWithUser(id));
     }
 
     @Override
     public ProductWithCategoryDto getProductWithCategory(Long id) {
-        Product product = productDao.getProductWithCategory(id);
-        ProductWithCategoryDto productWithCategoryDto = productConverter.convertWithCategory(product);
-        productWithCategoryDto.setProduct(productConverter.convert(product));
-        return productWithCategoryDto;
+        return productConverter.convertWithCategory(productDao.getProductWithCategory(id));
+
     }
 
     @Override

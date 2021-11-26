@@ -46,14 +46,12 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public HistoryWithProductDto getHistoryWithProduct(Long id) {
         HistoryWithProductDto historyWithProductDto = historyConverter.convertWithProduct(historyDao.getHistoryWithProduct(id));
-        historyWithProductDto.setHistory(historyConverter.convert(historyDao.getById(id)));
         return historyWithProductDto;
     }
 
     @Override
     public HistoryWithCustomerDto getHistoryWithCustomer(Long id) {
         HistoryWithCustomerDto historyWithCustomerDto = historyConverter.convertWithCustomer(historyDao.getHistoryWithCustomer(id));
-        historyWithCustomerDto.setHistory(historyConverter.convert(historyDao.getById(id)));
         return historyWithCustomerDto;
     }
 }

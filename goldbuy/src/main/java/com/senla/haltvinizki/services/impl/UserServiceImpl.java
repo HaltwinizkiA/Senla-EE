@@ -49,26 +49,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserWithCredentialsDto getUserWithCredentials(Long id) {
-        User user = userDao.getUserWithCredentials(id);
-        UserWithCredentialsDto userWithCredentialsDto = userConverter.convertWithCredentials(user);
-        userWithCredentialsDto.setUser(userConverter.convert(user));
-        return userWithCredentialsDto;
+        return userConverter.convertWithCredentials(userDao.getUserWithCredentials(id));
+
     }
 
     @Override
     public UserWithProductsDto getUserWithProducts(Long id) {
-        User user = userDao.getUserWithCredentials(id);
-        UserWithProductsDto userWithProductsDto = userConverter.convertWithProduct(user);
-        userWithProductsDto.setUser(userConverter.convert(user));
-        return userWithProductsDto;
+        return userConverter.convertWithProduct(userDao.getUserWithProducts(id));
     }
 
     @Override
     public UserWithRolesDto getUserWithRole(Long id) {
-        User user = userDao.getUserWithCredentials(id);
-        UserWithRolesDto userWithRolesDto = userConverter.convertWithRoles(user);
-        userWithRolesDto.setUser(userConverter.convert(user));
-        return userWithRolesDto;
+        return userConverter.convertWithRoles(userDao.getUserWithRole(id));
+
     }
 
     @Override

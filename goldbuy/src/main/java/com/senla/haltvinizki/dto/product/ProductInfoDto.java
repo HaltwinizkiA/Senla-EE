@@ -14,7 +14,7 @@ public class ProductInfoDto {
     private String name;
     private Date addedDate;
     private String status;
-    private Double price;
+    private Float price;
 
     public Long getId() {
         return id;
@@ -48,15 +48,12 @@ public class ProductInfoDto {
         this.status = status;
     }
 
-    public Double getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }

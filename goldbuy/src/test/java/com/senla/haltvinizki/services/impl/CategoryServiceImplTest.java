@@ -29,7 +29,7 @@ public class CategoryServiceImplTest {
     private final Long id = 1L;
     private final Category category = Category.builder().id(id).name(name).build();
     @Spy
-    CategoryConverter categoryConverter;
+    private CategoryConverter categoryConverter;
     @InjectMocks
     private CategoryServiceImpl categoryService;
     @Mock

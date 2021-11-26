@@ -49,9 +49,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryWithProductDto getCategoryWithProduct(Long id) {
-        Category category = categoryDao.getCategoryWithProduct(id);
-        CategoryWithProductDto categoryWithProductDto = categoryConverter.covert(category);
-        categoryWithProductDto.setCategoryInfoDto(categoryConverter.convert(category));
-        return categoryWithProductDto;
+        return categoryConverter.covert(categoryDao.getCategoryWithProduct(id));
     }
 }

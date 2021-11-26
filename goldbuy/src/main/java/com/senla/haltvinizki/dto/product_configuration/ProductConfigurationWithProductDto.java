@@ -1,5 +1,6 @@
 package com.senla.haltvinizki.dto.product_configuration;
 
+import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -9,14 +10,14 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProductConfigurationWithProductDto {
 
-    private ProductConfigurationInfoDto product;
+    private ProductInfoDto product;
     private ProductConfigurationInfoDto productConfiguration;
 
-    public ProductConfigurationInfoDto getProduct() {
+    public ProductInfoDto getProduct() {
         return product;
     }
 
-    public void setProduct(ProductConfigurationInfoDto product) {
+    public void setProduct(ProductInfoDto product) {
         this.product = product;
     }
 

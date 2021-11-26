@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder
 public class HistoryInfoDto {
     private Long id;
-    private Double sellingPrice;
+    private Float sellingPrice;
     private Date sellingDate;
 
     public Long getId() {
@@ -22,16 +22,12 @@ public class HistoryInfoDto {
         this.id = id;
     }
 
-    public double getSellingPrice() {
+    public Float getSellingPrice() {
         return sellingPrice;
 
     }
 
-    public void setSellingPrice(Double sellingPrice) {
-        this.sellingPrice = sellingPrice;
-    }
-
-    public void setSellingPrice(double sellingPrice) {
+    public void setSellingPrice(Float sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
 

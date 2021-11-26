@@ -17,7 +17,7 @@ public class ProductConfiguration {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Column(name = "max_price")
     private float maxPrice;
     @OneToOne(optional = false, fetch = FetchType.LAZY)
@@ -31,11 +31,11 @@ public class ProductConfiguration {
     private int frequency;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

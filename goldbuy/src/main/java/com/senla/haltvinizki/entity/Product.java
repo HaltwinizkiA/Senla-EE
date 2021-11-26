@@ -2,6 +2,7 @@ package com.senla.haltvinizki.entity;
 
 import com.senla.haltvinizki.configuration.GraphConfiguration;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Date;
 @NamedEntityGraph(name = GraphConfiguration.PRODUCT_USER, attributeNodes = @NamedAttributeNode("user"))
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
