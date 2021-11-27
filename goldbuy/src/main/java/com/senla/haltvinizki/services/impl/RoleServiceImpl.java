@@ -1,5 +1,6 @@
 package com.senla.haltvinizki.services.impl;
 
+import com.senla.haltvinizki.dao.RoleDao;
 import com.senla.haltvinizki.dao.impl.RoleDaoImpl;
 import com.senla.haltvinizki.dto.role.RoleInfoDto;
 import com.senla.haltvinizki.dto.role.RoleWitUsersDto;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
 
-    private final RoleDaoImpl roleDao;
+    private final RoleDao roleDao;
     private final RoleConverter roleConverter;
 
     @Override
@@ -42,10 +43,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleWitUsersDto getRoleWithUsers(Long id) {
-        Role role = roleDao.getRoleWithUsers(id);
-        RoleWitUsersDto roleWitUsersDto = roleConverter.covertWithUser(role);
-        roleWitUsersDto.setRole(roleConverter.convert(role));
-        return roleWitUsersDto;
+        return roleConverter.covertWithUser(roleDao.getRoleWithUsers(id));
     }
 }
 

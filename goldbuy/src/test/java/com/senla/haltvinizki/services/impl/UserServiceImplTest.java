@@ -1,14 +1,11 @@
 package com.senla.haltvinizki.services.impl;
 
 import com.senla.haltvinizki.dao.UserDao;
-import com.senla.haltvinizki.dto.product.ProductWithCategoryDto;
-import com.senla.haltvinizki.dto.product.ProductWithUserDto;
 import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
 import com.senla.haltvinizki.dto.user.UserWithProductsDto;
 import com.senla.haltvinizki.dto.user.UserWithRolesDto;
 import com.senla.haltvinizki.entity.*;
-import com.senla.haltvinizki.services.UserService;
 import com.senla.haltvinizki.services.converter.UserConverter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -100,14 +97,14 @@ class UserServiceImplTest {
         assertEquals(userName, userWithCredentials.getUser().getName());
         assertEquals(mail, userWithCredentials.getUser().getMail());
         assertEquals(id, userWithCredentials.getCredentials().getId());
-        assertEquals(login,userWithCredentials.getCredentials().getLogin());
-        assertEquals(password,userWithCredentials.getCredentials().getPassword());
+        assertEquals(login, userWithCredentials.getCredentials().getLogin());
+        assertEquals(password, userWithCredentials.getCredentials().getPassword());
 
     }
 
     @Test
     public void getUserWithProducts() {
-        List<Product> productList=new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
         productList.add(product);
         user.setProducts(productList);
         when(userDao.getUserWithProducts(any())).thenReturn(user);
@@ -116,9 +113,10 @@ class UserServiceImplTest {
         assertEquals(price, userWithProductsDto.getProducts().get(0).getPrice());
         assertEquals(productName, userWithProductsDto.getProducts().get(0).getName());
     }
+
     @Test
     public void getUserWithRole() {
-        List<Role> roleList=new ArrayList<>();
+        List<Role> roleList = new ArrayList<>();
         roleList.add(role);
         user.setRoles(roleList);
         when(userDao.getUserWithRole(any())).thenReturn(user);
@@ -130,6 +128,7 @@ class UserServiceImplTest {
         assertEquals(id, userWithRole.getRoles().get(0).getId());
         assertEquals(roleName, userWithRole.getRoles().get(0).getName());
     }
+
     @Test
     public void getUserWithLogin() {
         when(userDao.getUserWithLogin(any())).thenReturn(user);
@@ -139,19 +138,18 @@ class UserServiceImplTest {
         assertEquals(userName, userInfoDto.getName());
         assertEquals(mail, userInfoDto.getMail());
     }
+
     @Test
     public void getAllAdmin() {
-        List<Role> roleList=new ArrayList<>();
-        roleList.add(role);
-        user.setRoles(roleList);
-        when(userDao.getAllAdmin(any())).thenReturn(user);
-        UserWithRolesDto userWithRole = userService.getUserWithRole(id);
-        assertEquals(id, userWithRole.getUser().getId());
-        assertEquals(phoneNumber, userWithRole.getUser().getPhoneNumber());
-        assertEquals(userName, userWithRole.getUser().getName());
-        assertEquals(mail, userWithRole.getUser().getMail());
-        assertEquals(id, userWithRole.getRoles().get(0).getId());
-        assertEquals(roleName, userWithRole.getRoles().get(0).getName());
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        when(userDao.getAllAdmin()).thenReturn(users);
+        List<UserInfoDto> userInfoDtoList = userService.getAllAdmin();
+        assertEquals(id, userInfoDtoList.get(0).getId());
+        assertEquals(phoneNumber, userInfoDtoList.get(0).getPhoneNumber());
+        assertEquals(userName, userInfoDtoList.get(0).getName());
+        assertEquals(mail, userInfoDtoList.get(0).getMail());
+
     }
 
 }
