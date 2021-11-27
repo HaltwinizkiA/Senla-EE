@@ -5,7 +5,9 @@ import com.senla.haltvinizki.dto.history.HistoryWithCustomerDto;
 import com.senla.haltvinizki.dto.history.HistoryWithProductDto;
 import com.senla.haltvinizki.entity.History;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HistoryConverter {
     ModelMapper mapper = new ModelMapper();
 

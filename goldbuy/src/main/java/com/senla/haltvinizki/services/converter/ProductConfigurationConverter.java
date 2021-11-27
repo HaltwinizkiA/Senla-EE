@@ -4,7 +4,9 @@ import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoD
 import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationWithProductDto;
 import com.senla.haltvinizki.entity.ProductConfiguration;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductConfigurationConverter {
     ModelMapper mapper = new ModelMapper();
 

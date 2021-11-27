@@ -18,13 +18,13 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id",insertable = false, updatable = false)
-    private Long id;
+    private long id;
     @Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Product> products;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

@@ -4,7 +4,9 @@ import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
 import com.senla.haltvinizki.dto.credentials.CredentialsWithUserDto;
 import com.senla.haltvinizki.entity.Credentials;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CredentialsConverter {
     ModelMapper mapper=new ModelMapper();
 

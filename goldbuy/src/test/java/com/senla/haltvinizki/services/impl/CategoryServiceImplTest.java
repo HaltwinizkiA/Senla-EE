@@ -17,12 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(
-//        classes = {HibernateConf.class},
-//        loader = AnnotationConfigContextLoader.class)
-//@Transactional
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+
 @ExtendWith(MockitoExtension.class)
 public class CategoryServiceImplTest {
     private final String name = "phone";
@@ -66,8 +61,6 @@ public class CategoryServiceImplTest {
         CategoryInfoDto categoryInfoDto = categoryService.getById(1L);
         assertEquals(id, categoryInfoDto.getId());
         assertEquals(name, categoryInfoDto.getName());
-
-
     }
 
     @Test
