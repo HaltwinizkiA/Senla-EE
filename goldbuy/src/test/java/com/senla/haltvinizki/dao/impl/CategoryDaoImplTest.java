@@ -58,7 +58,6 @@ public class CategoryDaoImplTest extends TestCase {
         Category category1 = categoryDao.getById(4L);
         assertEquals(4L, category1.getId());
         assertEquals("pc", category1.getName());
-
     }
 
     @Test
@@ -85,6 +84,5 @@ public class CategoryDaoImplTest extends TestCase {
     public void delete() {
         categoryDao.delete(3L);
         assertNull(categoryDao.getById(3L));
-
     }
 }

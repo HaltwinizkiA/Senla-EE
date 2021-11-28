@@ -30,7 +30,6 @@ public class CredentialsDaoImplTest extends TestCase {
     @Before
     public void fillingTable() {
         User user = User.builder().name("lesha").build();
-
         Credentials credentials = Credentials.builder().login("login").password("password").user(user).build();
         Credentials credentials2 = Credentials.builder().login("root").password("root123").user(user).build();
         Credentials credentials3 = Credentials.builder().login("admin").password("1234").user(user).build();

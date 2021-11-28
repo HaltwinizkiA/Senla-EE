@@ -3,6 +3,7 @@ package com.senla.haltvinizki.configuration;
 public class GraphConfiguration {
     public static final String CATEGORY_PRODUCTS ="category-product";
     public static final String HISTORY_PRODUCT="history-product";
+    public static final String HISTORY_USER="history-user";
     public static final String CREDENTIALS_USER="credentials-user";
     public static final String PRODUCT_USER="product-user";
     public static final String PRODUCT_CATEGORY="product-category";

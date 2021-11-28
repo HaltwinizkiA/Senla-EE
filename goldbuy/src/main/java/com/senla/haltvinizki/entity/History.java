@@ -11,6 +11,8 @@ import java.util.Date;
 @Entity
 @Table(name = "history")
 @NamedEntityGraph(name = GraphConfiguration.HISTORY_PRODUCT, attributeNodes = @NamedAttributeNode("product"))
+@NamedEntityGraph(name = GraphConfiguration.HISTORY_USER, attributeNodes = @NamedAttributeNode("customer"))
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

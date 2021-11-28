@@ -18,7 +18,6 @@ public class HistoryDaoImpl extends AbstractDao<History, Long> implements Histor
 
     @Override
     public History getHistoryWithProduct(Long id) {
-
         EntityGraph userGraph=entityManager.getEntityGraph(GraphConfiguration.HISTORY_PRODUCT);
         Map hints=new HashMap();
         hints.put(GRAPH_PERSISTENCE,userGraph);
@@ -27,8 +26,10 @@ public class HistoryDaoImpl extends AbstractDao<History, Long> implements Histor
 
     @Override
     public History getHistoryWithCustomer(Long id) {
-        return entityManager.createQuery("select history from History history left join fetch history.customer where history.id= :id",History.class)
-                .setParameter("id",id).getSingleResult();
+        EntityGraph userGraph=entityManager.getEntityGraph(GraphConfiguration.HISTORY_PRODUCT);
+        Map hints=new HashMap();
+        hints.put(GRAPH_PERSISTENCE,userGraph);
+        return entityManager.find(History.class,id,hints);
 
     }
 }
