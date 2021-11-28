@@ -1,8 +1,8 @@
 package com.senla.haltvinizki.dao.impl;
 
-import com.senla.haltvinizki.configuration.HibernateConf;
+import com.senla.haltvinizki.configuration.DatabaseConfig;
+import com.senla.haltvinizki.configuration.WebConfiguration;
 import com.senla.haltvinizki.dao.CategoryDao;
-import com.senla.haltvinizki.dao.ProductDao;
 import com.senla.haltvinizki.entity.Category;
 import com.senla.haltvinizki.entity.Product;
 import junit.framework.TestCase;
@@ -15,24 +15,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.persistence.PostLoad;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-        classes = {HibernateConf.class},
+        classes = {DatabaseConfig.class},
         loader = AnnotationConfigContextLoader.class)
 @Transactional
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CategoryDaoImplTest extends TestCase {
     @Resource
     private CategoryDao categoryDao;
-    @Resource
-    private ProductDao productDao;
 
     @Before
     public void fillingTable() {
@@ -45,8 +41,6 @@ public class CategoryDaoImplTest extends TestCase {
         categoryDao.create(category);
         categoryDao.create(category2);
         categoryDao.create(category3);
-        System.out.println("\n\n\n\n\n\nsdsdfdsfsdfsdfsdf\n\n\n\n");
-
     }
 
     @Test
@@ -89,7 +83,6 @@ public class CategoryDaoImplTest extends TestCase {
 
     @Test
     public void delete() {
-        assertEquals("boat", categoryDao.getById(3L).getName());
         categoryDao.delete(3L);
         assertNull(categoryDao.getById(3L));
 

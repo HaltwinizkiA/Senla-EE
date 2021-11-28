@@ -21,10 +21,10 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"com.senla.haltvinizki"})
+@ComponentScan({"com.senla.haltvinizki"})//todo
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
 @EnableJpaRepositories("com.senla.haltvinizki.dao")
-public class HibernateConf {
+public class DatabaseConfig {
     @Value("${name}")
     private String name;
     @Value("${url}")

@@ -75,8 +75,6 @@ class CredentialsServiceImplTest {
         assertEquals(id, credentialsWithUserDto.getCredentialsInfoDto().getId());
         assertEquals(login, credentialsWithUserDto.getCredentialsInfoDto().getLogin());
         assertEquals(password, credentialsWithUserDto.getCredentialsInfoDto().getPassword());
-
-
     }
 
 }

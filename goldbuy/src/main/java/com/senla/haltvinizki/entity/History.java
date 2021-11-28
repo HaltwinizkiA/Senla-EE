@@ -18,7 +18,7 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
-    private Long id;
+    private long id;
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -30,11 +30,11 @@ public class History {
     @Column(name = "selling_date")
     private Date sellingDate;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

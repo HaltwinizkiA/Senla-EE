@@ -18,8 +18,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
-    private Long id;
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private long id;
+    @OneToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "credentials_id")
     private Credentials credentials;
     @ManyToMany(fetch = FetchType.LAZY)
@@ -70,11 +70,11 @@ public class User {
         this.credentials = credentials;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

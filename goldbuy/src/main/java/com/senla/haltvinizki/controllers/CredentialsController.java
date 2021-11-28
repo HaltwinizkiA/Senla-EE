@@ -1,7 +1,6 @@
 package com.senla.haltvinizki.controllers;
 
 
-import com.senla.haltvinizki.controllers.mapper.JsonMapper;
 import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
 import com.senla.haltvinizki.services.CredentialsService;
 import lombok.RequiredArgsConstructor;
