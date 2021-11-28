@@ -4,11 +4,13 @@ import com.senla.haltvinizki.dto.role.RoleInfoDto;
 import com.senla.haltvinizki.dto.role.RoleWitUsersDto;
 import com.senla.haltvinizki.entity.Role;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RoleConverter {
-    ModelMapper mapper = new ModelMapper();
+    @Autowired
+    private ModelMapper mapper;
 
     public Role convert(RoleInfoDto roleInfoDto) {
         return mapper.map(roleInfoDto, Role.class);

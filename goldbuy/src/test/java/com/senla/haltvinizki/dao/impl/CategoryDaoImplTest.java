@@ -2,28 +2,24 @@ package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.configuration.HibernateConf;
 import com.senla.haltvinizki.dao.CategoryDao;
-import com.senla.haltvinizki.dto.category.CategoryInfoDto;
+import com.senla.haltvinizki.dao.ProductDao;
 import com.senla.haltvinizki.entity.Category;
-import com.senla.haltvinizki.services.CategoryService;
-import com.senla.haltvinizki.services.exception.CategoryNotFoundException;
+import com.senla.haltvinizki.entity.Product;
 import junit.framework.TestCase;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import javax.persistence.PostLoad;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,60 +27,71 @@ import static org.mockito.Mockito.when;
         classes = {HibernateConf.class},
         loader = AnnotationConfigContextLoader.class)
 @Transactional
-public class CategoryDaoImplTest  extends TestCase {
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+public class CategoryDaoImplTest extends TestCase {
     @Resource
-    CategoryDao categoryDao;
+    private CategoryDao categoryDao;
+    @Resource
+    private ProductDao productDao;
 
-
-    @Test
-   public void getCategoryWithProduct() {
+    @Before
+    public void fillingTable() {
+        Product product = Product.builder().name("iphone").build();
+        List<Product> productList = new ArrayList<>();
+        productList.add(product);
+        Category category = Category.builder().products(productList).name("phone").build();
+        Category category2 = Category.builder().name("car").build();
+        Category category3 = Category.builder().name("boat").build();
+        categoryDao.create(category);
+        categoryDao.create(category2);
+        categoryDao.create(category3);
+        System.out.println("\n\n\n\n\n\nsdsdfdsfsdfsdfsdf\n\n\n\n");
 
     }
+
+    @Test
+    public void getCategoryWithProduct() {
+        Category category = categoryDao.getCategoryWithProduct(1L);
+        assertEquals(1L, category.getId());
+        assertEquals("phone", category.getName());
+        assertEquals("iphone", category.getProducts().get(0).getName());
+    }
+
     @Test
     public void create() {
-        Category category=new Category();
-        category.setName("phone");
+        Category category = Category.builder().name("pc").build();
         categoryDao.create(category);
-        Category category1=categoryDao.getById(1L);
-        assertEquals(1L,category1.getId());
-        assertEquals("phone",category1.getName());
+        Category category1 = categoryDao.getById(4L);
+        assertEquals(4L, category1.getId());
+        assertEquals("pc", category1.getName());
 
     }
+
     @Test
     public void getById() {
-        Category category=new Category();
-        category.setName("phone");
-        categoryDao.create(category);
-        Category category1=categoryDao.getById(1L);
-        assertEquals(1L,category1.getId());
-        assertEquals("phone",category1.getName());
+        Category category1 = categoryDao.getById(1L);
+        assertEquals(1L, category1.getId());
+        assertEquals("phone", category1.getName());
 
     }
+
     @Test
     public void update() {
-        Category category=new Category();
-        category.setName("phone");
-        categoryDao.create(category);
-        Category category1=categoryDao.getById(1L);
-        assertEquals(1L,category1.getId());
-        assertEquals("phone",category1.getName());
-        category1.setName("car");
-        categoryDao.update(category1);
-        Category category2=categoryDao.getById(1L);
-        assertEquals(1L,category2.getId());
-        assertEquals("car",category2.getName());
+        Category category = categoryDao.getById(2L);
+        assertEquals(2L, category.getId());
+        assertEquals("car", category.getName());
+        category.setName("notebook");
+        categoryDao.update(category);
+        Category category2 = categoryDao.getById(2L);
+        assertEquals(2L, category2.getId());
+        assertEquals("notebook", category2.getName());
     }
+
     @Test
     public void delete() {
-        Category category=new Category();
-        category.setName("auto");
-        categoryDao.create(category);
-        assertEquals("auto",categoryDao.getById(1L).getName());
-        categoryDao.delete(1L);
-        try {
-            categoryDao.getById(1L);
-        }catch (CategoryNotFoundException e) {
-            assertEquals(Long.valueOf(1L),e.getId());
-        }
+        assertEquals("boat", categoryDao.getById(3L).getName());
+        categoryDao.delete(3L);
+        assertNull(categoryDao.getById(3L));
+
     }
 }

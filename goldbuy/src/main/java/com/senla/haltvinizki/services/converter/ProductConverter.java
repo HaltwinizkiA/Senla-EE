@@ -5,13 +5,16 @@ import com.senla.haltvinizki.dto.product.ProductWithCategoryDto;
 import com.senla.haltvinizki.dto.product.ProductWithUserDto;
 import com.senla.haltvinizki.entity.Product;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Component
 public class ProductConverter {
-    ModelMapper mapper = new ModelMapper();
+    @Autowired
+    private ModelMapper mapper;
 
     public Product convert(ProductInfoDto productInfoDto) {
         return mapper.map(productInfoDto, Product.class);

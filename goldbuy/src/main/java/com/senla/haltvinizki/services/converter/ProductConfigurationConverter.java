@@ -4,11 +4,13 @@ import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoD
 import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationWithProductDto;
 import com.senla.haltvinizki.entity.ProductConfiguration;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductConfigurationConverter {
-    ModelMapper mapper = new ModelMapper();
+    @Autowired
+    private ModelMapper mapper;
 
     public ProductConfiguration convert(ProductConfigurationInfoDto productConfigurationInfoDto) {
         return mapper.map(productConfigurationInfoDto, ProductConfiguration.class);

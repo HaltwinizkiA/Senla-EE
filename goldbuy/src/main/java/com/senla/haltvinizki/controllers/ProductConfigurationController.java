@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
-@RequestMapping("/productConfigurations")
+@RequestMapping("/product-configurations")
 @RequiredArgsConstructor
 public class ProductConfigurationController {
     private final ProductConfigurationService productConfigurationService;

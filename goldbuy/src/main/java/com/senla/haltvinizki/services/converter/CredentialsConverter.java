@@ -4,11 +4,13 @@ import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
 import com.senla.haltvinizki.dto.credentials.CredentialsWithUserDto;
 import com.senla.haltvinizki.entity.Credentials;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CredentialsConverter {
-    ModelMapper mapper=new ModelMapper();
+    @Autowired
+    private ModelMapper mapper;
 
     public Credentials convert(CredentialsInfoDto credentialsInfoDto) {
         return mapper.map(credentialsInfoDto, Credentials.class);
@@ -21,7 +23,8 @@ public class CredentialsConverter {
     public Credentials convert(CredentialsWithUserDto credentialsInfoDto) {
         return mapper.map(credentialsInfoDto, Credentials.class);
     }
-    public CredentialsWithUserDto covert(Credentials credentials){
-        return mapper.map(credentials,CredentialsWithUserDto.class);
+
+    public CredentialsWithUserDto covert(Credentials credentials) {
+        return mapper.map(credentials, CredentialsWithUserDto.class);
     }
 }

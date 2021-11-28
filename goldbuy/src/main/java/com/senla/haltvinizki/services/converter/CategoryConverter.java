@@ -4,12 +4,13 @@ import com.senla.haltvinizki.dto.category.CategoryInfoDto;
 import com.senla.haltvinizki.dto.category.CategoryWithProductDto;
 import com.senla.haltvinizki.entity.Category;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryConverter {
-
-    ModelMapper mapper = new ModelMapper();
+    @Autowired
+    private ModelMapper mapper;
 
     public Category convert(CategoryInfoDto categoryInfoDto) {
         return mapper.map(categoryInfoDto, Category.class);
