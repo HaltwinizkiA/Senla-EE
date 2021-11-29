@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 import static java.util.Optional.ofNullable;
 
 @Component
@@ -30,9 +32,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryInfoDto create(CategoryInfoDto categoryDto) {
-        Category category = ofNullable(categoryDao.create(categoryConverter.convert(categoryDto)))
+        Category category=categoryConverter.convert(categoryDto);
+        Category category1 = ofNullable(categoryDao.create(category))
                 .orElseThrow(() -> new CategoryNotCreatedException(categoryDto.getName()));
-        return categoryConverter.convert(category);
+        return categoryConverter.convert(category1);
     }
 
 

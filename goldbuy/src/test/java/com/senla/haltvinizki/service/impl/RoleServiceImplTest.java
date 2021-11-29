@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,10 @@ class RoleServiceImplTest {
     private final User user = User.builder().id(id).name(userName).mail(mail).
             phoneNumber(phoneNumber).build();
     @Spy
-    private RoleConverter roleConverter;
+    private ModelMapper mapper;
+    @Spy
+    @InjectMocks
+    private RoleConverter roleConverter=new RoleConverter();
     @InjectMocks
     private RoleServiceImpl roleService;
     @Mock

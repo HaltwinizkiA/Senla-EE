@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -31,7 +32,10 @@ class HistoryServiceImplTest {
     private final Product product = Product.builder().id(id).price(price).name(productName).build();
     private final History history = History.builder().customer(customer).product(product).id(id).sellingPrice(price).build();
     @Spy
-    private HistoryConverter historyConverter;
+    private ModelMapper mapper;
+    @Spy
+    @InjectMocks
+    private HistoryConverter historyConverter=new HistoryConverter();
     @InjectMocks
     private HistoryServiceImpl historyService;
     @Mock

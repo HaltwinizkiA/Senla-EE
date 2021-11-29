@@ -6,8 +6,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@WebAppConfiguration
 @EnableWebMvc
 @ComponentScan("com.senla.haltvinizki")
+@WebAppConfiguration
 public class WebConfiguration {
 }

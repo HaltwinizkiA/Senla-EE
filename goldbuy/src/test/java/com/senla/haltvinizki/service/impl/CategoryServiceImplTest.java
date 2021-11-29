@@ -13,22 +13,21 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 
-
 @ExtendWith(MockitoExtension.class)
-public class CategoryServiceImplTest {
+ class CategoryServiceImplTest {
     private final String name = "phone";
     private final Long id = 1L;
     private final Category category = Category.builder().id(id).name(name).build();
     @Spy
-    private CategoryConverter categoryConverter;
-    @Mock
     private ModelMapper mapper;
+    @Spy
+    @InjectMocks
+    private CategoryConverter categoryConverter=new CategoryConverter();
     @InjectMocks
     private CategoryServiceImpl categoryService;
     @Mock

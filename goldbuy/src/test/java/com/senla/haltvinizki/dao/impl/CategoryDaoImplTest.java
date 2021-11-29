@@ -4,16 +4,15 @@ import com.senla.haltvinizki.dao.CategoryDao;
 import com.senla.haltvinizki.dao.DaoTest;
 import com.senla.haltvinizki.entity.Category;
 import com.senla.haltvinizki.entity.Product;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 class CategoryDaoImplTest extends DaoTest {

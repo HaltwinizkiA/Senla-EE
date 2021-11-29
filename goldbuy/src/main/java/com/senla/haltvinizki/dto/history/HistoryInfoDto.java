@@ -10,15 +10,15 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class HistoryInfoDto {
-    private Long id;
+    private long id;
     private Float sellingPrice;
     private Date sellingDate;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

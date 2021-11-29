@@ -18,7 +18,6 @@ public class CategoryController {
     @PostMapping
     public CategoryInfoDto createCategory(@RequestBody CategoryInfoDto categoryInfoDto) {
         return categoryService.create(categoryInfoDto);
-
     }
 
     @GetMapping(value = "/{id}")

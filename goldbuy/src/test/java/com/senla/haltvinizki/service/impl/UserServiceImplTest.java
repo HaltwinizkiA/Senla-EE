@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,10 @@ class UserServiceImplTest {
     private final Category category = Category.builder().id(id).name(categoryName).build();
     private final Product product = Product.builder().id(id).price(price).name(productName).category(category).build();
     @Spy
-    private UserConverter userConverter;
+    private ModelMapper mapper;
+    @Spy
+    @InjectMocks
+    private UserConverter userConverter=new UserConverter();
     @InjectMocks
     private UserServiceImpl userService;
     @Mock

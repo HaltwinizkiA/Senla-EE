@@ -9,15 +9,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CredentialsInfoDto {
-    private Long id;
+    private long id;
     private String password;
     private String login;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

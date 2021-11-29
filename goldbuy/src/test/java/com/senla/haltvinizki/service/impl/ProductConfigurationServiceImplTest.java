@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
+import org.springframework.security.core.parameters.P;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,7 +32,10 @@ class ProductConfigurationServiceImplTest {
     private final ProductConfiguration productConfiguration = ProductConfiguration.builder()
             .id(id).product(product).maxPrice(maxPrice).frequency(frequency).priceStep(priceStep).minPrice(minPrice).build();
     @Spy
-    private ProductConfigurationConverter productConfigurationConverter;
+    private ModelMapper mapper;
+    @Spy
+    @InjectMocks
+    private ProductConfigurationConverter productConfigurationConverter=new ProductConfigurationConverter();
     @InjectMocks
     private ProductConfigurationServiceImpl productConfigurationService;
     @Mock

@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
-@RequestMapping("/credentials")
 @RequiredArgsConstructor
+@RequestMapping("/credentials")
 public class CredentialsController {
-    private CredentialsService credentialsService;
+
+    private final CredentialsService credentialsService;
 
     @PostMapping
     public CredentialsInfoDto createCredentials(@RequestBody CredentialsInfoDto credentialsInfoDto) {

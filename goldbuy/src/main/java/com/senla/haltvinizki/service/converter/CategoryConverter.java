@@ -3,6 +3,7 @@ package com.senla.haltvinizki.service.converter;
 import com.senla.haltvinizki.dto.category.CategoryInfoDto;
 import com.senla.haltvinizki.dto.category.CategoryWithProductDto;
 import com.senla.haltvinizki.entity.Category;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,7 +24,10 @@ class CredentialsServiceImplTest {
     private final Long id = 1L;
     private final Credentials credentials = Credentials.builder().login(login).password(password).id(id).build();
     @Spy
-    CredentialsConverter credentialsConverter;
+    private ModelMapper mapper;
+    @Spy
+    @InjectMocks
+    CredentialsConverter credentialsConverter=new CredentialsConverter();
     @InjectMocks
     private CredentialsServiceImpl credentialsService;
     @Mock

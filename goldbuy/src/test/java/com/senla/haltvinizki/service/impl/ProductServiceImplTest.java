@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -32,7 +33,10 @@ class ProductServiceImplTest {
     private final User user = User.builder().id(id).name(userName).mail(mail).phoneNumber(phoneNumber).build();
     private final Product product = Product.builder().id(id).price(price).name(productName).user(user).category(category).build();
     @Spy
-    private ProductConverter productConverter;
+    private ModelMapper mapper;
+    @Spy
+    @InjectMocks
+    private ProductConverter productConverter=new ProductConverter();
     @InjectMocks
     private ProductServiceImpl productService;
     @Mock
