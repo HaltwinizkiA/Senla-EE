@@ -36,7 +36,6 @@ public class CategoryControllerTest extends WebTest {
         ).andExpect(status().is2xxSuccessful());
         Category category1 = categoryDao.getById(category.getId());
         assertNull(category1);
-
     }
 
     @Test
@@ -57,7 +56,6 @@ public class CategoryControllerTest extends WebTest {
                 .andExpect(jsonPath("$.id").exists());
         assertEquals("phones", categoryDao.getById(1L).getName());
         assertNotNull(categoryDao.getById(1L));
-
     }
 
     @Test
@@ -81,7 +79,6 @@ public class CategoryControllerTest extends WebTest {
                 .andExpect(jsonPath("$.name").value("cars"));
         Category categoryUpdated = categoryDao.getById(category.getId());
         assertEquals(category.getId(), categoryUpdated.getId());
-
     }
 
 

@@ -36,7 +36,6 @@ class ProductConfigurationControllerTest extends WebTest {
         ).andExpect(status().is2xxSuccessful());
         ProductConfiguration productConfiguration1 = productConfigurationDao.getById(productConfiguration.getId());
         assertNull(productConfiguration1);
-
     }
 
     @Test
