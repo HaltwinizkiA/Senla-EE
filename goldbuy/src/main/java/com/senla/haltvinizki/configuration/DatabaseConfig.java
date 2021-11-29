@@ -5,7 +5,6 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -21,7 +20,6 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("com.senla.haltvinizki")//todo
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
 @EnableJpaRepositories("com.senla.haltvinizki.dao")
 public class DatabaseConfig {
@@ -54,7 +52,7 @@ public class DatabaseConfig {
 
     }
 
-    private final Properties hibernateProperties() {
+    private Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty(
                 "hibernate.hbm2ddl.auto", "create-drop");

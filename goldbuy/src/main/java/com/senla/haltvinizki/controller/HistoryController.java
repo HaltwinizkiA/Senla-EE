@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/histories")
 public class HistoryController {
+
     private final HistoryService historyService;
 
     @PostMapping

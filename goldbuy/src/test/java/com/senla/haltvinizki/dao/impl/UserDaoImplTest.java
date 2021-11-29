@@ -9,6 +9,7 @@ import com.senla.haltvinizki.entity.Role;
 import com.senla.haltvinizki.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-
- class UserDaoImplTest extends DaoTest {
+@ContextConfiguration(classes = UserDaoImpl.class)
+class UserDaoImplTest extends DaoTest {
     @Resource
     UserDao userDao;
     @Resource

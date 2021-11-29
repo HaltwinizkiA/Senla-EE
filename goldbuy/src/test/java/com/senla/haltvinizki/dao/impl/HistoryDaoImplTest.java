@@ -7,6 +7,7 @@ import com.senla.haltvinizki.entity.Product;
 import com.senla.haltvinizki.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -14,8 +15,8 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-
- class HistoryDaoImplTest extends DaoTest {
+@ContextConfiguration(classes = HistoryDaoImpl.class)
+class HistoryDaoImplTest extends DaoTest {
     private final Date date = new Date();
     private final float price = 400;
     @Resource

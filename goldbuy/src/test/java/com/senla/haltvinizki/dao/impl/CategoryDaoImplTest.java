@@ -6,6 +6,7 @@ import com.senla.haltvinizki.entity.Category;
 import com.senla.haltvinizki.entity.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-
+@ContextConfiguration(classes = CategoryDaoImpl.class)
 class CategoryDaoImplTest extends DaoTest {
     @Resource
     private CategoryDao categoryDao;

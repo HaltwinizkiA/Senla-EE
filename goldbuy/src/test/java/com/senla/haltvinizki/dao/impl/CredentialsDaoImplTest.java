@@ -6,14 +6,15 @@ import com.senla.haltvinizki.entity.Credentials;
 import com.senla.haltvinizki.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.annotation.Resource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-
- class CredentialsDaoImplTest extends DaoTest {
+@ContextConfiguration(classes = CredentialsDaoImpl.class)
+class CredentialsDaoImplTest extends DaoTest {
     @Resource
     private CredentialsDao credentialsDao;
 

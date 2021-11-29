@@ -6,13 +6,15 @@ import com.senla.haltvinizki.entity.Product;
 import com.senla.haltvinizki.entity.ProductConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.annotation.Resource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
- class ProductConfigurationDaoImplTest extends DaoTest {
+@ContextConfiguration(classes = ProductConfigurationDaoImpl.class)
+class ProductConfigurationDaoImplTest extends DaoTest {
     private final float minPrice = 200;
     private final float maxPrice = 450;
     private final float priceStep = 20;
