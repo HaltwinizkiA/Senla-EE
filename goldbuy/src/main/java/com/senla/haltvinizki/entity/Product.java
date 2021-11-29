@@ -34,9 +34,9 @@ public class Product {
     private String status;
     @Column(name = "price")
     private float price;
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     private History history;
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     private ProductConfiguration productConfiguration;
 
     public History getHistory() {

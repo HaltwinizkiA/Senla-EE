@@ -1,8 +1,12 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.configuration.DatabaseConfig;
+import com.senla.haltvinizki.dao.CategoryDao;
+import com.senla.haltvinizki.dao.CredentialsDao;
 import com.senla.haltvinizki.dao.ProductDao;
+import com.senla.haltvinizki.dao.UserDao;
 import com.senla.haltvinizki.entity.Category;
+import com.senla.haltvinizki.entity.Credentials;
 import com.senla.haltvinizki.entity.Product;
 import com.senla.haltvinizki.entity.User;
 import junit.framework.TestCase;
@@ -17,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
@@ -29,17 +34,26 @@ public class ProductDaoImplTest extends TestCase {
     private final Date date = new Date();
     @Resource
     ProductDao productDao;
+    @Resource
+    CategoryDao categoryDao;
+    @Resource
+    UserDao userDao;
+    @Resource
+    CredentialsDao credentialsDao;
 
     @Before
     public void fillingTable() {
+        userDao.create(User.builder().credentials(Credentials.builder().user(User.builder().build()).login("login").build()).name("oleg").build());
+        credentialsDao.create(Credentials.builder().user(User.builder().id(1L).build()).login("login").build());
+        categoryDao.create(Category.builder().name("phones").build());
         Product product = Product.builder()
                 .category(Category.builder().id(1L).name("phones").build())
                 .user(User.builder().id(1L).name("oleg").build())
-                .price(price).name("iphone").addedDate(date).build();
+                .status("active").price(price).name("iphone").addedDate(date).build();
         Product product2 = Product.builder()
                 .category(Category.builder().id(2L).name("cars").build())
                 .user(User.builder().id(2L).name("Luk").build())
-                .price(price).name("audi").addedDate(date).build();
+                .status("active").price(2000).name("audi").addedDate(date).build();
         Product product3 = Product.builder()
                 .category(Category.builder().id(3L).name("shoes").build())
                 .user(User.builder().id(3L).name("John").build())
@@ -70,32 +84,55 @@ public class ProductDaoImplTest extends TestCase {
         assertEquals("iphone", product.getName());
         assertEquals(date, product.getAddedDate());
     }
-//
-//    @Test
-//    public void update() {
-//        ProductConfiguration productConfiguration = productDao.getById(2L);
-//        productConfiguration.setFrequency(12345);
-//        productDao.update(productConfiguration);
-//        assertEquals(2L, productConfiguration.getId());
-//        assertEquals(maxPrice, productConfiguration.getMaxPrice());
-//        assertEquals(minPrice, productConfiguration.getMinPrice());
-//        assertEquals(12345, productConfiguration.getFrequency());
-//    }
-//
-//    @Test
-//    public void delete() {
-//        productDao.delete(3L);
-//        assertNull(productDao.getById(3L));
-//    }
-//
-//    @Test
-//    public void getProductConfigWithProduct() {
-//        ProductConfiguration productConfiguration = productDao.getProductConfigWithProduct(1L);
-//        assertEquals(1L, productConfiguration.getId());
-//        assertEquals(1L, productConfiguration.getProduct().getId());
-//        assertEquals("iphone", productConfiguration.getProduct().getName());
-//        assertEquals(maxPrice, productConfiguration.getMaxPrice());
-//        assertEquals(minPrice, productConfiguration.getMinPrice());
-//    }
+
+    @Test
+    public void update() {
+        Product product = productDao.getById(2L);
+        product.setName("mercedes");
+        productDao.update(product);
+        Product product1=productDao.getById(2L);
+        assertEquals(2L, product1.getId());
+        assertEquals("mercedes", product1.getName());
+
+    }
+
+    @Test
+    public void delete() {
+        productDao.delete(3L);
+        assertNull(productDao.getById(3L));
+    }
+
+    @Test
+    public void getProductWithUser() {
+        Product product = productDao.getProductWithUser(1L);
+        assertEquals(1L, product.getId());
+        assertEquals("iphone", product.getName());
+        assertEquals(1L, product.getUser().getId());
+        assertEquals("oleg", product.getUser().getName());
+    }
+
+    @Test
+    public void getProductWithCategory() {
+        Product product = productDao.getProductWithCategory(1L);
+        assertEquals(1L, product.getId());
+        assertEquals("iphone", product.getName());
+        assertEquals(1L, product.getCategory().getId());
+        assertEquals("phones", product.getCategory().getName());
+    }
+    @Test
+    public void getMostExpensiveProduct() {
+        Product product = productDao.getMostExpensiveProduct();
+        assertEquals(2L, product.getId());
+        assertEquals("audi", product.getName());
+        assertEquals(2000, product.getPrice());
+    }
+    @Test
+    public void getActiveProducts() {
+        List<Product> productList = productDao.getActiveProducts();
+        System.out.println();
+//        assertEquals(2L, product.getId());
+//        assertEquals("audi", product.getName());
+//        assertEquals(2000, product.getPrice());
+    }
 
 }
