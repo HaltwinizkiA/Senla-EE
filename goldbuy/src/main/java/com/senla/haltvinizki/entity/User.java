@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private long id;
-    @OneToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "credentials_id")
     private Credentials credentials;
     @ManyToMany(fetch = FetchType.LAZY)

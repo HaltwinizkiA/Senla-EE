@@ -20,10 +20,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private long id;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
     @Column(name = "name")

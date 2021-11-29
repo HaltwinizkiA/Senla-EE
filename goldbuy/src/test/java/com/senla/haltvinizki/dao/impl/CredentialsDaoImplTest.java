@@ -1,33 +1,23 @@
 package com.senla.haltvinizki.dao.impl;
 
-import com.senla.haltvinizki.configuration.DatabaseConfig;
 import com.senla.haltvinizki.dao.CredentialsDao;
-import com.senla.haltvinizki.dto.credentials.CredentialsWithUserDto;
+import com.senla.haltvinizki.dao.DaoTest;
 import com.senla.haltvinizki.entity.Credentials;
 import com.senla.haltvinizki.entity.User;
-import junit.framework.TestCase;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-        classes = {DatabaseConfig.class},
-        loader = AnnotationConfigContextLoader.class)
-@Transactional
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class CredentialsDaoImplTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+
+ class CredentialsDaoImplTest extends DaoTest {
     @Resource
     private CredentialsDao credentialsDao;
 
-    @Before
+    @BeforeEach
     public void fillingTable() {
         User user = User.builder().name("lesha").build();
         Credentials credentials = Credentials.builder().login("login").password("password").user(user).build();
@@ -81,7 +71,7 @@ public class CredentialsDaoImplTest extends TestCase {
     @Test
     public void getCredentialsWithUser() {
         Credentials credentials = credentialsDao.getCredentialsWithUser(1L);
-        assertEquals("lesha",credentials.getUser().getName());
+        assertEquals("lesha", credentials.getUser().getName());
         assertEquals("login", credentials.getLogin());
         assertEquals("password", credentials.getPassword());
     }

@@ -1,35 +1,25 @@
 package com.senla.haltvinizki.dao.impl;
 
-import com.senla.haltvinizki.configuration.DatabaseConfig;
+import com.senla.haltvinizki.dao.DaoTest;
 import com.senla.haltvinizki.dao.ProductConfigurationDao;
 import com.senla.haltvinizki.entity.Product;
 import com.senla.haltvinizki.entity.ProductConfiguration;
-import junit.framework.TestCase;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-        classes = {DatabaseConfig.class},
-        loader = AnnotationConfigContextLoader.class)
-@Transactional
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class ProductConfigurationDaoImplTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+ class ProductConfigurationDaoImplTest extends DaoTest {
     private final float minPrice = 200;
     private final float maxPrice = 450;
     private final float priceStep = 20;
     @Resource
     ProductConfigurationDao productConfigurationDao;
 
-    @Before
+    @BeforeEach
     public void fillingTable() {
         ProductConfiguration productConfiguration = ProductConfiguration
                 .builder().frequency(10).maxPrice(maxPrice).minPrice(minPrice).priceStep(priceStep)

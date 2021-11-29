@@ -1,36 +1,26 @@
 package com.senla.haltvinizki.dao.impl;
 
-import com.senla.haltvinizki.configuration.DatabaseConfig;
-import com.senla.haltvinizki.configuration.WebConfiguration;
 import com.senla.haltvinizki.dao.CategoryDao;
+import com.senla.haltvinizki.dao.DaoTest;
 import com.senla.haltvinizki.entity.Category;
 import com.senla.haltvinizki.entity.Product;
-import junit.framework.TestCase;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.context.event.annotation.BeforeTestExecution;
+import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-        classes = {DatabaseConfig.class},
-        loader = AnnotationConfigContextLoader.class)
-@Transactional
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class CategoryDaoImplTest extends TestCase {
+class CategoryDaoImplTest extends DaoTest {
     @Resource
     private CategoryDao categoryDao;
 
-    @Before
+    @BeforeEach
     public void fillingTable() {
         Product product = Product.builder().name("iphone").build();
         List<Product> productList = new ArrayList<>();

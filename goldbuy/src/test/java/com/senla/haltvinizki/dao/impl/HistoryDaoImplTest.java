@@ -1,36 +1,27 @@
 package com.senla.haltvinizki.dao.impl;
 
-import com.senla.haltvinizki.configuration.DatabaseConfig;
+import com.senla.haltvinizki.dao.DaoTest;
 import com.senla.haltvinizki.dao.HistoryDao;
 import com.senla.haltvinizki.entity.History;
 import com.senla.haltvinizki.entity.Product;
 import com.senla.haltvinizki.entity.User;
-import junit.framework.TestCase;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.transaction.annotation.Transactional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import java.util.Date;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-        classes = {DatabaseConfig.class},
-        loader = AnnotationConfigContextLoader.class)
-@Transactional
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class HistoryDaoImplTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+
+ class HistoryDaoImplTest extends DaoTest {
     private final Date date = new Date();
     private final float price = 400;
     @Resource
     private HistoryDao historyDao;
 
-    @Before
+    @BeforeEach
     public void fillingTable() {
         History history = History.builder().sellingPrice(400).sellingDate(date)
                 .product(Product.builder().id(1L).name("iphone").build())

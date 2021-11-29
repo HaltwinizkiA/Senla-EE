@@ -21,7 +21,7 @@ public class History {
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private long id;
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
     @ManyToOne(fetch = FetchType.LAZY)

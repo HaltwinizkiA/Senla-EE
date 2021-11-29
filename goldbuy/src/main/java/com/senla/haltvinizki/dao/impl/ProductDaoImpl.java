@@ -23,13 +23,9 @@ public class ProductDaoImpl extends AbstractDao<Product, Long> implements Produc
 
     @Override
     public Product getMostExpensiveProduct() {
-//        return entityManager.
-//                createQuery("SELECT p from Product p where price=(select max(pr.price) from Product pr)",
-//                        Product.class).getSingleResult();
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
-        Root<Product> root = query.from(Product.class);
-        return entityManager.createQuery(query.select(root).groupBy(root.get(Product_.price))).getSingleResult();
+        return entityManager.
+                createQuery("SELECT p from Product p where price=(select max(pr.price) from Product pr)",
+                        Product.class).getSingleResult();
     }
 
     @Override
@@ -37,7 +33,6 @@ public class ProductDaoImpl extends AbstractDao<Product, Long> implements Produc
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
         Root<Product> root = query.from(Product.class);
-        List<Product> productList= entityManager.createQuery(query.select(root)).getResultList();
         return entityManager.createQuery(query.select(root).where(criteriaBuilder.equal(root.get(Product_.status), "active"))).getResultList();
     }
 

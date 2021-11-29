@@ -21,7 +21,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"com.senla.haltvinizki"})//todo
+@ComponentScan("com.senla.haltvinizki")//todo
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
 @EnableJpaRepositories("com.senla.haltvinizki.dao")
 public class DatabaseConfig {
