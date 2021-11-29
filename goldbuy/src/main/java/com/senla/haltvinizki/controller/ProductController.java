@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 @Component
 @RestController
-@RequestMapping("/products")
 @RequiredArgsConstructor
+@RequestMapping("/products")
 public class ProductController {
 
     private final ProductService productService;

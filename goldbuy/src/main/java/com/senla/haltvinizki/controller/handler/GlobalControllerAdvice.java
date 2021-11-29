@@ -19,7 +19,7 @@ public class GlobalControllerAdvice {
                 .name("Категория с id=" + categoryNotFoundException.getId() + " не найден").build();
         return errorMessageDto;
     }
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
 //    @ExceptionHandler(CategoryNotCreatedException.class)
 //    public CategoryInfoDto errorMessageDto(CategoryNotCreatedException categoryNotFoundException) {
 //        CategoryInfoDto errorMessageDto = CategoryInfoDto.builder()

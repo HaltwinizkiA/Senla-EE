@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ProductConfigurationInfoDto {
-    private Long id;
+    private long id;
     private float maxPrice;
     private float minPrice;
     private float priceStep;
     private int frequency;
 
     public long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(long id) {

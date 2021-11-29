@@ -4,9 +4,10 @@ import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
 import com.senla.haltvinizki.dto.user.UserWithProductsDto;
 import com.senla.haltvinizki.dto.user.UserWithRolesDto;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 public interface UserService {
 
     UserInfoDto delete(Long id);

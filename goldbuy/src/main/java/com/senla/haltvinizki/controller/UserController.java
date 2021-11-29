@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
-@RequestMapping("/users")
 @RequiredArgsConstructor
+@RequestMapping("/users")
+
 public class UserController {
 
-    private UserService userService;
-    private JsonMapper gsonMapper;
+    private final UserService userService;
 
     @PostMapping
     public UserInfoDto createUser(@RequestBody UserInfoDto userInfoDto) {

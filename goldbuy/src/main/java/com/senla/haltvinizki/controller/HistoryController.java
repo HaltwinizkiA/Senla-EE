@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
-@RequestMapping("/histories")
 @RequiredArgsConstructor
+@RequestMapping("/histories")
 public class HistoryController {
-    private HistoryService historyService;
+    private final HistoryService historyService;
 
     @PostMapping
     public HistoryInfoDto createHistory(@RequestBody HistoryInfoDto historyInfoDto) {

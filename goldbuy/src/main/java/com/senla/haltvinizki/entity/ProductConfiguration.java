@@ -39,7 +39,7 @@ public class ProductConfiguration {
         this.id = id;
     }
 
-    public Float getMaxPrice() {
+    public float getMaxPrice() {
         return maxPrice;
     }
 

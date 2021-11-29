@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
-@RequestMapping("/roles")
 @RequiredArgsConstructor
+@RequestMapping("/roles")
+
 public class RoleController {
 
     private final RoleService roleService;
-    private final JsonMapper gsonMapper;
 
     @PostMapping
     public RoleInfoDto createRole(@RequestBody RoleInfoDto roleInfoDto) {

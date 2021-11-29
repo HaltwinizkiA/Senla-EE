@@ -1,7 +1,7 @@
 package com.senla.haltvinizki.controller;
 
-import com.senla.haltvinizki.dao.CategoryDao;
-import com.senla.haltvinizki.entity.Category;
+import com.senla.haltvinizki.dao.HistoryDao;
+import com.senla.haltvinizki.entity.History;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,74 +15,71 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Transactional
-public class CategoryControllerTest extends WebTest {
+class HistoryControllerTest extends WebTest {
     @Resource
-    private CategoryDao categoryDao;
+    private HistoryDao historyDao;
 
     @Test
     public void getById() throws Exception {
-        Category category = categoryDao.create(Category.builder().name("phone").build());
+        History history = historyDao.create(History.builder().sellingPrice(200).build());
         mockMvc.perform(
-                get("/categories/" + category.getId())
-        ).andExpect(status().is2xxSuccessful()).andExpect(jsonPath("$.id").value(category.getId()))
-                .andExpect(jsonPath("$.name").value(category.getName()));
+                get("/histories/" + history.getId())
+        ).andExpect(status().is2xxSuccessful()).andExpect(jsonPath("$.id").value(history.getId()))
+                .andExpect(jsonPath("$.sellingPrice").value(history.getSellingPrice()));
     }
 
     @Test
-    public void deleteCategory() throws Exception {
-        Category category = categoryDao.create(Category.builder().name("phone").build());
+    public void deleteHistory() throws Exception {
+        History history = historyDao.create(History.builder().sellingPrice(200).build());
         mockMvc.perform(
-                delete("/categories/" + category.getId())
+                delete("/histories/" + history.getId())
         ).andExpect(status().is2xxSuccessful());
-        Category category1 = categoryDao.getById(category.getId());
-        assertNull(category1);
+        History history1 = historyDao.getById(history.getId());
+        assertNull(history1);
 
     }
 
     @Test
     public void create() throws Exception {
-        final String categoryDto = """
+        final String credentialsDto = """
                         {
-                           "name": "phones"
+                           "sellingPrice": "450"
                         }
                 """;
 
         mockMvc.perform(
-                post("/categories/")
+                post("/histories/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(categoryDto)
+                        .content(credentialsDto)
         ).andExpect(status().is2xxSuccessful())
                 .andDo(print())
                 .andExpect(jsonPath("$.id").exists());
-        assertEquals("phones", categoryDao.getById(1L).getName());
-        assertNotNull(categoryDao.getById(1L));
 
+        History historys = historyDao.getById(1L);
+        assertEquals(450.0, historys.getSellingPrice());
+        assertNotNull(historys);
     }
 
     @Test
     public void update() throws Exception {
-        Category category = categoryDao.create(Category.builder().name("phone").build());
-
+        History history = historyDao.create(History.builder().sellingPrice(200).build());
         final String categoryUpdateDto = String.format("""
                 {
-                   "name": "cars",
+                   "sellingPrice": "50",
                    "id": %s
                 }
-                """, category.getId());
+                """, history.getId());
 
         mockMvc.perform(
-                put("/categories/")
+                put("/histories/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(categoryUpdateDto)
         ).andExpect(status().is2xxSuccessful())
                 .andDo(print())
-                .andExpect(jsonPath("$.id").value(category.getId()))
-                .andExpect(jsonPath("$.name").value("cars"));
-        Category categoryUpdated = categoryDao.getById(category.getId());
-        assertEquals(category.getId(), categoryUpdated.getId());
-
+                .andExpect(jsonPath("$.id").value(history.getId()))
+                .andExpect(jsonPath("$.sellingPrice").value(50.0));
+        History historyUpdated = historyDao.getById(history.getId());
+        assertEquals(history.getId(), historyUpdated.getId());
     }
-
-
 }

@@ -18,6 +18,7 @@ import static java.util.Optional.ofNullable;
 @Transactional
 @RequiredArgsConstructor
 public class ProductConfigurationServiceImpl implements ProductConfigurationService {
+
     private final ProductConfigurationDao productConfigurationDao;
     private final ProductConfigurationConverter productConfigurationConverter;
 

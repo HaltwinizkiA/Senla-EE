@@ -3,7 +3,9 @@ package com.senla.haltvinizki.service;
 import com.senla.haltvinizki.dto.history.HistoryInfoDto;
 import com.senla.haltvinizki.dto.history.HistoryWithCustomerDto;
 import com.senla.haltvinizki.dto.history.HistoryWithProductDto;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public interface HistoryService {
     HistoryInfoDto delete(Long id);
 

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
-@RequestMapping("/product-configurations")
 @RequiredArgsConstructor
+@RequestMapping("/product-configurations")
 public class ProductConfigurationController {
     private final ProductConfigurationService productConfigurationService;
 

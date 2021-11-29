@@ -3,9 +3,11 @@ package com.senla.haltvinizki.service;
 import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import com.senla.haltvinizki.dto.product.ProductWithCategoryDto;
 import com.senla.haltvinizki.dto.product.ProductWithUserDto;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public interface ProductService {
     ProductInfoDto delete(Long id);
 

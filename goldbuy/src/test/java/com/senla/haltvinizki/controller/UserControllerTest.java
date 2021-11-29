@@ -1,7 +1,7 @@
 package com.senla.haltvinizki.controller;
 
-import com.senla.haltvinizki.dao.CategoryDao;
-import com.senla.haltvinizki.entity.Category;
+import com.senla.haltvinizki.dao.UserDao;
+import com.senla.haltvinizki.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,74 +15,71 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Transactional
-public class CategoryControllerTest extends WebTest {
+class UserControllerTest extends WebTest {
     @Resource
-    private CategoryDao categoryDao;
+    private UserDao userDao;
 
     @Test
     public void getById() throws Exception {
-        Category category = categoryDao.create(Category.builder().name("phone").build());
+        User user = userDao.create(User.builder().name("Lesha").build());
         mockMvc.perform(
-                get("/categories/" + category.getId())
-        ).andExpect(status().is2xxSuccessful()).andExpect(jsonPath("$.id").value(category.getId()))
-                .andExpect(jsonPath("$.name").value(category.getName()));
+                get("/users/" + user.getId())
+        ).andExpect(status().is2xxSuccessful()).andExpect(jsonPath("$.id").value(user.getId()))
+                .andExpect(jsonPath("$.name").value(user.getName()));
     }
 
     @Test
-    public void deleteCategory() throws Exception {
-        Category category = categoryDao.create(Category.builder().name("phone").build());
+    public void deleteHistory() throws Exception {
+        User user = userDao.create(User.builder().name("Lesha").build());
         mockMvc.perform(
-                delete("/categories/" + category.getId())
+                delete("/users/" + user.getId())
         ).andExpect(status().is2xxSuccessful());
-        Category category1 = categoryDao.getById(category.getId());
-        assertNull(category1);
+        User user1 = userDao.getById(user.getId());
+        assertNull(user1);
 
     }
 
     @Test
     public void create() throws Exception {
-        final String categoryDto = """
+        final String roleInfoDto = """
                         {
-                           "name": "phones"
+                           "name": "Lesha"
                         }
                 """;
 
         mockMvc.perform(
-                post("/categories/")
+                post("/users/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(categoryDto)
+                        .content(roleInfoDto)
         ).andExpect(status().is2xxSuccessful())
                 .andDo(print())
                 .andExpect(jsonPath("$.id").exists());
-        assertEquals("phones", categoryDao.getById(1L).getName());
-        assertNotNull(categoryDao.getById(1L));
-
+        User user = userDao.getById(1L);
+        assertEquals("Lesha", user.getName());
+        assertNotNull(user);
     }
 
     @Test
     public void update() throws Exception {
-        Category category = categoryDao.create(Category.builder().name("phone").build());
-
+        User user = userDao.create(User.builder().name("Lesha").build());
         final String categoryUpdateDto = String.format("""
                 {
-                   "name": "cars",
+                   "name": "oleg",
                    "id": %s
                 }
-                """, category.getId());
+                """, user.getId());
 
         mockMvc.perform(
-                put("/categories/")
+                put("/users/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(categoryUpdateDto)
         ).andExpect(status().is2xxSuccessful())
                 .andDo(print())
-                .andExpect(jsonPath("$.id").value(category.getId()))
-                .andExpect(jsonPath("$.name").value("cars"));
-        Category categoryUpdated = categoryDao.getById(category.getId());
-        assertEquals(category.getId(), categoryUpdated.getId());
+                .andExpect(jsonPath("$.id").value(user.getId()))
+                .andExpect(jsonPath("$.name").value("oleg"));
 
+        User userUpdated = userDao.getById(user.getId());
+        assertEquals(user.getId(), userUpdated.getId());
     }
-
-
 }

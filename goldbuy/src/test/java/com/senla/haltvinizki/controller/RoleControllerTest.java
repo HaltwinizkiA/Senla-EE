@@ -1,7 +1,7 @@
 package com.senla.haltvinizki.controller;
 
-import com.senla.haltvinizki.dao.CategoryDao;
-import com.senla.haltvinizki.entity.Category;
+import com.senla.haltvinizki.dao.RoleDao;
+import com.senla.haltvinizki.entity.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,76 +13,72 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @Transactional
-public class CategoryControllerTest extends WebTest {
+class RoleControllerTest extends WebTest{
     @Resource
-    private CategoryDao categoryDao;
+    private RoleDao roleDao;
 
     @Test
     public void getById() throws Exception {
-        Category category = categoryDao.create(Category.builder().name("phone").build());
+        Role role = roleDao.create(Role.builder().name("Admin").build());
         mockMvc.perform(
-                get("/categories/" + category.getId())
-        ).andExpect(status().is2xxSuccessful()).andExpect(jsonPath("$.id").value(category.getId()))
-                .andExpect(jsonPath("$.name").value(category.getName()));
+                get("/roles/" + role.getId())
+        ).andExpect(status().is2xxSuccessful()).andExpect(jsonPath("$.id").value(role.getId()))
+                .andExpect(jsonPath("$.name").value(role.getName()));
     }
 
     @Test
-    public void deleteCategory() throws Exception {
-        Category category = categoryDao.create(Category.builder().name("phone").build());
+    public void deleteHistory() throws Exception {
+        Role role = roleDao.create(Role.builder().name("Admin").build());
         mockMvc.perform(
-                delete("/categories/" + category.getId())
+                delete("/roles/" + role.getId())
         ).andExpect(status().is2xxSuccessful());
-        Category category1 = categoryDao.getById(category.getId());
-        assertNull(category1);
+        Role role1 = roleDao.getById(role.getId());
+        assertNull(role1);
 
     }
 
     @Test
     public void create() throws Exception {
-        final String categoryDto = """
+        final String roleInfoDto = """
                         {
-                           "name": "phones"
+                           "name": "admin"                        
                         }
                 """;
 
         mockMvc.perform(
-                post("/categories/")
+                post("/roles/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(categoryDto)
+                        .content(roleInfoDto)
         ).andExpect(status().is2xxSuccessful())
                 .andDo(print())
                 .andExpect(jsonPath("$.id").exists());
-        assertEquals("phones", categoryDao.getById(1L).getName());
-        assertNotNull(categoryDao.getById(1L));
-
+        Role role = roleDao.getById(1L);
+        assertEquals("admin", role.getName());
+        assertNotNull(role);
     }
 
     @Test
     public void update() throws Exception {
-        Category category = categoryDao.create(Category.builder().name("phone").build());
-
+        Role role = roleDao.create(Role.builder().name("Admin").build());
         final String categoryUpdateDto = String.format("""
                 {
-                   "name": "cars",
+                   "name": "Moderator",
                    "id": %s
                 }
-                """, category.getId());
+                """, role.getId());
 
         mockMvc.perform(
-                put("/categories/")
+                put("/roles/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(categoryUpdateDto)
         ).andExpect(status().is2xxSuccessful())
                 .andDo(print())
-                .andExpect(jsonPath("$.id").value(category.getId()))
-                .andExpect(jsonPath("$.name").value("cars"));
-        Category categoryUpdated = categoryDao.getById(category.getId());
-        assertEquals(category.getId(), categoryUpdated.getId());
+                .andExpect(jsonPath("$.id").value(role.getId()))
+                .andExpect(jsonPath("$.name").value("Moderator"));
 
+        Role roleUpdated = roleDao.getById(role.getId());
+        assertEquals(role.getId(), roleUpdated.getId());
     }
-
-
 }
