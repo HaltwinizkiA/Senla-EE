@@ -52,5 +52,18 @@ public class GlobalControllerAdvice {
         return ErrorMessageDto.builder()
                 .name("Пользователь с id=" + userNotFoundException.getId() + " не найден").build();
     }
-    
+
+
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ExceptionHandler(CategoryNotCreatedException.class)
+//    public CategoryInfoDto errorMessageDto(CategoryNotCreatedException categoryNotFoundException) {
+//        CategoryInfoDto errorMessageDto = CategoryInfoDto.builder()
+//                .name("Категория  " +categoryNotFoundException.getName()+ " не cоздана").build();
+//        return errorMessageDto;
+//    }
+
+//    @ExceptionHandler(RuntimeException.class)
+//    public ErrorMessageDto catchRuntimeException() {
+//        return new ErrorMessageDto("всё сломалось");
+//    }
 }

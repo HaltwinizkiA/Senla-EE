@@ -4,7 +4,6 @@ import com.senla.haltvinizki.dao.HistoryDao;
 import com.senla.haltvinizki.entity.History;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -14,7 +13,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Transactional
 class HistoryControllerTest extends WebTest {
     @Resource
     private HistoryDao historyDao;

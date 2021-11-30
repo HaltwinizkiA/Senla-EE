@@ -4,7 +4,6 @@ import com.senla.haltvinizki.dao.UserDao;
 import com.senla.haltvinizki.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -14,7 +13,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Transactional
 class UserControllerTest extends WebTest {
     @Resource
     private UserDao userDao;

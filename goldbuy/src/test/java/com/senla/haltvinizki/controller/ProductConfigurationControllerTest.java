@@ -4,7 +4,6 @@ import com.senla.haltvinizki.dao.ProductConfigurationDao;
 import com.senla.haltvinizki.entity.ProductConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -14,7 +13,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Transactional
 class ProductConfigurationControllerTest extends WebTest {
     @Resource
     private ProductConfigurationDao productConfigurationDao;

@@ -1,4 +1,5 @@
 package com.senla.haltvinizki.controller;
+
 import com.senla.haltvinizki.configuration.WebConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,10 +17,9 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class WebTest {
+    protected MockMvc mockMvc;
     @Autowired
     private WebApplicationContext webApplicationContext;
-
-    protected MockMvc mockMvc;
 
     @BeforeEach
     public void setup() {
