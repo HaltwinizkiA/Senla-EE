@@ -1,6 +1,7 @@
 package com.senla.haltvinizki.controller;
 
 import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoDto;
+import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationWithProductDto;
 import com.senla.haltvinizki.service.ProductConfigurationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -35,8 +36,8 @@ public class ProductConfigurationController {
     public ProductConfigurationInfoDto deleteProductConfiguration(@PathVariable Long id) {
         return productConfigurationService.delete(id);
     }
-//    @GetMapping(value ="/{id}")
-//    public ProductConfigurationWithProductDto getProductConfigurationWithProduct(@PathVariable Long id){
-//        return productConfigurationService.getProductConfigWithProduct(id);
-//    }
+    @GetMapping(value ="product/{id}")
+    public ProductConfigurationWithProductDto getProductConfigurationWithProduct(@PathVariable Long id){
+        return productConfigurationService.getProductConfigWithProduct(id);
+    }
 }
