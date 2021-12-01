@@ -1,17 +1,17 @@
 package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.dao.GenericDao;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 public class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
 
+    public static final String GRAPH_PERSISTENCE = "javax.persistence.fetchgraph";
     @PersistenceContext
     protected EntityManager entityManager;
     protected Class<Entity> entityClass;
-    public static final String graphPersistence="javax.persistence.fetchgraph";
-
     public AbstractDao(Class<Entity> entityClass) {
         this.entityClass = entityClass;
     }
@@ -23,7 +23,7 @@ public class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
     }
 
     @Override
-    public Entity getById(int id) {
+    public Entity getById(Id id) {
         return entityManager.find(entityClass, id);
     }
 
@@ -33,12 +33,9 @@ public class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
     }
 
     @Override
-    public Entity delete(Entity entity) {
-        if (entityManager.contains(entity)) {
-            entityManager.remove(entity);
-        } else {
-            entityManager.remove(entityManager.merge(entity));
-        }
+    public Entity delete(Id id) {
+        Entity entity = getById(id);
+        entityManager.remove(entity);
         return entity;
     }
 }

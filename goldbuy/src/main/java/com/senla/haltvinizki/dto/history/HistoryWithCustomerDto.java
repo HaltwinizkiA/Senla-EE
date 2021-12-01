@@ -2,10 +2,12 @@ package com.senla.haltvinizki.dto.history;
 
 import com.senla.haltvinizki.dto.user.UserInfoDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class HistoryWithCustomerDto {
     private HistoryInfoDto history;
     private UserInfoDto customer;

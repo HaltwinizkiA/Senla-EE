@@ -1,12 +1,12 @@
 package com.senla.haltvinizki.dao;
 
-import com.senla.haltvinizki.entity.history.History;
+import com.senla.haltvinizki.entity.History;
 
 
-public interface HistoryDao extends GenericDao<History, Integer> {
-    History getHistoryWithProduct(int id);
+public interface HistoryDao extends GenericDao<History, Long> {
+    History getHistoryWithProduct(Long id);
 
-    History getHistoryWithCustomer(int id);
+    History getHistoryWithCustomer(Long id);
 
 
 }

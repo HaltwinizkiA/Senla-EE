@@ -2,10 +2,12 @@ package com.senla.haltvinizki.dto.product;
 
 import com.senla.haltvinizki.dto.category.CategoryInfoDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ProductWithCategoryDto {
     private ProductInfoDto product;
     private CategoryInfoDto category;

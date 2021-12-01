@@ -9,6 +9,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserWithProductsDto {
     private UserInfoDto user;
     private List<ProductInfoDto> products;

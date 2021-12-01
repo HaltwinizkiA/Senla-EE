@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserWithCredentialsDto {
     private UserInfoDto user;
     private CredentialsInfoDto credentials;

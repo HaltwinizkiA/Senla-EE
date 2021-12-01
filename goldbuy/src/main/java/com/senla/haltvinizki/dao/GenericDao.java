@@ -1,13 +1,16 @@
 package com.senla.haltvinizki.dao;
 
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 public interface GenericDao<Entity, Id> {
     Entity create(Entity entity);
 
-    Entity getById(int id);
+    Entity getById(Id id);
 
     Entity update(Entity entity);
 
-    Entity delete(Entity entity);
+    Entity delete(Id id);
 
 
 }

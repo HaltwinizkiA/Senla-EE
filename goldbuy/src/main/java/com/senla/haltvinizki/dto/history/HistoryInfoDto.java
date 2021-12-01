@@ -1,35 +1,33 @@
 package com.senla.haltvinizki.dto.history;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class HistoryInfoDto {
-    private int id;
-    private Double sellingPrice;
+    private long id;
+    private Float sellingPrice;
     private Date sellingDate;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public double getSellingPrice() {
+    public Float getSellingPrice() {
         return sellingPrice;
 
     }
 
-    public void setSellingPrice(Double sellingPrice) {
-        this.sellingPrice = sellingPrice;
-    }
-
-    public void setSellingPrice(double sellingPrice) {
+    public void setSellingPrice(Float sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
 
