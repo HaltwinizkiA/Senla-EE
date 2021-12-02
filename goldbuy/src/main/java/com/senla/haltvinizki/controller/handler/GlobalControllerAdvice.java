@@ -50,7 +50,7 @@ public class GlobalControllerAdvice {
     @ExceptionHandler(UserNotFoundException.class)
     public ErrorMessageDto errorMessageDto(UserNotFoundException userNotFoundException) {
         return ErrorMessageDto.builder()
-                .name("Пользователь с id=" + userNotFoundException.getId() + " не найден").build();
+                .name("Пользователь " + userNotFoundException.getMessage() + " не найден").build();
     }
 
 

@@ -15,6 +15,5 @@ public interface UserDao  extends GenericDao<User,Long> {
 
     List<User> getAllAdmin();
 
-
-
+    User getByNameWithRoles(String username);
 }
