@@ -45,7 +45,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable()
                 .csrf().disable()
                 .addFilter(new LoginFilter(jwtProvider, objectMapper(),authenticationManager()))
-                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider,userDetailService), LogoutFilter.class);
+                .addFilterBefore(new JwtAuthenticatio nFilter(jwtProvider,userDetailService), LogoutFilter.class);
     }
     }
 
