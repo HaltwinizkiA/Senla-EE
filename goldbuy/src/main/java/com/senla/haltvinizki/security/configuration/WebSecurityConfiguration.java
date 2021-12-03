@@ -1,7 +1,8 @@
 package com.senla.haltvinizki.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senla.haltvinizki.security.CustomUserDetailsService;
+
+import com.senla.haltvinizki.security.JwtProvider;
 import com.senla.haltvinizki.security.filter.JwtAuthenticationFilter;
 import com.senla.haltvinizki.security.filter.LoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +14,21 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
-@EnableGlobalMethodSecurity(
-        securedEnabled = true
-)
+//@EnableGlobalMethodSecurity(
+//        securedEnabled = true
+//)
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserDetailServiceImpl userDetailService;
+    private UserDetailsService userDetailService;
     @Autowired
     private JwtProvider jwtProvider;
 
-    @Autowired
-    private JwtFilter jwtFilter;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -41,8 +41,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
         @Override
         protected void configure (AuthenticationManagerBuilder auth)throws Exception {
-            auth.userDetailsService(userDetailService)
-                    .passwordEncoder(bCryptPasswordEncoder());
+            auth.userDetailsService(userDetailService);
+//            auth.inMemoryAuthentication()
+//                    .withUser("user").password("{noop}password").roles("ROLE_ADMIN");
         }
         @Override
         public void configure (HttpSecurity http) throws Exception {
@@ -58,6 +59,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
+//            http.antMatcher("/**")
+//                    .sessionManagement()
+//                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                    .and()
+//                    .httpBasic().disable()
+//                    .csrf().disable()
+//                    .addFilter(new LoginFilter(jwtProvider, objectMapper(), authenticationManager()))
+//                    .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, userDetailService), LogoutFilter.class);
+
             http.antMatcher("/**")
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -70,7 +80,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .accessDeniedHandler(
                             (request, response, accessDeniedException) -> {
                                 response.getOutputStream().println();
-                            }).authenticationEntryPoint(
+                            })
+                    .authenticationEntryPoint(
                     (request, response, authException) -> {
                         response.getOutputStream().println();
                     }

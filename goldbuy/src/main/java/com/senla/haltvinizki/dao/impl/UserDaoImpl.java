@@ -62,13 +62,13 @@ public class UserDaoImpl extends AbstractDao<User,Long> implements UserDao {
 
     @Override
     public User getByLoginWithRoles(String username) {
-        return entityManager.createQuery("select user from User user left join fetch user.roles where user.name= :username", User.class)
+        return entityManager.createQuery("select user from User user left join fetch user.roles where user.name= :username", User.class)//todo
                 .setParameter("username", username).getSingleResult();
     }
 
     @Override
     public User getByNameWithRoles(String username) {
-        return entityManager.createQuery("select user from User user left join fetch user.credentials cr where cr.login= :username", User.class)
+        return entityManager.createQuery("select user from User user left join fetch user.roles where user.name= :username", User.class)
                 .setParameter("username", username).getSingleResult();
     }
 

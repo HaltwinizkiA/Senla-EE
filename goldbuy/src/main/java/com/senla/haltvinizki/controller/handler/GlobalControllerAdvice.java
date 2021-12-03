@@ -4,6 +4,7 @@ import com.senla.haltvinizki.controller.handler.dto.ErrorMessageDto;
 import com.senla.haltvinizki.service.exception.*;
 import com.senla.haltvinizki.service.exception.category.CategoryNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -63,8 +64,15 @@ public class GlobalControllerAdvice {
     @ExceptionHandler(AccessDeniedException.class)
     public ErrorMessageDto catchAccessDeniedException(Exception e){
         return ErrorMessageDto.builder()
-                .name("cломалось").build();
+                    .name("нет прав").build();
     }
+    @ResponseStatus(HttpStatus.PROXY_AUTHENTICATION_REQUIRED)
+    @ExceptionHandler(AuthenticationException.class)
+    public ErrorMessageDto catchAuthenticationException(Exception e){
+        return ErrorMessageDto.builder()
+                .name("ошибка аутенцификации").build();
+    }
+
 
 
 

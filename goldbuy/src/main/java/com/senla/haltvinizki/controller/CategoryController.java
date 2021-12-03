@@ -5,6 +5,7 @@ import com.senla.haltvinizki.dto.category.CategoryInfoDto;
 import com.senla.haltvinizki.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/{id}")
-//    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN ")
     public CategoryInfoDto getById(@PathVariable Long id) {
         return categoryService.getById(id);
     }
