@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.file.AccessDeniedException;
+
 @RestControllerAdvice
 public class GlobalControllerAdvice {
 
@@ -51,6 +53,17 @@ public class GlobalControllerAdvice {
     public ErrorMessageDto errorMessageDto(UserNotFoundException userNotFoundException) {
         return ErrorMessageDto.builder()
                 .name("Пользователь " + userNotFoundException.getMessage() + " не найден").build();
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ErrorMessageDto catchRuntimeException(Exception e){
+        return ErrorMessageDto.builder()
+                .name("cломалось").build();
+    }
+    @ExceptionHandler(AccessDeniedException.class)
+    public ErrorMessageDto catchAccessDeniedException(Exception e){
+        return ErrorMessageDto.builder()
+                .name("cломалось").build();
     }
 
 

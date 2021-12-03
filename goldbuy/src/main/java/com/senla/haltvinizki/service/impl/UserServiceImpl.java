@@ -6,6 +6,7 @@ import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
 import com.senla.haltvinizki.dto.user.UserWithProductsDto;
 import com.senla.haltvinizki.dto.user.UserWithRolesDto;
+import com.senla.haltvinizki.entity.Role;
 import com.senla.haltvinizki.entity.User;
 import com.senla.haltvinizki.service.UserService;
 import com.senla.haltvinizki.service.converter.UserConverter;
@@ -13,7 +14,9 @@ import com.senla.haltvinizki.service.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import javax.management.relation.RoleList;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
@@ -40,6 +43,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfoDto update(UserInfoDto userDto) {
+//        User user=userDao.getById(2L);
+//        List<Role> roles=new ArrayList<>();
+//        roles.add(Role.builder().id(2).name("USER").build());
+//        user.setRoles(roles);
+//        userDao.update(user);
+//        return null;
         User user = userConverter.convert(userDto);
         return userConverter.convert(userDao.update(user));
     }
@@ -48,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     public UserInfoDto getById(Long id) {
         final User user = ofNullable(userDao.getById(id))
-                .orElseThrow(() -> new UserNotFoundException(id));
+                .orElseThrow(() -> new UserNotFoundException(id+""));
         return userConverter.convert(user);
     }
 
@@ -77,5 +86,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserInfoDto> getAllAdmin() {
         return userConverter.convert(userDao.getAllAdmin());
+    }
+
+    @Override
+    public UserWithRolesDto getByNameWithRoles(String username) {
+        return userConverter.convertWithRoles(userDao.getByLoginWithRoles(username));
     }
 }
