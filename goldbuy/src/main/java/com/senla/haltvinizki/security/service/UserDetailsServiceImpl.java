@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var us = userDao.getByLoginWithRolesAndCredentials("test");
+        var us = userDao.getByLoginWithRolesAndCredentials(username);
         if (us == null) {
             throw new UserNotFoundException(username);
         }
