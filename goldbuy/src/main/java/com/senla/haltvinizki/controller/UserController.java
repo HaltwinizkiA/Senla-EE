@@ -5,7 +5,7 @@ import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
 import com.senla.haltvinizki.dto.user.UserWithRolesDto;
 import com.senla.haltvinizki.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +25,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public UserInfoDto getById(@PathVariable Long id) {
         return userService.getById(id);
     }

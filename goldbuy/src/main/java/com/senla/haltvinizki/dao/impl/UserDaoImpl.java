@@ -4,6 +4,7 @@ import com.senla.haltvinizki.configuration.GraphConfiguration;
 import com.senla.haltvinizki.dao.UserDao;
 import com.senla.haltvinizki.entity.User;
 import com.senla.haltvinizki.entity.User_;
+import com.senla.haltvinizki.service.exception.UserNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import javax.persistence.criteria.Root;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static java.util.Optional.ofNullable;
 
 @Repository
 @Transactional

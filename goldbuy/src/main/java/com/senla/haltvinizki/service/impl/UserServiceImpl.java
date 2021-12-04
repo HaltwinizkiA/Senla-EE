@@ -43,23 +43,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfoDto update(UserInfoDto userDto) {
-//        User user=userDao.getById(2L);
-//        List<Role> roles=new ArrayList<>();
-//        roles.add(Role.builder().id(2).name("USER").build());
-//        user.setRoles(roles);
-//        userDao.update(user);
-//        return null;
         User user = userConverter.convert(userDto);
         return userConverter.convert(userDao.update(user));
     }
 
     @Override
-
     public UserInfoDto getById(Long id) {
         final User user = ofNullable(userDao.getById(id))
                 .orElseThrow(() -> new UserNotFoundException(id+""));
         return userConverter.convert(user);
     }
+
 
     @Override
     public UserWithCredentialsDto getUserWithCredentials(Long id) {
@@ -77,6 +71,7 @@ public class UserServiceImpl implements UserService {
         return userConverter.convertWithRoles(userDao.getUserWithRole(id));
 
     }
+
 
     @Override
     public UserInfoDto getUserWithLogin(String login) {

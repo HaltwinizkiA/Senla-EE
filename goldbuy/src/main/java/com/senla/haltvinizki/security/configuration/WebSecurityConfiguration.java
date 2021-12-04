@@ -1,12 +1,14 @@
 package com.senla.haltvinizki.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.senla.haltvinizki.security.AcExcp;
 import com.senla.haltvinizki.security.JwtProvider;
 import com.senla.haltvinizki.security.filter.JwtAuthenticationFilter;
 import com.senla.haltvinizki.security.filter.LoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -58,12 +60,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(
                         (request, response, accessDeniedException) -> {
                             response.getOutputStream().println();
+
                         })
                 .authenticationEntryPoint(
                         (request, response, authException) -> {
                             response.getOutputStream().println();
                         }
-                );
+                )
+        ;
     }
 
 }
