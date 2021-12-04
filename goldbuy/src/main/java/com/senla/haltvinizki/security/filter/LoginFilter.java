@@ -1,8 +1,8 @@
 package com.senla.haltvinizki.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
 import com.senla.haltvinizki.security.JwtProvider;
-import lombok.Data;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,18 +28,18 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected boolean requiresAuthentication(HttpServletRequest request,HttpServletResponse response){
-        return super.requiresAuthentication(request,response);
+    protected boolean requiresAuthentication(HttpServletRequest request, HttpServletResponse response) {
+        return super.requiresAuthentication(request, response);
     }
 
     @Override
     @SneakyThrows
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        Credantials credantials = objectMapper.readValue(request.getInputStream(), Credantials.class);
+        CredentialsInfoDto credentialsInfoDto = objectMapper.readValue(request.getInputStream(), CredentialsInfoDto.class);
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        credantials.username,
-                        credantials.password
+                        credentialsInfoDto.getLogin(),
+                        credentialsInfoDto.getPassword()
                 )
         );
     }
@@ -52,11 +52,5 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private String prepareJwt(Authentication authResult) {
         return jwtProvider.buildToken(authResult.getName());
-    }
-
-    @Data
-    static class Credantials {
-        private String username;
-        private String password;
     }
 }

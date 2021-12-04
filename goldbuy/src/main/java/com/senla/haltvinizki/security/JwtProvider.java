@@ -13,10 +13,11 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
+
 @Component
 public class JwtProvider {
-    private String secret="secret";
-    private String expiration="PT10M";
+    private final String secret = "asdasdfdsf12345";
+    private final String expiration = "PT10M";
 
     public String buildToken(String username) {
         final Map<String, Object> claims = new HashMap<>();
@@ -27,7 +28,7 @@ public class JwtProvider {
                 .setSubject(username)
                 .setExpiration(Date.from(Instant.now().plus(Duration.parse(expiration).toMinutes(), ChronoUnit.MINUTES)))
                 .signWith(
-                        SignatureAlgorithm.ES256,
+                        SignatureAlgorithm.HS512,
                         secret.getBytes(StandardCharsets.UTF_8))
                 .compact();
     }

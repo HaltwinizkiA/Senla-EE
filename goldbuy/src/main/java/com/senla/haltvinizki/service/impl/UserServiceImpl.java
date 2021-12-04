@@ -90,6 +90,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserWithRolesDto getByNameWithRoles(String username) {
-        return userConverter.convertWithRoles(userDao.getByLoginWithRoles(username));
+        return userConverter.convertWithRoles(userDao.getByNameWithRoles(username));
     }
 }

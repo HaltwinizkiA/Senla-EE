@@ -59,7 +59,7 @@ public class GlobalControllerAdvice {
     @ExceptionHandler(RuntimeException.class)
     public ErrorMessageDto catchRuntimeException(Exception e){
         return ErrorMessageDto.builder()
-                .name("cломалось").build();
+                .name("что-то пошло не так").build();
     }
     @ExceptionHandler(AccessDeniedException.class)
     public ErrorMessageDto catchAccessDeniedException(Exception e){

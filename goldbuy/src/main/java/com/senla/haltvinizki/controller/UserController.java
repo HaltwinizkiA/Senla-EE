@@ -31,6 +31,7 @@ public class UserController {
     public UserInfoDto getById(@PathVariable Long id) {
         return userService.getById(id);
     }
+
     @GetMapping(value = "/credentials/{id}")
     public UserWithCredentialsDto getWithCredById(@PathVariable Long id){
         return userService.getUserWithCredentials(id);
