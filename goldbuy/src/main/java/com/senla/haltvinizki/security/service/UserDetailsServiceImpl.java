@@ -3,6 +3,7 @@ package com.senla.haltvinizki.security.service;
 import com.senla.haltvinizki.dao.UserDao;
 import com.senla.haltvinizki.service.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,10 +16,9 @@ import java.util.stream.Collectors;
 
 
 @Service
-@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-
-    private final UserDao userDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException {

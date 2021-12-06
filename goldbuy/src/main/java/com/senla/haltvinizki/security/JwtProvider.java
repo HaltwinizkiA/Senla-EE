@@ -4,6 +4,8 @@ package com.senla.haltvinizki.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -15,11 +17,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = true)
 public class JwtProvider {
-    //    @Value("${secret}")
-    private final String secret = "asdasdfdsf12345";
-    //    @Value("${expiration}")
-    private final String expiration = "PT10M";
+    @Value("${expiration}")
+    private String secret;
+    @Value("${expiration}")
+    private String expiration;
 
     public String buildToken(String username) {
         final Map<String, Object> claims = new HashMap<>();

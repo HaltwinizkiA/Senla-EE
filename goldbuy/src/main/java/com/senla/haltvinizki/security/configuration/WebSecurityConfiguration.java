@@ -1,11 +1,11 @@
 package com.senla.haltvinizki.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senla.haltvinizki.controller.handler.GlobalControllerAdvice;
-import com.senla.haltvinizki.security.JwtProvider;
 import com.senla.haltvinizki.security.filter.JwtAuthenticationFilter;
 import com.senla.haltvinizki.security.filter.LoginFilter;
+import com.senla.haltvinizki.security.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @EnableGlobalMethodSecurity(
@@ -30,20 +31,36 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 @RequiredArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsService userDetailService;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final LoginFilter loginFilter;
-    
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+
+    @Bean
+    public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    @SneakyThrows
+    @Bean
+    public LoginFilter loginFilter() {
+        return new LoginFilter(authenticationManager(), objectMapper());
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter(userDetailsService());
+    }
 
     @Bean
     public AuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailService);
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
         daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
         daoAuthenticationProvider.setHideUserNotFoundExceptions(false);
         return daoAuthenticationProvider;
@@ -57,7 +74,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Override
@@ -67,11 +84,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic().disable()
                 .csrf().disable()
-                .addFilterBefore(jwtAuthenticationFilter, LogoutFilter.class)
-                .addFilter(loginFilter)
+                .addFilterBefore(jwtAuthenticationFilter(), LogoutFilter.class)
+                .addFilter(loginFilter())
                 .exceptionHandling()
-                .accessDeniedHandler((request, response, accessDeniedException) ->response.getOutputStream().println("ACCESS DENIED"))
-                .authenticationEntryPoint((request, response, authException) ->response.getOutputStream().println("NOT AUTHORIZED"))
+                .accessDeniedHandler((request, response, accessDeniedException) -> response.getOutputStream().println("ACCESS DENIED"))
+                .authenticationEntryPoint((request, response, authException) -> response.getOutputStream().println("NOT AUTHORIZED"))
         ;
 
     }

@@ -4,11 +4,12 @@ import com.senla.haltvinizki.controller.handler.dto.ErrorMessageDto;
 import com.senla.haltvinizki.service.exception.*;
 import com.senla.haltvinizki.service.exception.category.CategoryNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-//@ControllerAdvice
+
 @RestControllerAdvice
 public class GlobalControllerAdvice {
 
@@ -55,29 +56,10 @@ public class GlobalControllerAdvice {
                 .name("Пользователь " + userNotFoundException.getMessage() + " не найден").build();
     }
 
-
-//    @ExceptionHandler(AuthenticationException.class)
-//    public ErrorMessageDto catchAuthenticationException(AuthenticationException e) {
-//        return ErrorMessageDto.builder()
-//                .name("ошибка аутенцификации").build();
-//    }
-//
-//    @ExceptionHandler(AcExcp.class)
-//    public ErrorMessageDto catchAAcExcpException(AcExcp e) {
-//        return ErrorMessageDto.builder()
-//                .name("нет прав").build();
-//    }
-//
-//    @ExceptionHandler(AccessDeniedException.class)
-//    public ErrorMessageDto catchAccessDeniedException(AccessDeniedException e) {
-//        return ErrorMessageDto.builder()
-//                .name("нет прав").build();
-//    }
-
-//    @ExceptionHandler(RuntimeException.class)
-//    public ErrorMessageDto catchRuntimeException(Exception e) {
-//        return ErrorMessageDto.builder()
-//                .name("что-то пошло не так").build();
-//    }
+    @ExceptionHandler(RuntimeException.class)
+    public ErrorMessageDto catchRuntimeException(RuntimeException e) {
+        return ErrorMessageDto.builder()
+                .name("что-то пошло не так").build();
+    }
 
 }
