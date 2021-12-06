@@ -53,4 +53,9 @@ public class CredentialsServiceImpl implements CredentialsService {
     public CredentialsWithUserDto getCredentialsWithUser(Long id) {
         return credentialsConverter.covert(credentialsDao.getCredentialsWithUser(id));
     }
+
+    @Override
+    public CredentialsInfoDto getByUserId(long id) {
+        return credentialsConverter.convert(credentialsDao.getByUserId(id));
+    }
 }

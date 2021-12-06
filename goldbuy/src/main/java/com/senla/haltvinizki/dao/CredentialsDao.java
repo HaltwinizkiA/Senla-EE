@@ -6,4 +6,5 @@ public interface CredentialsDao extends GenericDao<Credentials,Long> {
 
     Credentials getCredentialsWithUser(Long id);
 
+    Credentials getByUserId(long id);
 }

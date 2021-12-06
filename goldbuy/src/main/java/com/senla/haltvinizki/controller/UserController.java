@@ -64,8 +64,8 @@ public class UserController {
 
 
     @GetMapping(value = "/my-info")
-    public UserInfoDto getUser(@AuthenticationPrincipal UserDetailsWithId userInf) {
-        return userService.getById(userInf.getId());
+    public UserInfoDto getUser(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
+        return userService.getById(userDetailsWithId.getId());
     }
 
 }
