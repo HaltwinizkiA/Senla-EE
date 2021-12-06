@@ -9,6 +9,7 @@ import com.senla.haltvinizki.service.CredentialsService;
 import com.senla.haltvinizki.service.converter.CredentialsConverter;
 import com.senla.haltvinizki.service.exception.CredentialsNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ public class CredentialsServiceImpl implements CredentialsService {
 
     private final CredentialsDao credentialsDao;
     private final CredentialsConverter credentialsConverter;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public CredentialsInfoDto delete(Long id) {
@@ -30,7 +32,7 @@ public class CredentialsServiceImpl implements CredentialsService {
 
     @Override
     public CredentialsInfoDto create(CredentialsInfoDto credentialsDto) {
-        Credentials credentials = credentialsConverter.convert(credentialsDto);
+        Credentials credentials = credentialsConverter.convertCreate(credentialsDto,passwordEncoder);
         return credentialsConverter.convert(credentialsDao.create(credentials));
     }
 

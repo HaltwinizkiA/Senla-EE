@@ -4,7 +4,6 @@ package com.senla.haltvinizki.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -17,9 +16,9 @@ import java.util.Map;
 
 @Component
 public class JwtProvider {
-//    @Value("${secret}")
+    //    @Value("${secret}")
     private final String secret = "asdasdfdsf12345";
-//    @Value("${expiration}")
+    //    @Value("${expiration}")
     private final String expiration = "PT10M";
 
     public String buildToken(String username) {
@@ -42,5 +41,6 @@ public class JwtProvider {
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
+
     }
 }

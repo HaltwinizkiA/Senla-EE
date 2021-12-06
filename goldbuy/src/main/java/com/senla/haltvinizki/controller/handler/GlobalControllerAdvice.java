@@ -1,22 +1,16 @@
 package com.senla.haltvinizki.controller.handler;
 
 import com.senla.haltvinizki.controller.handler.dto.ErrorMessageDto;
-import com.senla.haltvinizki.security.AcExcp;
 import com.senla.haltvinizki.service.exception.*;
 import com.senla.haltvinizki.service.exception.category.CategoryNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.nio.file.AccessDeniedException;
-
-@ControllerAdvice
-//@RestControllerAdvice
-public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
+//@ControllerAdvice
+@RestControllerAdvice
+public class GlobalControllerAdvice {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(CategoryNotFoundException.class)
@@ -53,37 +47,37 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
                 .name("Роль с id=" + roleNotFoundException.getId() + " не найден").build();
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)
     public ErrorMessageDto errorMessageDto(UserNotFoundException userNotFoundException) {
         return ErrorMessageDto.builder()
                 .name("Пользователь " + userNotFoundException.getMessage() + " не найден").build();
     }
 
-    @ExceptionHandler(AuthenticationException.class)
-    public ErrorMessageDto catchAuthenticationException(AuthenticationException e) {
-        return ErrorMessageDto.builder()
-                .name("ошибка аутенцификации").build();
-    }
 
-    @ExceptionHandler(AcExcp.class)
-    public ErrorMessageDto catchAAcExcpException(AcExcp e) {
-        return ErrorMessageDto.builder()
-                .name("нет прав").build();
-    }
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(AccessDeniedException.class)
-    public ErrorMessageDto catchAccessDeniedException(AccessDeniedException e) {
-        return ErrorMessageDto.builder()
-                .name("нет прав").build();
-    }
+//    @ExceptionHandler(AuthenticationException.class)
+//    public ErrorMessageDto catchAuthenticationException(AuthenticationException e) {
+//        return ErrorMessageDto.builder()
+//                .name("ошибка аутенцификации").build();
+//    }
+//
+//    @ExceptionHandler(AcExcp.class)
+//    public ErrorMessageDto catchAAcExcpException(AcExcp e) {
+//        return ErrorMessageDto.builder()
+//                .name("нет прав").build();
+//    }
+//
+//    @ExceptionHandler(AccessDeniedException.class)
+//    public ErrorMessageDto catchAccessDeniedException(AccessDeniedException e) {
+//        return ErrorMessageDto.builder()
+//                .name("нет прав").build();
+//    }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ErrorMessageDto catchRuntimeException(Exception e) {
-        return ErrorMessageDto.builder()
-                .name("что-то пошло не так").build();
-    }
-
-
+//    @ExceptionHandler(RuntimeException.class)
+//    public ErrorMessageDto catchRuntimeException(Exception e) {
+//        return ErrorMessageDto.builder()
+//                .name("что-то пошло не так").build();
+//    }
 
 }

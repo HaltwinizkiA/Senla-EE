@@ -2,10 +2,12 @@ package com.senla.haltvinizki.security.filter;
 
 
 import com.senla.haltvinizki.security.JwtProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -16,16 +18,14 @@ import java.io.IOException;
 
 import static java.util.Optional.ofNullable;
 
-
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public static final String BEARER = "Bearer";
-    private final JwtProvider jwtProvider;
-    private final UserDetailsService userDetailService;
+    @Autowired
+    private JwtProvider jwtProvider;
+    @Autowired
+    private UserDetailsService userDetailService;
 
-    public JwtAuthenticationFilter(JwtProvider jwtProvider, UserDetailsService userDetailService) {
-        this.jwtProvider = jwtProvider;
-        this.userDetailService = userDetailService;
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -43,6 +43,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     );
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
+
     }
 
 }
+
+

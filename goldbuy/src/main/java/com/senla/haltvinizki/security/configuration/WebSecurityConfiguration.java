@@ -1,14 +1,16 @@
 package com.senla.haltvinizki.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.senla.haltvinizki.security.AcExcp;
+import com.senla.haltvinizki.controller.handler.GlobalControllerAdvice;
 import com.senla.haltvinizki.security.JwtProvider;
 import com.senla.haltvinizki.security.filter.JwtAuthenticationFilter;
 import com.senla.haltvinizki.security.filter.LoginFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,21 +27,32 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
         jsr250Enabled = true)
 @EnableWebSecurity
 @Configuration
+@RequiredArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserDetailsService userDetailService;
-    @Autowired
-    private JwtProvider jwtProvider;
 
-
+    private final UserDetailsService userDetailService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final LoginFilter loginFilter;
+    
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
+    public AuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailService);
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+        daoAuthenticationProvider.setHideUserNotFoundExceptions(false);
+        return daoAuthenticationProvider;
+    }
+
+    @Autowired
+    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
+                .authenticationProvider(daoAuthenticationProvider());
     }
 
     @Override
@@ -49,25 +62,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**")
+        http.antMatcher("/**").sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .httpBasic().disable()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, userDetailService), LogoutFilter.class)
-                .addFilter(new LoginFilter(jwtProvider, objectMapper(), authenticationManager()))
+                .addFilterBefore(jwtAuthenticationFilter, LogoutFilter.class)
+                .addFilter(loginFilter)
                 .exceptionHandling()
-                .accessDeniedHandler(
-                        (request, response, accessDeniedException) -> {
-                            response.getOutputStream().println();
-
-                        })
-                .authenticationEntryPoint(
-                        (request, response, authException) -> {
-                            response.getOutputStream().println();
-                        }
-                )
+                .accessDeniedHandler((request, response, accessDeniedException) ->response.getOutputStream().println("ACCESS DENIED"))
+                .authenticationEntryPoint((request, response, authException) ->response.getOutputStream().println("NOT AUTHORIZED"))
         ;
+
     }
 
 }
