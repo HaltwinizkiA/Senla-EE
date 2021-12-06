@@ -4,6 +4,7 @@ import com.senla.haltvinizki.configuration.GraphConfiguration;
 import com.senla.haltvinizki.dao.UserDao;
 import com.senla.haltvinizki.entity.User;
 import com.senla.haltvinizki.entity.User_;
+import com.senla.haltvinizki.service.exception.UserNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import javax.persistence.criteria.Root;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static java.util.Optional.ofNullable;
 
 @Repository
 @Transactional
@@ -58,6 +60,19 @@ public class UserDaoImpl extends AbstractDao<User,Long> implements UserDao {
     public List<User> getAllAdmin() {
         return entityManager.createQuery("select user from User user inner join fetch user.roles r where r.name='Admin'", User.class)
                 .getResultList();
+    }
+
+    @Override
+    public User getByLoginWithRolesAndCredentials(String username) {
+        return entityManager.createQuery
+                ("select user from User user left join fetch user.roles r join fetch user.credentials cr where cr.login= :username", User.class)//todo
+                .setParameter("username", username).getSingleResult();
+    }
+
+    @Override
+    public User getByNameWithRoles(String username) {
+        return entityManager.createQuery("select user from User user left join fetch user.roles where user.name= :username", User.class)
+                .setParameter("username", username).getSingleResult();
     }
 
 

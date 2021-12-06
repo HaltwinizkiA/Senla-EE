@@ -4,9 +4,11 @@ import com.senla.haltvinizki.controller.handler.dto.ErrorMessageDto;
 import com.senla.haltvinizki.service.exception.*;
 import com.senla.haltvinizki.service.exception.category.CategoryNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 
 @RestControllerAdvice
 public class GlobalControllerAdvice {
@@ -46,13 +48,18 @@ public class GlobalControllerAdvice {
                 .name("Роль с id=" + roleNotFoundException.getId() + " не найден").build();
     }
 
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)
     public ErrorMessageDto errorMessageDto(UserNotFoundException userNotFoundException) {
         return ErrorMessageDto.builder()
-                .name("Пользователь с id=" + userNotFoundException.getId() + " не найден").build();
+                .name("Пользователь " + userNotFoundException.getMessage() + " не найден").build();
     }
 
-
+    @ExceptionHandler(RuntimeException.class)
+    public ErrorMessageDto catchRuntimeException(RuntimeException e) {
+        return ErrorMessageDto.builder()
+                .name("что-то пошло не так").build();
+    }
 
 }

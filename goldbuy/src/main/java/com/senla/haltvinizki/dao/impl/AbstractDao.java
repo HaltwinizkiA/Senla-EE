@@ -21,7 +21,6 @@ public class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
         entityManager.persist(entity);
         return entity;
     }
-
     @Override
     public Entity getById(Id id) {
         return entityManager.find(entityClass, id);

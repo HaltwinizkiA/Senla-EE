@@ -4,9 +4,11 @@ import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
 import com.senla.haltvinizki.dto.user.UserWithProductsDto;
 import com.senla.haltvinizki.dto.user.UserWithRolesDto;
+import com.senla.haltvinizki.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Transactional
 public interface UserService {
 
@@ -27,6 +29,8 @@ public interface UserService {
     UserInfoDto getUserWithLogin(String login);
 
     List<UserInfoDto> getAllAdmin();
+
+    UserWithRolesDto getByNameWithRoles(String username);
 
 
 }
