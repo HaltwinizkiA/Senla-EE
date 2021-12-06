@@ -43,10 +43,9 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public UserInfoDto updateUser(@RequestBody UserInfoDto userInfoDto) {
         return userService.update(userInfoDto);
-
     }
 
-    @GetMapping(value = "/rol/{id}")
+    @GetMapping(value = "/{id}/roles")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public UserWithRolesDto getByNameWithRoles() {
         return userService.getByNameWithRoles("test");
@@ -58,7 +57,7 @@ public class UserController {
         return userService.delete(id);
     }
 
-    @DeleteMapping(value = "/delete-you")
+    @DeleteMapping(value = "/myself")
     public UserInfoDto deleteYourUser(@AuthenticationPrincipal UserDetailsWithId userInf) {
         return userService.delete(userInf.getId());
     }
@@ -67,7 +66,6 @@ public class UserController {
     @GetMapping(value = "/my-info")
     public UserInfoDto getUser(@AuthenticationPrincipal UserDetailsWithId userInf) {
         return userService.getById(userInf.getId());
-
     }
 
 }

@@ -16,7 +16,6 @@ public class ProductConfigurationController {
 
     private final ProductConfigurationService productConfigurationService;
 
-
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ProductConfigurationInfoDto createProductConfiguration(@RequestBody ProductConfigurationInfoDto productConfigurationInfoDto) {

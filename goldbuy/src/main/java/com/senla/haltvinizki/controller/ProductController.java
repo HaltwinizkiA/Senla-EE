@@ -39,6 +39,5 @@ public class ProductController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
     public ProductInfoDto deleteProduct(@PathVariable Long id) {
         return productService.delete(id);
-
     }
 }

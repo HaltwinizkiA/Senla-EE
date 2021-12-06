@@ -38,7 +38,6 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CategoryInfoDto deleteCategory(@PathVariable Long id) {
         return categoryService.delete(id);
-
     }
 
 
