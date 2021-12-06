@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private long id;
-    @OneToOne( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "credentials_id")
     private Credentials credentials;
     @ManyToMany(fetch = FetchType.LAZY)
@@ -36,14 +36,24 @@ public class User {
     @Column(name = "mail")
     private String mail;
     @OneToMany(mappedBy = "customer")
-    private List<History> histories;
+    private List<History> purchaseHistory;
+    @OneToMany(mappedBy = "owner")
+    private List<History> salesHistory;
 
-    public List<History> getHistories() {
-        return histories;
+    public List<History> getSalesHistory() {
+        return salesHistory;
     }
 
-    public void setHistories(List<History> histories) {
-        this.histories = histories;
+    public void setSalesHistory(List<History> salesHistory) {
+        this.salesHistory = salesHistory;
+    }
+
+    public List<History> getPurchaseHistory() {
+        return purchaseHistory;
+    }
+
+    public void setPurchaseHistory(List<History> purchaseHistory) {
+        this.purchaseHistory = purchaseHistory;
     }
 
     public List<Role> getRoles() {

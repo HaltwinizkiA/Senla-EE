@@ -17,4 +17,6 @@ public interface CredentialsService {
     CredentialsWithUserDto getCredentialsWithUser(Long id);
 
     CredentialsInfoDto getByUserId(long id);
+
+    CredentialsInfoDto deleteByUserId(long id);
 }

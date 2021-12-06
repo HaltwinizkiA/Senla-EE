@@ -32,4 +32,11 @@ public class CredentialsDaoImpl extends AbstractDao<Credentials, Long> implement
                         ("select credentials from Credentials credentials left join fetch credentials.user user where user.id= :id", Credentials.class)
                 .setParameter("id", id).getSingleResult();
     }
+
+    @Override
+    public Credentials deleteByUserId(long id) {
+        return entityManager.createQuery
+                        ("delete credentials from Credentials credentials left join fetch credentials.user user where user.id= :id", Credentials.class)
+                .setParameter("id", id).getSingleResult();
+    }
 }

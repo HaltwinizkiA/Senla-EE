@@ -3,10 +3,14 @@ package com.senla.haltvinizki.service.converter;
 import com.senla.haltvinizki.dto.history.HistoryInfoDto;
 import com.senla.haltvinizki.dto.history.HistoryWithCustomerDto;
 import com.senla.haltvinizki.dto.history.HistoryWithProductDto;
+import com.senla.haltvinizki.dto.user.UserInfoDto;
 import com.senla.haltvinizki.entity.History;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class HistoryConverter {
@@ -15,6 +19,12 @@ public class HistoryConverter {
 
     public History convert(HistoryInfoDto historyInfoDto) {
         return mapper.map(historyInfoDto, History.class);
+    }
+
+    public List<HistoryInfoDto> convert(List<History> historyList) {
+        return historyList.stream().
+                map(history -> mapper.map(history, HistoryInfoDto.class))
+                .collect(Collectors.toList());
     }
 
     public HistoryInfoDto convert(History history) {

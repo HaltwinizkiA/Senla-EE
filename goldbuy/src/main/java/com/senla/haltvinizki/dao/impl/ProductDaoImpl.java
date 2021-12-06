@@ -51,4 +51,11 @@ public class ProductDaoImpl extends AbstractDao<Product, Long> implements Produc
         hints.put(GRAPH_PERSISTENCE, userGraph);
         return entityManager.find(Product.class, id, hints);
     }
+
+    @Override
+    public List<Product> getByUserId(long id) {
+        return entityManager.createQuery
+                        ("select product from Product product left join fetch product.user user where user.id= :id", Product.class)
+                .setParameter("id", id).getResultList();
+    }
 }

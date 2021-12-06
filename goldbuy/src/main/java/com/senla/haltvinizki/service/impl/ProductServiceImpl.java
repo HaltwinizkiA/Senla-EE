@@ -70,4 +70,9 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductInfoDto> getActiveProducts() {
         return productConverter.convert(productDao.getActiveProducts());
     }
+
+    @Override
+    public List<ProductInfoDto> getByUserId(long id) {
+        return productConverter.convert(productDao.getByUserId(id));
+    }
 }

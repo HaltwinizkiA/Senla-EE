@@ -32,7 +32,7 @@ public class CredentialsServiceImpl implements CredentialsService {
 
     @Override
     public CredentialsInfoDto create(CredentialsInfoDto credentialsDto) {
-        Credentials credentials = credentialsConverter.convertCreate(credentialsDto,passwordEncoder);
+        Credentials credentials = credentialsConverter.convertCreate(credentialsDto, passwordEncoder);
         return credentialsConverter.convert(credentialsDao.create(credentials));
     }
 
@@ -56,6 +56,13 @@ public class CredentialsServiceImpl implements CredentialsService {
 
     @Override
     public CredentialsInfoDto getByUserId(long id) {
-        return credentialsConverter.convert(credentialsDao.getByUserId(id));
+        Credentials credentials = credentialsDao.getByUserId(id);
+        credentials.setPassword("*************");
+        return credentialsConverter.convert(credentials);
+    }
+
+    @Override
+    public CredentialsInfoDto deleteByUserId(long id) {
+        return credentialsConverter.convert(credentialsDao.deleteByUserId(id));
     }
 }

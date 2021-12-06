@@ -1,7 +1,7 @@
 package com.senla.haltvinizki.dao.impl;
 
-import com.senla.haltvinizki.dao.ProductConfigurationDao;
 import com.senla.haltvinizki.configuration.GraphConfiguration;
+import com.senla.haltvinizki.dao.ProductConfigurationDao;
 import com.senla.haltvinizki.entity.ProductConfiguration;
 import org.springframework.stereotype.Repository;
 
@@ -18,9 +18,17 @@ public class ProductConfigurationDaoImpl extends AbstractDao<ProductConfiguratio
 
     @Override
     public ProductConfiguration getProductConfigWithProduct(Long id) {
-        EntityGraph userGraph=entityManager.getEntityGraph(GraphConfiguration.PRODUCTCONFIG_PRODUCT);
-        Map hints=new HashMap();
-        hints.put(GRAPH_PERSISTENCE,userGraph);
-        return entityManager.find(ProductConfiguration.class,id,hints);
+        EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.PRODUCTCONFIG_PRODUCT);
+        Map hints = new HashMap();
+        hints.put(GRAPH_PERSISTENCE, userGraph);
+        return entityManager.find(ProductConfiguration.class, id, hints);
+    }
+
+    @Override
+    public ProductConfiguration getByProductId(Long id) {
+        return entityManager.createQuery
+                        ("select config from ProductConfiguration config inner join config.product product where product.id= :id", ProductConfiguration.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }

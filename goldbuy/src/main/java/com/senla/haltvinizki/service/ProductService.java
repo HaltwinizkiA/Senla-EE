@@ -25,4 +25,5 @@ public interface ProductService {
 
     List<ProductInfoDto> getActiveProducts();
 
+    List<ProductInfoDto> getByUserId(long id);
 }

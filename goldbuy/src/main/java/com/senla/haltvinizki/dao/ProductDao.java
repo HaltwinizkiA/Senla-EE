@@ -12,4 +12,6 @@ public interface ProductDao extends GenericDao<Product,Long>{
     Product getProductWithUser(Long id);
 
     Product getProductWithCategory(Long id);
+
+    List<Product> getByUserId(long id);
 }

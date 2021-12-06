@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static java.util.Optional.ofNullable;
 
 
@@ -58,5 +60,10 @@ public class HistoryServiceImpl implements HistoryService {
     public HistoryWithCustomerDto getHistoryWithCustomer(Long id) {
         HistoryWithCustomerDto historyWithCustomerDto = historyConverter.convertWithCustomer(historyDao.getHistoryWithCustomer(id));
         return historyWithCustomerDto;
+    }
+
+    @Override
+    public List<HistoryInfoDto> getByUserId(long id) {
+        return historyConverter.convert(historyDao.getByUserId(id));
     }
 }

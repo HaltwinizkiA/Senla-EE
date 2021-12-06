@@ -28,6 +28,9 @@ public class ProductConfigurationController {
     public ProductConfigurationInfoDto getById(@PathVariable Long id) {
         return productConfigurationService.getById(id);
     }
+//    public ProductConfigurationInfoDto getByProductId(){
+//        return productConfigurationService.getByProductId();
+//    }
 
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj

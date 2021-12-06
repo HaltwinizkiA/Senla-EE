@@ -62,7 +62,6 @@ public class UserController {
         return userService.delete(userInf.getId());
     }
 
-
     @GetMapping(value = "/my-info")
     public UserInfoDto getUser(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
         return userService.getById(userDetailsWithId.getId());

@@ -50,4 +50,9 @@ public class ProductConfigurationServiceImpl implements ProductConfigurationServ
     public ProductConfigurationWithProductDto getProductConfigWithProduct(Long id) {
         return productConfigurationConverter.convertWithProduct(productConfigurationDao.getProductConfigWithProduct(id));
     }
+
+    @Override
+    public ProductConfigurationInfoDto getByProductId(Long id) {
+        return productConfigurationConverter.convert(productConfigurationDao.getByProductId(id));
+    }
 }

@@ -21,9 +21,12 @@ public class History {
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private long id;
-    @OneToOne( fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private User owner;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private User customer;
@@ -31,6 +34,14 @@ public class History {
     private float sellingPrice;
     @Column(name = "selling_date")
     private Date sellingDate;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
     public long getId() {
         return id;

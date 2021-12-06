@@ -2,7 +2,6 @@ package com.senla.haltvinizki.controller;
 
 
 import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
-import com.senla.haltvinizki.entity.Credentials;
 import com.senla.haltvinizki.security.entity.UserDetailsWithId;
 import com.senla.haltvinizki.service.CredentialsService;
 import lombok.RequiredArgsConstructor;
@@ -26,28 +25,39 @@ public class CredentialsController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CredentialsInfoDto getById(@PathVariable Long id) {
         return credentialsService.getById(id);
     }
 
-    @GetMapping(value = "/my-credentials")
-    public CredentialsInfoDto getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId){
-       return credentialsService.getByUserId(userDetailsWithId.getId());
+    @GetMapping(value = "/my")
+    public CredentialsInfoDto getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
+        return credentialsService.getByUserId(userDetailsWithId.getId());
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CredentialsInfoDto updateCredentials(@RequestBody CredentialsInfoDto credentialsInfoDto) {
         return credentialsService.update(credentialsInfoDto);
-
     }
 
+    @PutMapping(value = "/update-my")
+    public CredentialsInfoDto updateMyCredentials(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,
+                                                  @RequestBody CredentialsInfoDto credentialsInfoDto) {
+        credentialsInfoDto.setId(credentialsService.getByUserId(userDetailsWithId.getId()).getId());
+        return credentialsService.update(credentialsInfoDto);
+    }
+
+    @DeleteMapping(value = "/my}")
+    public CredentialsInfoDto deleteCredentials(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
+        return credentialsService.deleteByUserId(userDetailsWithId.getId());
+    }
+
+
     @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CredentialsInfoDto deleteCredentials(@PathVariable Long id) {
         return credentialsService.delete(id);
-
     }
 
 }
