@@ -14,6 +14,7 @@ public class CredentialsConverter {
     private ModelMapper mapper;
 
     public Credentials convertCreate(CredentialsInfoDto credentialsInfoDto, PasswordEncoder passwordEncoder) {
+        credentialsInfoDto.setPassword(passwordEncoder.encode(credentialsInfoDto.getPassword()));
         return mapper.map(credentialsInfoDto, Credentials.class);
     }
     public Credentials convert(CredentialsInfoDto credentialsInfoDto) {

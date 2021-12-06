@@ -19,7 +19,7 @@ import static java.util.Optional.ofNullable;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public static final String BEARER = "Bearer";
-    private UserDetailsService userDetailService;
+    private final UserDetailsService userDetailService;
     @Autowired
     private JwtProvider jwtProvider;
 
@@ -37,8 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             ofNullable(userDetailService.loadUserByUsername(username))
                     .ifPresent(
                             x -> SecurityContextHolder.getContext().setAuthentication(
-                                    new UsernamePasswordAuthenticationToken(
-                                            username, null, x.getAuthorities()//todo
+                                    new UsernamePasswordAuthenticationToken(x, null, x.getAuthorities()//todo
                                     )
                             )
                     );
@@ -46,7 +45,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(httpServletRequest, httpServletResponse);
 
     }
-
 }
 
 
