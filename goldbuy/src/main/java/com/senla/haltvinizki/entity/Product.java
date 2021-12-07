@@ -20,7 +20,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id")
     private long id;
-    @ManyToOne( fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,10 +34,18 @@ public class Product {
     private String status;
     @Column(name = "price")
     private float price;
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
     private History history;
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private ProductConfiguration productConfiguration;
+
+    public ProductConfiguration getProductConfiguration() {
+        return productConfiguration;
+    }
+
+    public void setProductConfiguration(ProductConfiguration productConfiguration) {
+        this.productConfiguration = productConfiguration;
+    }
 
     public History getHistory() {
         return history;

@@ -5,8 +5,10 @@ import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import com.senla.haltvinizki.security.entity.UserDetailsWithId;
 import com.senla.haltvinizki.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.h2.store.Page;
-import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
@@ -35,12 +37,13 @@ public class ProductController {
     }
 
     @GetMapping(value = "/my-products")
-    public ProductInfoDto getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf){
-        PagedListHolder<ProductInfoDto> page=new PagedListHolder(productService.getByUserId(userInf.getId()));
-        page.setPageSize(1);
-        page.setPage(0);
-        return  page.getPageList().get(0);
+    public Page<ProductInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf, int pagen, int pageSize) {
+        Pageable pageable=PageRequest.of(pagen,pageSize);
+        List<ProductInfoDto> productInfoDtoList = productService.getByUserId(userInf.getId());
+        Page<ProductInfoDto> page=new PageImpl<ProductInfoDto>(productInfoDtoList, pageable, productInfoDtoList.size());
+        return page;
     }
+
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
     public ProductInfoDto updateProduct(@RequestBody ProductInfoDto productInfoDto) {

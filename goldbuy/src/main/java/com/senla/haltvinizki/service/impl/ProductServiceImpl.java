@@ -10,6 +10,7 @@ import com.senla.haltvinizki.service.ProductService;
 import com.senla.haltvinizki.service.converter.ProductConverter;
 import com.senla.haltvinizki.service.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,6 +74,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductInfoDto> getByUserId(long id) {
+
         return productConverter.convert(productDao.getByUserId(id));
     }
 }

@@ -31,6 +31,7 @@ public class HistoryController {
     public HistoryInfoDto getById(@PathVariable Long id) {
         return historyService.getById(id);
     }
+
     @GetMapping(value = "/my-histories")//todo pagination
     public List<HistoryInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
         return historyService.getByUserId(userDetailsWithId.getId());

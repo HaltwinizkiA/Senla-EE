@@ -6,6 +6,7 @@ import com.senla.haltvinizki.dto.product.ProductWithUserDto;
 import com.senla.haltvinizki.entity.Product;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -44,6 +45,13 @@ public class ProductConverter {
         return productList.stream().
                 map(product -> mapper.map(product, ProductInfoDto.class))
                 .collect(Collectors.toList());
+    }
+
+    public Page<ProductInfoDto> convertToPage(List<Product> productList) {
+
+        return new PageImpl<>(convert(productList),PageRequest.of(0,1), productList.size());
+
+
     }
 
 }
