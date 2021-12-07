@@ -5,6 +5,8 @@ import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import com.senla.haltvinizki.security.entity.UserDetailsWithId;
 import com.senla.haltvinizki.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.h2.store.Page;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
@@ -33,8 +35,11 @@ public class ProductController {
     }
 
     @GetMapping(value = "/my-products")
-    public List<ProductInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf){
-        return productService.getByUserId(userInf.getId());
+    public ProductInfoDto getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf){
+        PagedListHolder<ProductInfoDto> page=new PagedListHolder(productService.getByUserId(userInf.getId()));
+        page.setPageSize(1);
+        page.setPage(0);
+        return  page.getPageList().get(0);
     }
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
