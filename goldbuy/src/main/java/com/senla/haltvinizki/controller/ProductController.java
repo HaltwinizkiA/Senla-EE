@@ -36,9 +36,9 @@ public class ProductController {
         return productService.getById(id);
     }
 
-    @GetMapping(value = "/my-products")
-    public Page<ProductInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf, int pagen, int pageSize) {
-        Pageable pageable=PageRequest.of(pagen,pageSize);
+    @GetMapping(value = "/my-products/{num}")
+    public Page<ProductInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf,@PathVariable int num) {
+        Pageable pageable=PageRequest.of(num,2);
         List<ProductInfoDto> productInfoDtoList = productService.getByUserId(userInf.getId());
         Page<ProductInfoDto> page=new PageImpl<ProductInfoDto>(productInfoDtoList, pageable, productInfoDtoList.size());
         return page;
