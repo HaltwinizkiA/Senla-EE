@@ -1,12 +1,13 @@
 package com.senla.haltvinizki.dao.impl;
 
-import com.senla.haltvinizki.dao.RoleDao;
 import com.senla.haltvinizki.configuration.GraphConfiguration;
+import com.senla.haltvinizki.dao.RoleDao;
 import com.senla.haltvinizki.entity.Role;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityGraph;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -23,5 +24,10 @@ public class RoleDaoImpl extends AbstractDao<Role, Long> implements RoleDao {
         Map hints = new HashMap();
         hints.put(GRAPH_PERSISTENCE, userGraph);
         return entityManager.find(Role.class, id, hints);
+    }
+
+    @Override
+    public List<Role> getUserRole() {
+        return entityManager.createQuery("select role from Role role where role.name='USER'", Role.class).getResultList();
     }
 }

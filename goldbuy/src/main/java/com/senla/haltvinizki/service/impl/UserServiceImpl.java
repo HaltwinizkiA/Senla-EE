@@ -1,36 +1,37 @@
 package com.senla.haltvinizki.service.impl;
 
 
+import com.senla.haltvinizki.dao.RoleDao;
 import com.senla.haltvinizki.dao.UserDao;
-import com.senla.haltvinizki.dto.user.UserInfoDto;
-import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
-import com.senla.haltvinizki.dto.user.UserWithProductsDto;
-import com.senla.haltvinizki.dto.user.UserWithRolesDto;
-import com.senla.haltvinizki.entity.Role;
+import com.senla.haltvinizki.dto.credentials.CredentialsInfoDto;
+import com.senla.haltvinizki.dto.user.*;
+import com.senla.haltvinizki.entity.Credentials;
 import com.senla.haltvinizki.entity.User;
 import com.senla.haltvinizki.service.UserService;
+import com.senla.haltvinizki.service.converter.CredentialsConverter;
 import com.senla.haltvinizki.service.converter.UserConverter;
 import com.senla.haltvinizki.service.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.management.relation.RoleList;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
 
 
 @Component
-@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
     private final UserConverter userConverter;
+    private final CredentialsConverter credentialsConverter;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleDao roleDao;
+
 
     @Override
-    @Transactional
     public UserInfoDto delete(Long id) {
         return userConverter.convert(userDao.delete(id));
     }
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfoDto getById(Long id) {
         final User user = ofNullable(userDao.getById(id))
-                .orElseThrow(() -> new UserNotFoundException(id+""));
+                .orElseThrow(() -> new UserNotFoundException(id + ""));
         return userConverter.convert(user);
     }
 
@@ -72,7 +73,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
     @Override
     public UserInfoDto getUserWithLogin(String login) {
         return userConverter.convert(userDao.getUserWithLogin(login));
@@ -86,5 +86,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserWithRolesDto getByNameWithRoles(String username) {
         return userConverter.convertWithRoles(userDao.getByNameWithRoles(username));
+    }
+
+    @Override
+    public UserWithCredentialsDto registration(UserRegistrationDto userRegistrationDto) {
+        Credentials credentials = credentialsConverter.convertCreate(
+                CredentialsInfoDto.builder()
+                        .password(userRegistrationDto.getPassword())
+                        .login(userRegistrationDto.getLogin())
+                        .build(),
+                passwordEncoder);
+
+        User user = userDao.create(User.builder()
+                .roles(roleDao.getUserRole())
+                .credentials(credentials)
+                .phoneNumber(userRegistrationDto.getPhoneNumber())
+                .name(userRegistrationDto.getName())
+                .mail(userRegistrationDto.getMail())
+                .build());
+//        UserWithCredentialsDto userWithCredentialsDto =userConverter.convertWithCredentials(user);
+        //todo password and login ***********
+        return userConverter.convertWithCredentials(user);
     }
 }

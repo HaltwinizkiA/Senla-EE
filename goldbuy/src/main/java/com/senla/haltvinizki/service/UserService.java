@@ -1,9 +1,6 @@
 package com.senla.haltvinizki.service;
 
-import com.senla.haltvinizki.dto.user.UserInfoDto;
-import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
-import com.senla.haltvinizki.dto.user.UserWithProductsDto;
-import com.senla.haltvinizki.dto.user.UserWithRolesDto;
+import com.senla.haltvinizki.dto.user.*;
 import com.senla.haltvinizki.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,4 +30,5 @@ public interface UserService {
     UserWithRolesDto getByNameWithRoles(String username);
 
 
+    UserWithCredentialsDto registration(UserRegistrationDto userRegistrationDto);
 }

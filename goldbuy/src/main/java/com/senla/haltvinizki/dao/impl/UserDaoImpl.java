@@ -58,7 +58,7 @@ public class UserDaoImpl extends AbstractDao<User,Long> implements UserDao {
 
     @Override
     public List<User> getAllAdmin() {
-        return entityManager.createQuery("select user from User user inner join fetch user.roles r where r.name='Admin'", User.class)
+        return entityManager.createQuery("select user from User user inner join fetch user.roles r where r.name='ADMIN'", User.class)
                 .getResultList();
     }
 

@@ -1,6 +1,7 @@
 package com.senla.haltvinizki.controller;
 
 import com.senla.haltvinizki.dto.user.UserInfoDto;
+import com.senla.haltvinizki.dto.user.UserRegistrationDto;
 import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
 import com.senla.haltvinizki.dto.user.UserWithRolesDto;
 import com.senla.haltvinizki.security.entity.UserDetailsWithId;
@@ -20,11 +21,18 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping(value = "/create")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public UserInfoDto createUser(@RequestBody UserInfoDto userInfoDto) {
         return userService.create(userInfoDto);
 
+    }
+
+
+    @PostMapping(value = "/registration")
+    public UserWithCredentialsDto registration(@RequestBody UserRegistrationDto userRegistrationDto) {
+
+        return userService.registration(userRegistrationDto);
     }
 
     @GetMapping(value = "/{id}")

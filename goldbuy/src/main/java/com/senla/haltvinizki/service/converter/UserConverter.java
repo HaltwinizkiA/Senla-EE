@@ -1,9 +1,6 @@
 package com.senla.haltvinizki.service.converter;
 
-import com.senla.haltvinizki.dto.user.UserInfoDto;
-import com.senla.haltvinizki.dto.user.UserWithCredentialsDto;
-import com.senla.haltvinizki.dto.user.UserWithProductsDto;
-import com.senla.haltvinizki.dto.user.UserWithRolesDto;
+import com.senla.haltvinizki.dto.user.*;
 import com.senla.haltvinizki.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,4 +45,11 @@ public class UserConverter {
     }
 
 
+    public User convertRegistration(UserRegistrationDto userRegistrationDto) {
+        return mapper.map(userRegistrationDto,User.class);
+    }
+
+    public User convertWithCredentialsToUser(UserWithCredentialsDto userWithCredentialsDto) {
+        return  mapper.map(userWithCredentialsDto,User.class);
+    }
 }
