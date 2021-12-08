@@ -3,7 +3,6 @@ package com.senla.haltvinizki.service;
 import com.senla.haltvinizki.dto.product.ProductInfoDto;
 import com.senla.haltvinizki.dto.product.ProductWithCategoryDto;
 import com.senla.haltvinizki.dto.product.ProductWithUserDto;
-import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,5 +25,9 @@ public interface ProductService {
 
     List<ProductInfoDto> getActiveProducts();
 
-    List<ProductInfoDto> getByUserId(long id);
+    List<ProductInfoDto> getByUserId(Long id);
+
+    ProductInfoDto updateYour(ProductInfoDto productInfoDto,Long userId);
+
+    ProductInfoDto deleteYour(Long userId, Long productId);
 }

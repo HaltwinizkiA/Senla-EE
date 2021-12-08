@@ -9,8 +9,8 @@ import com.senla.haltvinizki.entity.Product;
 import com.senla.haltvinizki.service.ProductService;
 import com.senla.haltvinizki.service.converter.ProductConverter;
 import com.senla.haltvinizki.service.exception.ProductNotFoundException;
+import com.senla.haltvinizki.service.exception.ProductNotUpdateExcetpion;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,8 +73,26 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductInfoDto> getByUserId(long id) {
+    public List<ProductInfoDto> getByUserId(Long id) {
 
         return productConverter.convert(productDao.getByUserId(id));
     }
+
+    @Override
+    public ProductInfoDto updateYour(ProductInfoDto productInfoDto, Long userId) {
+        if (productDao.getProductWithUser(productInfoDto.getId()).getUser().getId() == userId) {
+            Product product = productDao.update(productConverter.convert(productInfoDto));
+            return productConverter.convert(product);
+        }
+        throw new ProductNotUpdateExcetpion(productInfoDto.getId());
+    }
+
+    @Override
+    public ProductInfoDto deleteYour(Long userId, Long productId) {
+        if (productDao.getProductWithUser(userId).getUser().getId() == userId) {
+            return productConverter.convert(productDao.delete(productId));
+        }
+        throw new ProductNotFoundException(productId);
+    }
 }
+

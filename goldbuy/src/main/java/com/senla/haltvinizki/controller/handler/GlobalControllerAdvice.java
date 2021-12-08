@@ -4,7 +4,6 @@ import com.senla.haltvinizki.controller.handler.dto.ErrorMessageDto;
 import com.senla.haltvinizki.service.exception.*;
 import com.senla.haltvinizki.service.exception.category.CategoryNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -39,6 +38,13 @@ public class GlobalControllerAdvice {
     public ErrorMessageDto errorMessageDto(ProductNotFoundException productNotFoundException) {
         return ErrorMessageDto.builder()
                 .name("Продукт с id=" + productNotFoundException.getId() + " не найден").build();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ProductNotUpdateExcetpion.class)
+    public ErrorMessageDto errorMessageDto(ProductNotUpdateExcetpion productNotFoundException) {
+        return ErrorMessageDto.builder()
+                .name("Продукт с id=" + productNotFoundException.getId() + " не обновлен").build();
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

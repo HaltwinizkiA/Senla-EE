@@ -51,9 +51,21 @@ public class ProductController {
         return productService.update(productInfoDto);
     }
 
+    @PutMapping
+    public ProductInfoDto updateYourProduct(@AuthenticationPrincipal UserDetailsWithId userInf
+                                            ,@RequestBody ProductInfoDto productInfoDto) {
+        return productService.updateYour(productInfoDto,userInf.getId());
+    }
+
+
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj(access to only my product)
     public ProductInfoDto deleteProduct(@PathVariable Long id) {
         return productService.delete(id);
+    }
+    @DeleteMapping(value = "/{id}")
+    public ProductInfoDto deleteYourProduct(@AuthenticationPrincipal UserDetailsWithId userInf,
+                                        @PathVariable Long id) {
+        return productService.deleteYour(userInf.getId(),id);
     }
 }
