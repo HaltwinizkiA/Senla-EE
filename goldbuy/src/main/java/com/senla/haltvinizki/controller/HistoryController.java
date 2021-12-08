@@ -5,6 +5,7 @@ import com.senla.haltvinizki.dto.history.HistoryInfoDto;
 import com.senla.haltvinizki.security.entity.UserDetailsWithId;
 import com.senla.haltvinizki.service.HistoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
@@ -32,11 +33,13 @@ public class HistoryController {
         return historyService.getById(id);
     }
 
-    @GetMapping(value = "/my-histories")//todo pagination
-    public List<HistoryInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
-        return historyService.getByUserId(userDetailsWithId.getId());
+    @GetMapping(value = "/my-histories")
+    public List<HistoryInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,@PathVariable int num) {
+        PagedListHolder pagedListHolder=new PagedListHolder(historyService.getByUserId(userDetailsWithId.getId()));
+        pagedListHolder.setPageSize(2);
+        pagedListHolder.setPage(num);
+        return pagedListHolder.getPageList();
     }
-
 
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
