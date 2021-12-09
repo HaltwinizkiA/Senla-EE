@@ -28,10 +28,10 @@ public class UserController {
 
     }
 
-    @PostMapping(value = "/registration")
-    public UserWithCredentialsDto registration(@RequestBody UserRegistrationDto userRegistrationDto) {
-
-        return userService.registration(userRegistrationDto);
+    @PutMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public UserInfoDto updateUser(@RequestBody UserInfoDto userInfoDto) {
+        return userService.update(userInfoDto);
     }
 
     @GetMapping(value = "/{id}")
@@ -40,16 +40,36 @@ public class UserController {
         return userService.getById(id);
     }
 
+    @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public UserInfoDto deleteUser(@PathVariable Long id) {
+        return userService.delete(id);
+    }
+
+
+    @PostMapping(value = "/registration")
+    public UserWithCredentialsDto registration(@RequestBody UserRegistrationDto userRegistrationDto) {
+        return userService.registration(userRegistrationDto);
+    }
+
+
     @GetMapping(value = "/credentials/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public UserWithCredentialsDto getWithCredById(@PathVariable Long id) {
         return userService.getUserWithCredentials(id);
     }
 
+
+    public UserInfoDto updateYour(@AuthenticationPrincipal UserDetailsWithId userInf, @RequestBody UserInfoDto userInfoDto) {
+
+
+        return null;
+    }//todo
+
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public UserInfoDto updateUser(@RequestBody UserInfoDto userInfoDto) {
-        return userService.update(userInfoDto);
+    public UserInfoDto setRoleManager(@RequestBody Long userId) {
+        return userService.setManager(userId);
     }
 
     @GetMapping(value = "/{id}/roles")
@@ -58,11 +78,6 @@ public class UserController {
         return userService.getByNameWithRoles("test");
     }
 
-    @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public UserInfoDto deleteUser(@PathVariable Long id) {
-        return userService.delete(id);
-    }
 
     @DeleteMapping(value = "/myself")
     public UserInfoDto deleteYourUser(@AuthenticationPrincipal UserDetailsWithId userInf) {
@@ -70,8 +85,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/my-info")
-    public UserInfoDto getUser(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
+    public UserInfoDto getYour(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
         return userService.getById(userDetailsWithId.getId());
     }
-
 }

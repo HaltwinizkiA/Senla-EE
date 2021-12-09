@@ -17,7 +17,6 @@ public class RoleDaoImpl extends AbstractDao<Role, Long> implements RoleDao {
         super(Role.class);
     }
 
-
     @Override
     public Role getRoleWithUsers(Long id) {
         EntityGraph userGraph = entityManager.getEntityGraph(GraphConfiguration.ROLE_USERS);
@@ -27,7 +26,12 @@ public class RoleDaoImpl extends AbstractDao<Role, Long> implements RoleDao {
     }
 
     @Override
-    public List<Role> getUserRole() {
+    public List<Role> getUser() {
         return entityManager.createQuery("select role from Role role where role.name='USER'", Role.class).getResultList();
     }
+
+    @Override
+    public Role getModerator() {
+        return entityManager.createQuery("select role from Role role where role.name='MODERATOR'", Role.class).getSingleResult();
+        }
 }

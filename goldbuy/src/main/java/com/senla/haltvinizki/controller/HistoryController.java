@@ -33,14 +33,6 @@ public class HistoryController {
         return historyService.getById(id);
     }
 
-    @GetMapping(value = "/my-histories")
-    public List<HistoryInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,@PathVariable int num) {
-        PagedListHolder pagedListHolder=new PagedListHolder(historyService.getByUserId(userDetailsWithId.getId()));
-        pagedListHolder.setPageSize(2);
-        pagedListHolder.setPage(num);
-        return pagedListHolder.getPageList();
-    }
-
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public HistoryInfoDto updateHistory(@RequestBody HistoryInfoDto historyInfoDto) {
@@ -52,4 +44,14 @@ public class HistoryController {
     public HistoryInfoDto deleteHistory(@PathVariable Long id) {
         return historyService.delete(id);
     }
+
+    @GetMapping(value = "/my-histories")
+    public List<HistoryInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,@PathVariable int num) {
+        PagedListHolder pagedListHolder=new PagedListHolder(historyService.getByUserId(userDetailsWithId.getId()));
+        pagedListHolder.setPageSize(2);
+        pagedListHolder.setPage(num);
+        return pagedListHolder.getPageList();
+    }
+
+
 }

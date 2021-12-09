@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
@@ -98,7 +97,7 @@ public class UserServiceImpl implements UserService {
                 passwordEncoder);
 
         User user = userDao.create(User.builder()
-                .roles(roleDao.getUserRole())
+                .roles(roleDao.getUser())
                 .credentials(credentials)
                 .phoneNumber(userRegistrationDto.getPhoneNumber())
                 .name(userRegistrationDto.getName())
@@ -107,5 +106,12 @@ public class UserServiceImpl implements UserService {
 //        UserWithCredentialsDto userWithCredentialsDto =userConverter.convertWithCredentials(user);
         //todo password and login ***********
         return userConverter.convertWithCredentials(user);
+    }
+
+    @Override
+    public UserInfoDto setManager(Long userId) {
+        User user = userDao.getById(userId);
+        user.getRoles().add(roleDao.getModerator());
+        return userConverter.convert(userDao.update(user));
     }
 }

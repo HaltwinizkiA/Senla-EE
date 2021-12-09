@@ -33,6 +33,18 @@ public class ProductController {
         return productService.getById(id);
     }
 
+    @PutMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ProductInfoDto updateProduct(@RequestBody ProductInfoDto productInfoDto) {
+        return productService.update(productInfoDto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ProductInfoDto deleteProduct(@PathVariable Long id) {
+        return productService.delete(id);
+    }
+
     @GetMapping(value = "/my-products/{num}")
     public List<ProductInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf, @PathVariable int num) {
         PagedListHolder pagedListHolder = new PagedListHolder(productService.getByUserId(userInf.getId()));
@@ -41,23 +53,14 @@ public class ProductController {
         return pagedListHolder.getPageList();
     }
 
-    @PutMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ProductInfoDto updateProduct(@RequestBody ProductInfoDto productInfoDto) {
-        return productService.update(productInfoDto);
-    }
-
+    //todo method buy;
+    //todo get all product with category
+    //todo get all product
+    //todo get all product with sorting
     @PutMapping
     public ProductInfoDto updateYourProduct(@AuthenticationPrincipal UserDetailsWithId userInf
             , @RequestBody ProductInfoDto productInfoDto) {
         return productService.updateYour(productInfoDto, userInf.getId());
-    }
-
-
-    @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ProductInfoDto deleteProduct(@PathVariable Long id) {
-        return productService.delete(id);
     }
 
     @DeleteMapping(value = "/{id}")

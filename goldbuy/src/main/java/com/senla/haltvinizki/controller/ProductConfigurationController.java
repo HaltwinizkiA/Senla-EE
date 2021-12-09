@@ -29,10 +29,6 @@ public class ProductConfigurationController {
         return productConfigurationService.getById(id);
     }
 
-//    public ProductConfigurationInfoDto getByProductId(){
-//        return productConfigurationService.getByProductId();
-//    }
-
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
     public ProductConfigurationInfoDto updateProductConfiguration(@RequestBody ProductConfigurationInfoDto productConfigurationInfoDto) {
@@ -44,6 +40,12 @@ public class ProductConfigurationController {
     public ProductConfigurationInfoDto deleteProductConfiguration(@PathVariable Long id) {
         return productConfigurationService.delete(id);
     }
+
+//    public ProductConfigurationInfoDto getByProductId(){
+//        return productConfigurationService.getByProductId();
+//    }//todo with checking own product
+
+
 
     @GetMapping(value = "product/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

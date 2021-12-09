@@ -30,15 +30,22 @@ public class CredentialsController {
         return credentialsService.getById(id);
     }
 
-    @GetMapping(value = "/my")
-    public CredentialsInfoDto getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
-        return credentialsService.getByUserId(userDetailsWithId.getId());
-    }
-
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CredentialsInfoDto updateCredentials(@RequestBody CredentialsInfoDto credentialsInfoDto) {
         return credentialsService.update(credentialsInfoDto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public CredentialsInfoDto deleteCredentials(@PathVariable Long id) {
+        return credentialsService.delete(id);
+    }
+
+
+    @GetMapping(value = "/my")
+    public CredentialsInfoDto getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
+        return credentialsService.getByUserId(userDetailsWithId.getId());
     }
 
     @PutMapping(value = "/update-my")
@@ -48,16 +55,11 @@ public class CredentialsController {
         return credentialsService.update(credentialsInfoDto);
     }
 
-    @DeleteMapping(value = "/my}")
-    public CredentialsInfoDto deleteCredentials(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
-        return credentialsService.deleteByUserId(userDetailsWithId.getId());
-    }
+//    @DeleteMapping(value = "/my}")
+//    public CredentialsInfoDto deleteCredentials(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId) {
+//        return credentialsService.deleteByUserId(userDetailsWithId.getId());
+//    }
 
 
-    @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public CredentialsInfoDto deleteCredentials(@PathVariable Long id) {
-        return credentialsService.delete(id);
-    }
 
 }

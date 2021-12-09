@@ -31,4 +31,6 @@ public interface UserService {
 
 
     UserWithCredentialsDto registration(UserRegistrationDto userRegistrationDto);
+
+    UserInfoDto setManager(Long userId);
 }
