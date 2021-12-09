@@ -28,7 +28,6 @@ public class UserController {
 
     }
 
-
     @PostMapping(value = "/registration")
     public UserWithCredentialsDto registration(@RequestBody UserRegistrationDto userRegistrationDto) {
 
