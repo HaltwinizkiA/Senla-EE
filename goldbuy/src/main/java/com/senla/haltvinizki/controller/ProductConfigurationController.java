@@ -2,9 +2,11 @@ package com.senla.haltvinizki.controller;
 
 import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationInfoDto;
 import com.senla.haltvinizki.dto.product_configuration.ProductConfigurationWithProductDto;
+import com.senla.haltvinizki.security.entity.UserDetailsWithId;
 import com.senla.haltvinizki.service.ProductConfigurationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +26,9 @@ public class ProductConfigurationController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
-    public ProductConfigurationInfoDto getById(@PathVariable Long id) {
-        return productConfigurationService.getById(id);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ProductConfigurationWithProductDto getById(@PathVariable Long id) {
+        return productConfigurationService.getProductConfigWithProduct(id);
     }
 
     @PutMapping
@@ -41,15 +43,31 @@ public class ProductConfigurationController {
         return productConfigurationService.delete(id);
     }
 
+
+    @GetMapping(value = "/product/{id}")
+    public ProductConfigurationWithProductDto getByMyProduct(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,@RequestBody long productId){
+        return productConfigurationService.getProductConfigWithProductChekUserId(userDetailsWithId.getId(),productId);
+    }//todo in dao
+
+
+//
+//    @PutMapping
+//    public ProductConfigurationInfoDto updateProductConfiguration(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,@RequestBody ProductConfigurationInfoDto productConfigurationInfoDto) {
+//        return productConfigurationService.update(productConfigurationInfoDto);
+//    }
+
+
+
+
 //    public ProductConfigurationInfoDto getByProductId(){
 //        return productConfigurationService.getByProductId();
 //    }//todo with checking own product
 
 
 
-    @GetMapping(value = "product/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ProductConfigurationWithProductDto getProductConfigurationWithProduct(@PathVariable Long id) {
-        return productConfigurationService.getProductConfigWithProduct(id);
-    }
+//    @GetMapping(value = "product/{id}")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    public ProductConfigurationWithProductDto getProductConfigurationWithProduct(@PathVariable Long id) {
+//        return productConfigurationService.getProductConfigWithProduct(id);
+//    }
 }

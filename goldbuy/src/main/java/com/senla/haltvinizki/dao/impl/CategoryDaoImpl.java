@@ -25,6 +25,11 @@ public class CategoryDaoImpl extends AbstractDao<Category, Long> implements Cate
         return entityManager.find(Category.class, id, hints);
     }
 
+    @Override
+    public Category getByName(String name) {
+        return null;
+    }
+
 
 }
 

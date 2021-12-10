@@ -16,4 +16,5 @@ public interface CategoryService {
 
     CategoryWithProductDto getCategoryWithProduct(Long id);
 
+    CategoryInfoDto getByName(String name);
 }

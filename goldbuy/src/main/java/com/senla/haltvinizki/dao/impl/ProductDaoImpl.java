@@ -61,4 +61,17 @@ public class ProductDaoImpl extends AbstractDao<Product, Long> implements Produc
                         ("select product from Product product join fetch product.user u where u.id= :id", Product.class)
                 .setParameter("id", id).getResultList();
     }
+
+    @Override
+    public List<Product> getProductByCategory(String category) {
+        return entityManager.
+                createQuery("SELECT p from Product p join fetch p.category c where c.name= :category",
+                        Product.class).setParameter("category",category).getResultList();
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return entityManager.
+                createQuery("SELECT p from Product p",Product.class).getResultList();
+    }
 }

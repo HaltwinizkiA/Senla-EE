@@ -4,9 +4,14 @@ import lombok.Getter;
 
 public class CategoryNotFoundException extends RuntimeException {
     @Getter
-    private final Long id;
+    private final String message;
 
     public CategoryNotFoundException(Long id) {
-        this.id = id;
+        this.message = " id :"+String.valueOf(id);
     }
+
+    public CategoryNotFoundException(String message) {
+        this.message ="name :"+ message;
+    }
+
 }

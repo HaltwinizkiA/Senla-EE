@@ -59,14 +59,14 @@ public class UserController {
         return userService.getUserWithCredentials(id);
     }
 
+//
+//    public UserInfoDto updateYour(@AuthenticationPrincipal UserDetailsWithId userInf, @RequestBody UserInfoDto userInfoDto) {
+//
+//
+//        return null;
+//    }//todo
 
-    public UserInfoDto updateYour(@AuthenticationPrincipal UserDetailsWithId userInf, @RequestBody UserInfoDto userInfoDto) {
-
-
-        return null;
-    }//todo
-
-    @PutMapping
+    @PutMapping(value = "/setManager/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public UserInfoDto setRoleManager(@RequestBody Long userId) {
         return userService.setManager(userId);

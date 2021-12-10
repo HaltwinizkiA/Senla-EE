@@ -30,4 +30,8 @@ public interface ProductService {
     ProductInfoDto updateYour(ProductInfoDto productInfoDto,Long userId);
 
     ProductInfoDto deleteYour(Long userId, Long productId);
+
+    List<ProductInfoDto> getByName(String category);
+
+    List<ProductInfoDto> getAll();
 }

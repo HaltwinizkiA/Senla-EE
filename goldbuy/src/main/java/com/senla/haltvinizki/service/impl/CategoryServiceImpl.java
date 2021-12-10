@@ -52,6 +52,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryInfoDto getByName(String name) {
+        Category category = ofNullable(categoryDao.getByName(name))
+                .orElseThrow(() -> new CategoryNotFoundException(name));
+        return categoryConverter.convert(category);
+    }
+
+    @Override
     public CategoryWithProductDto getCategoryWithProduct(Long id) {
         return categoryConverter.covert(categoryDao.getCategoryWithProduct(id));
     }

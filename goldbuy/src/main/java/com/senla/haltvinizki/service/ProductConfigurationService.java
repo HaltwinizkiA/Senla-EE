@@ -17,4 +17,6 @@ public interface ProductConfigurationService {
     ProductConfigurationWithProductDto getProductConfigWithProduct(Long id);
 
     ProductConfigurationInfoDto getByProductId(Long id);
+
+    ProductConfigurationWithProductDto getProductConfigWithProductChekUserId(Long userId, Long productId);
 }

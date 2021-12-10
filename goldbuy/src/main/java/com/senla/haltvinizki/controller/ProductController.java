@@ -22,13 +22,13 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ProductInfoDto createProduct(@RequestBody ProductInfoDto productInfoDto) {
         return productService.create(productInfoDto);
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ProductInfoDto getById(@PathVariable Long id) {
         return productService.getById(id);
     }
@@ -45,25 +45,45 @@ public class ProductController {
         return productService.delete(id);
     }
 
-    @GetMapping(value = "/my-products/{num}")
-    public List<ProductInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf, @PathVariable int num) {
+    @GetMapping(value = "/my/{num}")
+    public List<ProductInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf, @PathVariable int page) {
         PagedListHolder pagedListHolder = new PagedListHolder(productService.getByUserId(userInf.getId()));
         pagedListHolder.setPageSize(2);
-        pagedListHolder.setPage(num);
+        pagedListHolder.setPage(page);
         return pagedListHolder.getPageList();
     }
 
     //todo method buy;
+
+
     //todo get all product with category
-    //todo get all product
+    @GetMapping(value = "/by-category/{category}")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public List<ProductInfoDto> getProductByCategory(@PathVariable String category){
+      return productService.getByName(category);
+    }//check
+
+    @GetMapping(value = "/all/{page}")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public List<ProductInfoDto> getAll(@PathVariable int page){
+        PagedListHolder pagedListHolder = new PagedListHolder(productService.getAll());
+        pagedListHolder.setPageSize(2);
+        pagedListHolder.setPage(page;
+        return pagedListHolder.getPageList();
+
+    }
     //todo get all product with sorting
-    @PutMapping
+
+
+
+
+    @PutMapping(value = "my-update/{id}")
     public ProductInfoDto updateYourProduct(@AuthenticationPrincipal UserDetailsWithId userInf
             , @RequestBody ProductInfoDto productInfoDto) {
         return productService.updateYour(productInfoDto, userInf.getId());
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "my-delete/{id}")
     public ProductInfoDto deleteYourProduct(@AuthenticationPrincipal UserDetailsWithId userInf,
                                             @PathVariable Long id) {
         return productService.deleteYour(userInf.getId(), id);

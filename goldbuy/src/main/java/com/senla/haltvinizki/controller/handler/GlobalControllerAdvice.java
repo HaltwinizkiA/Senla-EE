@@ -16,7 +16,7 @@ public class GlobalControllerAdvice {
     @ExceptionHandler(CategoryNotFoundException.class)
     public ErrorMessageDto errorMessageDto(CategoryNotFoundException categoryNotFoundException) {
         return ErrorMessageDto.builder()
-                .name("Категория с id=" + categoryNotFoundException.getId() + " не найден").build();
+                .name("Категория " + categoryNotFoundException.getMessage() + " не найден").build();
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

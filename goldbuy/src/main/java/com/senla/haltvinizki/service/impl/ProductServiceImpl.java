@@ -94,5 +94,15 @@ public class ProductServiceImpl implements ProductService {
         }
         throw new ProductNotFoundException(productId);
     }
+
+    @Override
+    public List<ProductInfoDto> getByName(String category) {
+        return productConverter.convert(productDao.getProductByCategory(category));
+    }
+
+    @Override
+    public List<ProductInfoDto> getAll() {
+        return productConverter.convert(productDao.getAll());
+    }
 }
 
