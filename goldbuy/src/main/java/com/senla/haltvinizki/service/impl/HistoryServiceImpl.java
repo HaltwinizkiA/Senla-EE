@@ -66,4 +66,9 @@ public class HistoryServiceImpl implements HistoryService {
     public List<HistoryInfoDto> getByUserId(long id) {
         return historyConverter.convert(historyDao.getByUserId(id));
     }
+
+    @Override
+    public HistoryInfoDto getByProductId(Long id) {
+       return historyConverter.convert(historyDao.getByProductId(id));
+    }
 }

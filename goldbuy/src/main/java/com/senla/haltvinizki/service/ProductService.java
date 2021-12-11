@@ -31,7 +31,7 @@ public interface ProductService {
 
     ProductInfoDto deleteYour(Long userId, Long productId);
 
-    List<ProductInfoDto> getByName(String category);
+    List<ProductInfoDto> getByName(String category,String sorting);
 
-    List<ProductInfoDto> getAll();
+    List<ProductInfoDto> getAll(String sorting);
 }

@@ -5,7 +5,6 @@ import com.senla.haltvinizki.dto.history.HistoryInfoDto;
 import com.senla.haltvinizki.security.entity.UserDetailsWithId;
 import com.senla.haltvinizki.service.HistoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
@@ -45,12 +44,16 @@ public class HistoryController {
         return historyService.delete(id);
     }
 
-    @GetMapping(value = "/my-histories")
-    public List<HistoryInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,@PathVariable int num) {
-        PagedListHolder pagedListHolder=new PagedListHolder(historyService.getByUserId(userDetailsWithId.getId()));
-        pagedListHolder.setPageSize(2);
-        pagedListHolder.setPage(num);
-        return pagedListHolder.getPageList();
+    @GetMapping(value = "/my/{page}/{size}")
+    public List<HistoryInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,
+                                            @PathVariable int page, @PathVariable int size) {
+        List<HistoryInfoDto> historyInfoDtos = historyService.getByUserId(userDetailsWithId.getId());
+        return historyInfoDtos.subList(Math.max(0, page * size), Math.min(historyInfoDtos.size(), (page + 1) * size));
+    }
+
+    @GetMapping(value = "/product/{id}")
+    public HistoryInfoDto getByProductId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId, @PathVariable Long id) {
+      return  historyService.getByProductId(id);
     }
 
 

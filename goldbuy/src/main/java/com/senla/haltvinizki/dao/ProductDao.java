@@ -15,8 +15,8 @@ public interface ProductDao extends GenericDao<Product,Long>{
 
     List<Product> getByUserId(long id);
 
-    List<Product> getProductByCategory(String category);
+    List<Product> getProductByCategory(String category,String sorting);
 
-    List<Product> getAll();
+    List<Product> getAll(String sorting);
 
 }

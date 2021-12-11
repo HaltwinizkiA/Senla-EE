@@ -4,6 +4,9 @@ import com.senla.haltvinizki.configuration.GraphConfiguration;
 import com.senla.haltvinizki.dao.ProductDao;
 import com.senla.haltvinizki.entity.Product;
 import com.senla.haltvinizki.entity.Product_;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityGraph;
@@ -63,15 +66,21 @@ public class ProductDaoImpl extends AbstractDao<Product, Long> implements Produc
     }
 
     @Override
-    public List<Product> getProductByCategory(String category) {
+    public List<Product> getProductByCategory(String category,String sorting) {
+        if(sorting==null){
+            sorting="id";
+        }
         return entityManager.
-                createQuery("SELECT p from Product p join fetch p.category c where c.name= :category",
+                createQuery("SELECT p from Product p join fetch p.category c where c.name= :category ORDER BY p."+sorting,
                         Product.class).setParameter("category",category).getResultList();
     }
 
     @Override
-    public List<Product> getAll() {
+    public List<Product> getAll(String sorting) {
+        if (sorting==null){
+            sorting="id";
+        }
         return entityManager.
-                createQuery("SELECT p from Product p",Product.class).getResultList();
+                createQuery("SELECT p from Product p ORDER BY p."+sorting,Product.class).getResultList();
     }
 }

@@ -96,13 +96,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductInfoDto> getByName(String category) {
-        return productConverter.convert(productDao.getProductByCategory(category));
+    public List<ProductInfoDto> getByName(String category,String sorting) {
+        return productConverter.convert(productDao.getProductByCategory(category,sorting));
     }
 
     @Override
-    public List<ProductInfoDto> getAll() {
-        return productConverter.convert(productDao.getAll());
+    public List<ProductInfoDto> getAll(String sorting) {
+        return productConverter.convert(productDao.getAll(sorting));
     }
 }
 
