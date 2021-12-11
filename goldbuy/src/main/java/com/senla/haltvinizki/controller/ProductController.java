@@ -6,6 +6,8 @@ import com.senla.haltvinizki.security.entity.UserDetailsWithId;
 import com.senla.haltvinizki.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.beans.support.SortDefinition;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Component;
@@ -56,23 +58,26 @@ public class ProductController {
     //todo method buy;
 
 
-    //todo get all product with category
-    @GetMapping(value = "/by-category/{category}")
+    @GetMapping(value = "/by-category/{category}/{page}")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public List<ProductInfoDto> getProductByCategory(@PathVariable String category){
-      return productService.getByName(category);
-    }//check
+    public List<ProductInfoDto> getProductByCategory(@PathVariable String category,@PathVariable int page){
+        PagedListHolder pagedListHolder = new PagedListHolder(productService.getByName(category));
+        pagedListHolder.setPageSize(2);
+        pagedListHolder.setPage(page);
+        return pagedListHolder.getPageList();
+    }
 
+    //todo get all product with sorting
     @GetMapping(value = "/all/{page}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public List<ProductInfoDto> getAll(@PathVariable int page){
         PagedListHolder pagedListHolder = new PagedListHolder(productService.getAll());
         pagedListHolder.setPageSize(2);
-        pagedListHolder.setPage(page;
+        pagedListHolder.setPage(page);
+        pagedListHolder.setSort((SortDefinition) Sort.by("price").descending());
         return pagedListHolder.getPageList();
-
     }
-    //todo get all product with sorting
+
 
 
 
