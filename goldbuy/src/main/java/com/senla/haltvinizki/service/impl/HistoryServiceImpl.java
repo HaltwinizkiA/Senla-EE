@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 
 
@@ -52,23 +53,29 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public HistoryWithProductDto getHistoryWithProduct(Long id) {
-        HistoryWithProductDto historyWithProductDto = historyConverter.convertWithProduct(historyDao.getHistoryWithProduct(id));
-        return historyWithProductDto;
+        History history = ofNullable(historyDao.getHistoryWithProduct(id))
+                .orElseThrow(() -> new HistoryNotFoundException(id));;
+        return historyConverter.convertWithProduct(history);
     }
 
     @Override
     public HistoryWithCustomerDto getHistoryWithCustomer(Long id) {
-        HistoryWithCustomerDto historyWithCustomerDto = historyConverter.convertWithCustomer(historyDao.getHistoryWithCustomer(id));
-        return historyWithCustomerDto;
+        History history = ofNullable(historyDao.getHistoryWithCustomer(id))
+                .orElseThrow(() -> new HistoryNotFoundException(id));
+        return historyConverter.convertWithCustomer(history);
     }
 
     @Override
     public List<HistoryInfoDto> getByUserId(long id) {
-        return historyConverter.convert(historyDao.getByUserId(id));
+        List<History> historyList=ofNullable(historyDao.getByUserId(id))
+                .orElseThrow(() -> new HistoryNotFoundException(id));
+        return historyConverter.convert(historyList);
     }
 
     @Override
-    public HistoryInfoDto getByProductId(Long productId,Long userId) {
-       return historyConverter.convert(historyDao.getByProductId(productId,userId));
+    public HistoryInfoDto getByProductId(Long productId, Long userId) {
+        History history=ofNullable(historyDao.getByProductId(productId, userId))
+                .orElseThrow(HistoryNotFoundException::new);
+        return historyConverter.convert(history);
     }
 }

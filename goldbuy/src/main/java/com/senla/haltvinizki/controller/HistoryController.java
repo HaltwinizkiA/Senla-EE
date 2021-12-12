@@ -53,8 +53,6 @@ public class HistoryController {
 
     @GetMapping(value = "/product/{id}")
     public HistoryInfoDto getByProductId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId, @PathVariable Long id) {
-     HistoryInfoDto infoDto=historyService.getByProductId(id,userDetailsWithId.getId());
-
       return  historyService.getByProductId(id,userDetailsWithId.getId());
     }//todo
 

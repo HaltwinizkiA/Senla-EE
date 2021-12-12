@@ -4,7 +4,12 @@ import lombok.Getter;
 
 public class HistoryNotFoundException extends RuntimeException {
     @Getter
-    private final Long id;
+    private Long id;
+
+    public HistoryNotFoundException() {
+
+    }
+
 
     public HistoryNotFoundException(Long id) {
         this.id = id;
