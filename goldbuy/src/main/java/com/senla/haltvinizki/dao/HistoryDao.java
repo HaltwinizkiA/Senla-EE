@@ -12,5 +12,5 @@ public interface HistoryDao extends GenericDao<History, Long> {
 
     List<History> getByUserId(Long id);
 
-    History getByProductId(Long id);
+    History getByProductId(Long productId,Long userId);
 }

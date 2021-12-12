@@ -48,13 +48,15 @@ public class HistoryController {
     public List<HistoryInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,
                                             @PathVariable int page, @PathVariable int size) {
         List<HistoryInfoDto> historyInfoDtos = historyService.getByUserId(userDetailsWithId.getId());
-        return historyInfoDtos.subList(Math.max(0, page * size), Math.min(historyInfoDtos.size(), (page + 1) * size));
+        return historyInfoDtos.subList(page * size, Math.min(historyInfoDtos.size(), (page + 1) * size));
     }
 
     @GetMapping(value = "/product/{id}")
     public HistoryInfoDto getByProductId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId, @PathVariable Long id) {
-      return  historyService.getByProductId(id);
-    }
+     HistoryInfoDto infoDto=historyService.getByProductId(id,userDetailsWithId.getId());
+
+      return  historyService.getByProductId(id,userDetailsWithId.getId());
+    }//todo
 
 
 }

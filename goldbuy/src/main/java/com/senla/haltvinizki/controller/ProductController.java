@@ -47,14 +47,14 @@ public class ProductController {
     @GetMapping(value = "/my/{page}/{size}")
     public List<ProductInfoDto> getByUserId(@AuthenticationPrincipal UserDetailsWithId userInf, @PathVariable int page, @PathVariable int size) {
         List<ProductInfoDto> productInfoDtos = productService.getByUserId(userInf.getId());
-        return productInfoDtos.subList(Math.max(0, page * size), Math.min(productInfoDtos.size(), (page + 1) * size));
+        return productInfoDtos.subList(page * size, Math.min(productInfoDtos.size(), (page + 1) * size));
     }
 
     @GetMapping(value = "/by-category/{category}/{page}/{size}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public List<ProductInfoDto> getProductByCategory(@PathVariable String category, @PathVariable int page, @PathVariable int size) {
         List<ProductInfoDto> productInfoDtos = (productService.getByName(category, null));
-        return productInfoDtos.subList(Math.max(0, page * size), Math.min(productInfoDtos.size(), (page + 1) * size));
+        return productInfoDtos.subList(page * size, Math.min(productInfoDtos.size(), (page + 1) * size));
     }
 
 
@@ -63,21 +63,22 @@ public class ProductController {
     public List<ProductInfoDto> getProductByCategoryWithSort(@PathVariable String category, @PathVariable int page,
                                                              @PathVariable int size, @PathVariable String sorting) {
         List<ProductInfoDto> productInfoDtos = (productService.getByName(category, sorting));
-        return productInfoDtos.subList(Math.max(0, page * size), Math.min(productInfoDtos.size(), (page + 1) * size));
+        return productInfoDtos.subList(page * size, Math.min(productInfoDtos.size(), (page + 1) * size));
     }
 
     @GetMapping(value = "/all/{page}/{size}/{sorting}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public List<ProductInfoDto> getAllWithSort(@PathVariable int page, @PathVariable int size, @PathVariable String sorting) {
         List<ProductInfoDto> productInfoDtos = productService.getAll(sorting);
-        return productInfoDtos.subList(Math.max(0, page * size), Math.min(productInfoDtos.size(), (page + 1) * size));
+
+        return productInfoDtos.subList(page * size, Math.min(productInfoDtos.size(), (page + 1) * size));
     }
 
     @GetMapping(value = "/all/{page}/{size}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public List<ProductInfoDto> getAll(@PathVariable int page, @PathVariable int size) {
         List<ProductInfoDto> productInfoDtos = productService.getAll(null);
-        return productInfoDtos.subList(Math.max(0, page * size), Math.min(productInfoDtos.size(), (page + 1) * size));
+        return productInfoDtos.subList(page * size, Math.min(productInfoDtos.size(), (page + 1) * size));
     }
 
 

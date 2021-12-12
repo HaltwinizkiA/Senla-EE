@@ -41,4 +41,11 @@ public class HistoryDaoImpl extends AbstractDao<History, Long> implements Histor
                         ("select history from History history left join fetch history.owner user where user.id= :id", History.class)
                 .setParameter("id", id).getResultList();
     }
-}
+
+    @Override
+    public History getByProductId(Long productId,Long userId) {
+//        return entityManager.createQuery("select h from History h left join fetch h.product p left join user u where p.id= :productId and u.ud= :userId",History.class)
+//                .setParameter("productId",productId).setParameter("userId",userId).getSingleResult();
+        return entityManager.createQuery("select history from History history join fetch history.owner user where user.id=2",History.class).getSingleResult();
+    }
+}//todo

@@ -23,5 +23,5 @@ public interface HistoryService {
 
     List<HistoryInfoDto> getByUserId(long id);
 
-    HistoryInfoDto getByProductId(Long id);
+    HistoryInfoDto getByProductId(Long productId,Long userId);
 }
