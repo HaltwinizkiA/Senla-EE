@@ -2,6 +2,8 @@ package com.senla.haltvinizki.controller;
 
 
 import com.senla.haltvinizki.dto.history.HistoryInfoDto;
+import com.senla.haltvinizki.dto.history.HistoryWithCustomerDto;
+import com.senla.haltvinizki.dto.history.HistoryWithProductDto;
 import com.senla.haltvinizki.security.entity.UserDetailsWithId;
 import com.senla.haltvinizki.service.HistoryService;
 import lombok.RequiredArgsConstructor;
@@ -52,9 +54,32 @@ public class HistoryController {
     }
 
     @GetMapping(value = "/product/{id}")
-    public HistoryInfoDto getByProductId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId, @PathVariable Long id) {
-      return  historyService.getByProductId(id,userDetailsWithId.getId());
-    }//todo
+    public HistoryInfoDto getByProductId(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId
+            , @PathVariable Long id) {
+        return historyService.getByProductId(id, userDetailsWithId.getId());
+    }
 
+    @GetMapping(value = "/with-product/{id}")
+    public HistoryWithProductDto getWithProductAuth(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId
+            , @PathVariable Long id) {
+        return historyService.getHistoryWithProduct(userDetailsWithId.getId(), id);
+    }
 
+    @GetMapping(value = "/with-customer/{id}")
+    public HistoryWithCustomerDto getWithCustomerAuth(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId
+            , @PathVariable Long id) {
+        return historyService.getHistoryWithCustomer(userDetailsWithId.getId(), id);
+    }
+
+    @GetMapping(value = "/admin/with-customer/{id}}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public HistoryWithCustomerDto getWithCustomer(@PathVariable Long id) {
+        return historyService.getHistoryWithCustomer(id);
+    }
+
+    @GetMapping(value = "/admin/with-product/{id}}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public HistoryWithProductDto getWithProduct(@PathVariable Long id) {
+        return historyService.getHistoryWithProduct(id);
+    }
 }

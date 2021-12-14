@@ -81,7 +81,7 @@ class HistoryServiceImplTest {
     @Test
     public void getHistoryWithProduct() {
         when(historyDao.getHistoryWithProduct(any())).thenReturn(history);
-        HistoryWithProductDto historyWithProductDto = historyService.getHistoryWithProduct(id);
+        HistoryWithProductDto historyWithProductDto = historyService.getHistoryWithProduct(1L,id);
         assertEquals(id, historyWithProductDto.getHistory().getId());
         assertEquals(price, historyWithProductDto.getHistory().getSellingPrice());
         assertEquals(id, historyWithProductDto.getProduct().getId());

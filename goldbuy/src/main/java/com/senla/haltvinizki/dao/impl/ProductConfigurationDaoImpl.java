@@ -2,6 +2,7 @@ package com.senla.haltvinizki.dao.impl;
 
 import com.senla.haltvinizki.configuration.GraphConfiguration;
 import com.senla.haltvinizki.dao.ProductConfigurationDao;
+import com.senla.haltvinizki.entity.History;
 import com.senla.haltvinizki.entity.ProductConfiguration;
 import com.senla.haltvinizki.entity.User;
 import org.springframework.stereotype.Repository;
@@ -35,9 +36,11 @@ public class ProductConfigurationDaoImpl extends AbstractDao<ProductConfiguratio
 
     @Override
     public ProductConfiguration getProductConfigWithProductChekUserId(Long userId, Long productId) {
+
         return entityManager.createQuery
                 ("select config from ProductConfiguration config inner join fetch config.product product where product.id= :productId" +
-                        " and (select u.id from Product p join fetch  p.user u where p.id= :productId)= :userId", ProductConfiguration.class)//todo
+                        " and  (select user from User user where user.id= :userID)=(sect puser from Product product join fetch product.user puser where puser.id= :userId  ", ProductConfiguration.class)
                 .setParameter("userId", userId).setParameter("productId",productId).getSingleResult();//todo
+
     }
 }

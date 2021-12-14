@@ -17,11 +17,17 @@ public interface HistoryService {
 
     HistoryInfoDto getById(Long id);
 
-    HistoryWithProductDto getHistoryWithProduct(Long id);
+    HistoryWithProductDto getHistoryWithProduct(Long userId, Long productId);
+
+    HistoryWithProductDto getHistoryWithProduct(Long productId);
+
 
     HistoryWithCustomerDto getHistoryWithCustomer(Long id);
 
+    HistoryWithCustomerDto getHistoryWithCustomer(Long userId, Long productId);
+
+
     List<HistoryInfoDto> getByUserId(long id);
 
-    HistoryInfoDto getByProductId(Long productId,Long userId);
+    HistoryInfoDto getByProductId(Long productId, Long userId);
 }
