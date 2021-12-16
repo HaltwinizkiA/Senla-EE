@@ -62,4 +62,13 @@ public class ProductConfigurationServiceImpl implements ProductConfigurationServ
                 .convertWithProduct(productConfigurationDao
                         .getProductConfigWithProductChekUserId(userId,productId));
     }
+
+    @Override
+    public ProductConfigurationInfoDto update(Long userId, ProductConfigurationInfoDto productConfigurationDto) {
+        ProductConfiguration productConfiguration=productConfigurationDao.getProductConfigWithProduct(productConfigurationDto.getId());
+        if (productConfiguration.getProduct().getUser().getId()==userId){
+            return productConfigurationConverter.convert(productConfigurationDao.update(productConfiguration));
+        }
+        throw new ProductConfigurationNotFoundException(productConfigurationDto.getId());
+    }
 }

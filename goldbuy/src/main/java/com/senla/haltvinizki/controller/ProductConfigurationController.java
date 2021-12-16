@@ -19,7 +19,7 @@ public class ProductConfigurationController {
     private final ProductConfigurationService productConfigurationService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ProductConfigurationInfoDto createProductConfiguration(@RequestBody ProductConfigurationInfoDto productConfigurationInfoDto) {
         return productConfigurationService.create(productConfigurationInfoDto);
 
@@ -32,42 +32,38 @@ public class ProductConfigurationController {
     }
 
     @PutMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ProductConfigurationInfoDto updateProductConfiguration(@RequestBody ProductConfigurationInfoDto productConfigurationInfoDto) {
         return productConfigurationService.update(productConfigurationInfoDto);
     }
 
     @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")//todo with obj
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ProductConfigurationInfoDto deleteProductConfiguration(@PathVariable Long id) {
         return productConfigurationService.delete(id);
     }
 
-
-    @GetMapping(value = "/product/{id}")
-    public ProductConfigurationWithProductDto getByMyProduct(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,@RequestBody long productId){
-        return productConfigurationService.getProductConfigWithProductChekUserId(userDetailsWithId.getId(),productId);
+    @GetMapping(value = "/my/product/{id}")
+    public ProductConfigurationWithProductDto getByMyProduct(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId, @RequestBody long productId) {
+        return productConfigurationService.getProductConfigWithProductChekUserId(userDetailsWithId.getId(), productId);
     }//todo in dao
 
+    @PutMapping(value = "/my/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ProductConfigurationInfoDto updateMyProductConfiguration(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId, @RequestBody ProductConfigurationInfoDto productConfigurationInfoDto) {
+        return productConfigurationService.update(userDetailsWithId.getId(), productConfigurationInfoDto);
+    }
 
-//
-//    @PutMapping
-//    public ProductConfigurationInfoDto updateProductConfiguration(@AuthenticationPrincipal UserDetailsWithId userDetailsWithId,@RequestBody ProductConfigurationInfoDto productConfigurationInfoDto) {
-//        return productConfigurationService.update(productConfigurationInfoDto);
-//    }
-
-
-
-
-//    public ProductConfigurationInfoDto getByProductId(){
-//        return productConfigurationService.getByProductId();
-//    }//todo with checking own product
+    @GetMapping(value = "/by-product/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ProductConfigurationInfoDto getByProductId(@PathVariable Long id) {
+        return productConfigurationService.getByProductId(id);
+    }
 
 
-
-//    @GetMapping(value = "product/{id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public ProductConfigurationWithProductDto getProductConfigurationWithProduct(@PathVariable Long id) {
-//        return productConfigurationService.getProductConfigWithProduct(id);
-//    }
+    @GetMapping(value = "/product/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ProductConfigurationWithProductDto getProductConfigurationWithProduct(@PathVariable Long id) {
+        return productConfigurationService.getProductConfigWithProduct(id);
+    }
 }
